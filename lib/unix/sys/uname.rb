@@ -13,6 +13,12 @@ module Sys
 
     attach_function :uname, [:pointer], :int
 
+    begin
+      attach_function :sysctl, [:pointer, :uint, :pointer, :pointer, :pointer, :size_t], :int
+    rescue FFI::Exception
+      # Ignore. Not suppored.
+    end
+
     # Temporarily remove the uname method to avoid function name conflict
     class << self
       alias :uname_c :uname
@@ -29,9 +35,11 @@ module Sys
       ]
 
       case Config::CONFIG['host_os']
-        when /darwin/i
-          members << :model
-          members << [:char, 256]
+        when /sunos|solaris/i
+          members.push(:architecture, [:char, 256])
+          members.push(:platform, [:char, 256])
+        when /hpux/i
+          members.push(:__id_number, [:char, 256])
       end
 
       layout(*members)
@@ -50,7 +58,12 @@ module Sys
 
       case Config::CONFIG['host_os']
         when /darwin/i
-          struct.model = utsname[:model].to_s
+          struct.model = get_model
+        when /sunos|solaris/i
+          struct.architecture = utsname[:architecture].to_s
+          struct.platform = utsname[:platform].to_s
+        when /hpux/i
+          struct.id_number = utsname[:__id_number].to_s
       end
 
       # Let's add a members method that works for testing and compatibility
@@ -87,6 +100,18 @@ module Sys
       
     def self.model
       uname.model
+    end
+
+    private
+
+    # TODO: Implement
+    def get_model
+      size_t sz = n;
+      int mib[2];
+ 
+      mib[0] = CTL_HW;
+      mib[1] = HW_MODEL;
+      return sysctl(mib, 2, buf, &sz, NULL, 0);
     end
   end
 end
