@@ -53,6 +53,15 @@ module Sys
           struct.model = utsname[:model].to_s
       end
 
+      # Let's add a members method that works for testing and compatibility
+      if struct.members.nil?
+        struct.instance_eval(%Q{
+          def members
+            @table.keys.map{ |k| k.to_s }
+          end
+        })
+      end
+
       struct.freeze
     end
       
