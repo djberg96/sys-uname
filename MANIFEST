@@ -1,0 +1,11 @@
+* MANIFEST
+* CHANGES
+* README
+* Rakefile
+* sys-uname.gemspec
+* doc/uname.txt
+* examples/uname_test.rb
+* ext/extconf.rb
+* ext/uname.c
+* lib/sys/uname.rb
+* test/tc_uname.rb
