@@ -146,8 +146,8 @@ class TC_Uname < Test::Unit::TestCase
             /
       end
       assert_nothing_raised{ Uname.uname }
-      assert_kind_of(Struct, Uname.uname)
-      assert_equal(members, Uname.uname.members)
+      assert_kind_of(OpenStruct, Uname.uname)
+      assert_equal(members.sort, Uname.uname.members.sort)
    end
    
    # The following tests are win32 only
