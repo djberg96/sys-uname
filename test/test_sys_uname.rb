@@ -20,7 +20,7 @@ class TC_Uname < Test::Unit::TestCase
       assert_not_nil(Uname::VERSION)
       assert_nothing_raised{ Uname::VERSION }
       assert_kind_of(String, Uname::VERSION)
-      assert_equal('0.8.4', Uname::VERSION)
+      assert_equal('0.9.0', Uname::VERSION)
    end
  
    def test_machine

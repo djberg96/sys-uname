@@ -1,5 +1,6 @@
 require 'ffi'
 require 'rbconfig'
+require 'ostruct'
 
 # The Sys module serves as a namespace only.
 module Sys
@@ -19,59 +20,64 @@ module Sys
     end
       
     class UnameFFIStruct < FFI::Struct
-      layout(
+      members = [
         :sysname,  [:char, 256],
         :nodename, [:char, 256],
         :release,  [:char, 256],
         :version,  [:char, 256],
         :machine,  [:char, 256]
-      )
-    end
+      ]
 
-    UnameStruct = Struct.new(
-      'UnameStruct',
-      :sysname,
-      :nodename,
-      :release,
-      :version,
-      :machine
-    )
+      case Config::CONFIG['host_os']
+        when /darwin/i
+          members << :model
+          members << [:char, 256]
+      end
+
+      layout(*members)
+    end
 
     def self.uname
       utsname = UnameFFIStruct.new
       uname_c(utsname)
 
-      UnameStruct.new(
-        utsname[:sysname],
-        utsname[:nodename],
-        utsname[:release],
-        utsname[:version],
-        utsname[:machine]
-      )
+      struct = OpenStruct.new
+      struct.sysname  = utsname[:sysname].to_s
+      struct.nodename = utsname[:nodename].to_s
+      struct.release  = utsname[:release].to_s
+      struct.version  = utsname[:version].to_s
+      struct.machine  = utsname[:machine].to_s
+
+      case Config::CONFIG['host_os']
+        when /darwin/i
+          struct.model = utsname[:model].to_s
+      end
+
+      struct.freeze
     end
       
     def self.sysname
-      uname[:sysname]         
+      uname.sysname
     end
       
     def self.nodename
-      uname[:nodename]         
+      uname.nodename
     end
       
     def self.release
-      uname[:release]         
+      uname.release
     end
       
     def self.version
-      uname[:version]         
+      uname.version
     end
       
     def self.machine
-      uname[:machine]         
+      uname.machine
     end
       
     def self.model
-      uname[:model]         
+      uname.model
     end
   end
 end
