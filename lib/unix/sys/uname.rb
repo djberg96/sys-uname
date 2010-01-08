@@ -11,6 +11,12 @@ module Sys
     # The version of the sys-uname library
     VERSION = '0.9.0'
 
+    # :stopdoc
+
+    CTL_HW   = 6   # Generic hardware/cpu
+    HW_MODEL = 2   # Specific machine model
+    BUFSIZ   = 256 # Buffer size for strings
+
     attach_function :uname, [:pointer], :int
 
     begin
@@ -27,24 +33,41 @@ module Sys
       
     class UnameFFIStruct < FFI::Struct
       members = [
-        :sysname,  [:char, 256],
-        :nodename, [:char, 256],
-        :release,  [:char, 256],
-        :version,  [:char, 256],
-        :machine,  [:char, 256]
+        :sysname,  [:char, BUFSIZ],
+        :nodename, [:char, BUFSIZ],
+        :release,  [:char, BUFSIZ],
+        :version,  [:char, BUFSIZ],
+        :machine,  [:char, BUFSIZ]
       ]
 
       case Config::CONFIG['host_os']
         when /sunos|solaris/i
-          members.push(:architecture, [:char, 256])
-          members.push(:platform, [:char, 256])
+          members.push(:architecture, [:char, BUFSIZ])
+          members.push(:platform, [:char, BUFSIZ])
         when /hpux/i
-          members.push(:__id_number, [:char, 256])
+          members.push(:__id_number, [:char, BUFSIZ])
       end
 
       layout(*members)
     end
 
+    # :startdoc:
+
+    # Returns a struct that contains the sysname, nodename, machine, version
+    # and release of your system.
+    #
+    # On OS X it will also include the model.
+    #
+    # On Solaris, it will also include the architecture and platform.
+    #
+    # On HP-UX, it will also include the id_number.
+    #
+    # Example:
+    #
+    #   require 'sys/uname'
+    #
+    #   p Sys::Uname.uname
+    # 
     def self.uname
       utsname = UnameFFIStruct.new
       uname_c(utsname)
@@ -56,9 +79,11 @@ module Sys
       struct.version  = utsname[:version].to_s
       struct.machine  = utsname[:machine].to_s
 
+      if defined? :sysctl
+        struct.model = get_model()
+      end
+
       case Config::CONFIG['host_os']
-        when /darwin/i
-          struct.model = get_model
         when /sunos|solaris/i
           struct.architecture = utsname[:architecture].to_s
           struct.platform = utsname[:platform].to_s
@@ -78,40 +103,91 @@ module Sys
       struct.freeze
     end
       
+    # Returns the name of this implementation of the operating system.
+    #
+    # Example:
+    #
+    #  Uname.sysname # => 'SunOS'
+    #
     def self.sysname
       uname.sysname
     end
       
+    # Returns the name of this node within the communications network to
+    # which this node is attached, if any. This is often, but not
+    # necessarily, the same as the host name.
+    #
+    # Example:
+    #
+    #  Uname.nodename # => 'your_host.foo.com'
+    # 
     def self.nodename
       uname.nodename
     end
       
+    # Returns the current release level of your operating system.
+    #
+    # Example:
+    #
+    #  Uname.release # => '2.2.16-3'
+    #
     def self.release
       uname.release
     end
       
+    # Returns the current version level of your operating system.
+    #
+    # Example:
+    #
+    #  Uname.version # => '5.9'
+    #
     def self.version
       uname.version
     end
       
+    # Returns the machine hardware type.
+    #
+    # Example:
+    #
+    #  Uname.machine # => 'i686'
+    #
     def self.machine
       uname.machine
     end
       
-    def self.model
-      uname.model
+    if defined? :sysctl
+      # Returns the model type.
+      #
+      # Example:
+      #
+      #  Uname.model # => 'MacBookPro5,3'
+      #
+      def self.model
+        uname.model
+      end
+    end
+
+
+    # TODO: Add platform, architecture and id_number methods
+
+    if Config::CONFIG['host_os'] =~ /sunos|solaris/i
+    end
+
+    if Config::CONFIG['host_os'] =~ /hpux/i
     end
 
     private
 
-    # TODO: Implement
-    def get_model
-      size_t sz = n;
-      int mib[2];
- 
-      mib[0] = CTL_HW;
-      mib[1] = HW_MODEL;
-      return sysctl(mib, 2, buf, &sz, NULL, 0);
+    # Returns the model for systems that define sysctl().
+    #
+    def self.get_model
+      buf  = 0.chr * BUFSIZ
+      mib  = FFI::MemoryPointer.new(:int, 2).write_array_of_int([CTL_HW, HW_MODEL])
+      size = FFI::MemoryPointer.new(:long, 1).write_int(buf.size)
+
+      sysctl(mib, 2, buf, size, nil, 0)
+
+      buf.strip
     end
   end
 end
