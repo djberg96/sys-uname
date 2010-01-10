@@ -13,15 +13,28 @@ module Sys
 
     # :stopdoc
 
-    CTL_HW   = 6   # Generic hardware/cpu
-    HW_MODEL = 2   # Specific machine model
-    BUFSIZ   = 256 # Buffer size for strings
+    BUFSIZE = 256 # Buffer size for strings
 
     attach_function :uname, [:pointer], :int
 
     begin
       attach_function :sysctl, [:pointer, :uint, :pointer, :pointer, :pointer, :size_t], :int
-    rescue FFI::Exception
+      CTL_HW   = 6   # Generic hardware/cpu
+      HW_MODEL = 2   # Specific machine model
+    rescue FFI::NotFoundError
+      # Ignore. Not suppored.
+    end
+
+    begin
+      attach_function :sysinfo, [:int, :string, :long], :long
+      SI_ARCHITECTURE = 6   # Instruction set architecture
+      SI_HW_SERIAL    = 7   # Hardware serial number
+      SI_HW_PROVIDER  = 8   # Hardware manufacturer
+      SI_SRPC_DOMAIN  = 9   # Secure RPC domain
+      SI_PLATFORM     = 513 # Platform identifier
+      SI_ISALIST      = 514 # Supported isalist
+      SI_DHCP_CACHE   = 515 # Kernel cached DHCPACK
+    rescue FFI::NotFoundError
       # Ignore. Not suppored.
     end
 
@@ -33,19 +46,15 @@ module Sys
       
     class UnameFFIStruct < FFI::Struct
       members = [
-        :sysname,  [:char, BUFSIZ],
-        :nodename, [:char, BUFSIZ],
-        :release,  [:char, BUFSIZ],
-        :version,  [:char, BUFSIZ],
-        :machine,  [:char, BUFSIZ]
+        :sysname,  [:char, BUFSIZE],
+        :nodename, [:char, BUFSIZE],
+        :release,  [:char, BUFSIZE],
+        :version,  [:char, BUFSIZE],
+        :machine,  [:char, BUFSIZE]
       ]
 
-      case Config::CONFIG['host_os']
-        when /sunos|solaris/i
-          members.push(:architecture, [:char, BUFSIZ])
-          members.push(:platform, [:char, BUFSIZ])
-        when /hpux/i
-          members.push(:__id_number, [:char, BUFSIZ])
+      if Config::CONFIG['host_os'] =~ /hpux/i
+        members.push(:__id_number, [:char, BUFSIZE])
       end
 
       layout(*members)
@@ -83,12 +92,18 @@ module Sys
         struct.model = get_model()
       end
 
-      case Config::CONFIG['host_os']
-        when /sunos|solaris/i
-          struct.architecture = utsname[:architecture].to_s
-          struct.platform = utsname[:platform].to_s
-        when /hpux/i
-          struct.id_number = utsname[:__id_number].to_s
+      if Config::CONFIG['host_os'] =~ /sunos|solaris/i
+        struct.architecture = get_si(SI_ARCHITECTURE)
+        struct.platform     = get_si(SI_PLATFORM)
+        struct.hw_serial    = get_si(SI_HW_SERIAL)
+        struct.hw_provider  = get_si(SI_HW_PROVIDER)
+        struct.srpc_domain  = get_si(SI_SRPC_DOMAIN)
+        struct.isalist      = get_si(SI_ISALIST)
+        struct.dhcp_cache   = get_si(SI_DHCP_CACHE)
+      end
+
+      if Config::CONFIG['host_os'] =~ /hpux/i
+        struct.id_number = utsname[:__id_number].to_s
       end
 
       # Let's add a members method that works for testing and compatibility
@@ -167,13 +182,7 @@ module Sys
       end
     end
 
-
-    # TODO: Add platform, architecture and id_number methods
-
-    if Config::CONFIG['host_os'] =~ /sunos|solaris/i
-    end
-
-    if Config::CONFIG['host_os'] =~ /hpux/i
+    if defined? :sysinfo
     end
 
     private
@@ -181,12 +190,20 @@ module Sys
     # Returns the model for systems that define sysctl().
     #
     def self.get_model
-      buf  = 0.chr * BUFSIZ
+      buf  = 0.chr * BUFSIZE
       mib  = FFI::MemoryPointer.new(:int, 2).write_array_of_int([CTL_HW, HW_MODEL])
       size = FFI::MemoryPointer.new(:long, 1).write_int(buf.size)
 
       sysctl(mib, 2, buf, size, nil, 0)
 
+      buf.strip
+    end
+
+    # Returns the various sysinfo information based on +flag+.
+    #
+    def self.get_si(flag)
+      buf = 0.chr * BUFSIZE
+      sysinfo(flag, buf, BUFSIZE)
       buf.strip
     end
   end
