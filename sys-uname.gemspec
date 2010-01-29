@@ -9,11 +9,12 @@ Gem::Specification.new do |spec|
   spec.platform  = Gem::Platform::RUBY
   spec.summary   = 'An interface for returning system platform information'
   spec.test_file = 'test/test_sys_uname.rb'
+  spec.files     = Dir['**/*'].reject{ |f| f.include?('git') }
 
   spec.extra_rdoc_files  = ['CHANGES', 'README', 'MANIFEST', 'doc/uname.txt']
   spec.rubyforge_project = 'sysutils'
 
-  spec.files = Dir['**/*'].reject{ |f| f.include?('git') }
+  spec.add_development_dependency('test-unit', '>= 2.0.6')
    
   spec.description = <<-EOF
     The sys-uname library provides an interface for gathering information
