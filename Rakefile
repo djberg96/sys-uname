@@ -55,10 +55,18 @@ namespace 'gem' do
   desc "Build the sys-uname gem"
   task :build do
     spec = eval(IO.read('sys-uname.gemspec'))
+    if CONFIG['host_os'] =~ /windows|dos|mswin|mingw|cygwin/i
+      spec.files = spec.files.reject{ |f| f.include?('ext') }
+      spec.platform = Gem::Platform::CURRENT
+    else
+      spec.files = spec.files.reject{ |f| f.include?('lib') }
+      spec.extensions = ['ext/extconf.rb']
+      spec.extra_rdoc_files += ['ext/sys/uname.c']
+    end
     Gem::Builder.new(spec).build
   end
 
-  desc "Install the sys-uname library (gem)"
+  desc "Install the sys-uname gem"
   task :install => [:build] do
     file = Dir['sys-uname*.gem'].first
     sh "gem install #{file}"
