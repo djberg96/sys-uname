@@ -1,3 +1,11 @@
+== 0.8.4 - 29-Jan-2010
+* Bug fix for Windows 7, which appears to have removed the QuantumLength and
+  QuantumType members of the Win32_OperatingSystem class. Thanks go to Mark
+  Seymour for the spot. RubyForge bug # 27645.
+* Refactored the Rakefile and gemspec considerably. The gem building code is
+  now all inlined within the Rakefile build task itself.
+* Minor doc updates and some code reformatting.
+
 == 0.8.3 - 26-Apr-2008
 * Added an explicit "require 'time'" in the Windows version because recent
   versions of Ruby now need it.
