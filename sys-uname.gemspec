@@ -3,6 +3,7 @@ require 'rubygems'
 Gem::Specification.new do |spec|
   spec.name      = 'sys-uname'
   spec.version   = '0.8.4'
+  spec.license   = 'Artistic 2.0'
   spec.author    = 'Daniel J. Berger'
   spec.email     = 'djberg96@gmail.com'
   spec.homepage  = 'http://www.rubyforge.org/projects/sysutils'

@@ -2,6 +2,7 @@
 * Bug fix for Windows 7, which appears to have removed the QuantumLength and
   QuantumType members of the Win32_OperatingSystem class. Thanks go to Mark
   Seymour for the spot. RubyForge bug # 27645.
+* Changed license to Artistic 2.0.
 * Refactored the Rakefile and gemspec considerably. The gem building code is
   now all inlined within the Rakefile build task itself.
 * Minor doc updates and some code reformatting.
