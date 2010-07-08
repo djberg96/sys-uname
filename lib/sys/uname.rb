@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'win32ole'
 require 'socket'
 require 'time'
@@ -12,7 +13,7 @@ module Sys
     class Error < StandardError; end
 
     # The version of the sys-uname library
-    VERSION = '0.8.4'
+    VERSION = '0.8.5'
 
     # :stopdoc:
 
@@ -305,13 +306,13 @@ module Sys
          when 160
            return "V30 Family"
          when 176
-           return "Pentium III Xeon�"
+           return "Pentium III Xeon"
          when 177
            return "Pentium III Processor with Intel SpeedStep Technology"
          when 178
            return "Pentium 4"
          when 179
-           return "Intel Xeon�"
+           return "Intel Xeon"
          when 180
            return "AS400 Family"
          when 181
@@ -323,7 +324,7 @@ module Sys
          when 184
            return "Intel Itanium 2"
          when 185
-           return "AMD Opteron� Family"
+           return "AMD Opteron Family"
          when 190
            return "K7"
          when 200
