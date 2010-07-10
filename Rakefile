@@ -7,9 +7,10 @@ include Config
 desc "Clean the build files for the sys-uname source for UNIX systems"
 task :clean do
   Dir.chdir('ext') do
-    unless CONFIG['host_os'] =~ /mswin|windows|mingw|cygwin|dos/i
+    unless CONFIG['host_os'] =~ /mswin|msdos|win32|windows|mingw|cygwin/i
       build_file = 'uname.' + Config::CONFIG['DLEXT']
       rm "sys/#{build_file}" if File.exists?("sys/#{build_file}")
+      rm_rf "conftest.dSYM" if File.exists?("conftest.dSYM") # OS X
       sh 'make distclean' if File.exists?(build_file)
     end
   end
