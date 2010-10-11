@@ -84,3 +84,5 @@ Rake::TestTask.new("test") do |t|
     t.libs.delete('lib')
   end
 end
+
+task :default => :test
