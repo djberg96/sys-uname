@@ -4,59 +4,32 @@ require 'rake/testtask'
 require 'rbconfig'
 include Config
 
-desc "Clean the build files for the sys-uname source for UNIX systems"
-task :clean do
-  Dir.chdir('ext') do
-    unless CONFIG['host_os'] =~ /mswin|msdos|win32|windows|mingw|cygwin/i
-      build_file = 'uname.' + Config::CONFIG['DLEXT']
-      rm "sys/#{build_file}" if File.exists?("sys/#{build_file}")
-      rm_rf "conftest.dSYM" if File.exists?("conftest.dSYM") # OS X
-      sh 'make distclean' if File.exists?(build_file)
-    end
-  end
-end
+WINDOWS = CONFIG['host_os'] =~ /msdos|mswin|win32|windows|mingw|cygwin/i
 
-desc "Build the sys-uname library on UNIX systems (but don't install it)"
-task :build => [:clean] do
-  Dir.chdir('ext') do
-    unless CONFIG['host_os'] =~ /mswin|windows|mingw|cygwin|dos/i
-      ruby 'extconf.rb'
-      sh 'make'
-      build_file = 'uname.' + Config::CONFIG['DLEXT']
-      cp build_file, 'sys' # For testing
-    end
-  end
-end
+CLEAN.include(
+  '**/*.gem',               # Gem files
+  '**/*.rbc',               # Rubinius
+  '**/*.o',                 # C object file
+  '**/*.log',               # Ruby extension build log
+  '**/Makefile',            # C Makefile
+  '**/conftest.dSYM',       # OS X build directory
+  "**/*.#{CONFIG['DLEXT']}" # C shared object
+)
 
 desc "Run the example program"
 task :example => [:build] do
-  if CONFIG['host_os'] =~ /mswin|windows|mingw|cygwin|dos/i
+  if WINDOWS
     sh 'ruby -Ilib examples/uname_test.rb'
   else
     sh 'ruby -Iext examples/uname_test.rb'
   end
 end
 
-namespace 'sys' do
-  desc "Install the sys-uname library (system)"
-  task :install do
-    if CONFIG['host_os'] =~ /mswin|windows|mingw|cygwin|dos/i
-      dir = File.join(CONFIG['sitelibdir'], 'sys')
-      Dir.mkdir(dir) unless File.exists?(dir)
-      FileUtils.cp('lib/sys/uname.rb', dir, :verbose => true)
-    else
-      Dir.chdir('ext') do
-        sh 'make install'
-      end
-    end
-  end
-end
-
 namespace 'gem' do
-  desc "Build the sys-uname gem"
-  task :build do
+  desc "Create the sys-uname gem"
+  task :create do
     spec = eval(IO.read('sys-uname.gemspec'))
-    if CONFIG['host_os'] =~ /windows|dos|mswin|mingw|cygwin/i
+    if WINDOWS
       spec.files = spec.files.reject{ |f| f.include?('ext') }
       spec.platform = Gem::Platform::CURRENT
     else
@@ -68,7 +41,7 @@ namespace 'gem' do
   end
 
   desc "Install the sys-uname gem"
-  task :install => [:build] do
+  task :install => [:create] do
     file = Dir['sys-uname*.gem'].first
     sh "gem install #{file}"
   end
@@ -76,7 +49,7 @@ end
 
 desc "Run the test suite"
 Rake::TestTask.new("test") do |t|
-  if CONFIG['host_os'] =~ /mswin|windows|mingw|cygwin|dos/i
+  if WINDOWS
     t.libs << 'lib'
   else
     task :test => :build
@@ -84,3 +57,5 @@ Rake::TestTask.new("test") do |t|
     t.libs.delete('lib')
   end
 end
+
+task :default => :test
