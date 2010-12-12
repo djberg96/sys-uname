@@ -1,3 +1,7 @@
+== 0.8.5 - 11-Dec-2010
+* Removed some non-ascii characters that somehow made it into the source.
+* Some updates to the Rakefile, including a default task.
+
 == 0.8.4 - 29-Jan-2010
 * Bug fix for Windows 7, which appears to have removed the QuantumLength and
   QuantumType members of the Win32_OperatingSystem class. Thanks go to Mark
