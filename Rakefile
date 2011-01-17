@@ -16,6 +16,14 @@ CLEAN.include(
   "**/*.#{CONFIG['DLEXT']}" # C shared object
 )
 
+desc "Build the source for C extensions"
+task :build => [:clean] do
+  Dir.chdir("ext"){
+    ruby "extconf.rb"
+    sh "make"
+  }
+end
+
 desc "Run the example program"
 task :example => [:build] do
   if WINDOWS
