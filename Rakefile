@@ -21,6 +21,7 @@ task :build => [:clean] do
   Dir.chdir("ext"){
     ruby "extconf.rb"
     sh "make"
+    cp "uname." + Config::CONFIG['DLEXT'], 'sys'
   }
 end
 
