@@ -6,7 +6,7 @@
   gem install sys-uname
 
   # If that doesn't work and you're on Windows try this:
-  gem install sys-uname --platform x86-mingw32
+  gem install sys-uname --platform universal-mingw32
    
 = Synopsis
   require 'sys/uname'
@@ -15,20 +15,20 @@
   p Uname.uname
    
 = Solaris Notes
-  Folks building this package on SunOS get two extra methods: architecture()
+  Folks building this library on SunOS get two extra methods: architecture()
   and platform()
 
 = BSD flavors, including OS X
   Users on BSD platforms get the extra Uname.model method.
 
 = HP-UX Notes
-  HP-UX users get the extra Uname.id_number method.  This is actually a
+  HP-UX users get the extra Uname.id_number method. This is actually a
   String, not a Fixnum, because that's how it's defined in the utsname
   struct.
 
 = MS Windows Notes
   The C version for Windows has been completely scrapped in favor of an OLE
-  plus WMI approach.  It is pure Ruby.  Please see the MSDN documentation for
+  plus WMI approach. It is pure Ruby. Please see the MSDN documentation for
   the Win32_OperatingSystem class for a complete list of what each of the
   UnameStruct members mean.
 
