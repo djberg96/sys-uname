@@ -21,7 +21,7 @@ class TC_Sys_Uname < Test::Unit::TestCase
     assert_not_nil(Uname::VERSION)
     assert_nothing_raised{ Uname::VERSION }
     assert_kind_of(String, Uname::VERSION)
-    assert_equal('0.8.5', Uname::VERSION)
+    assert_equal('0.8.6', Uname::VERSION)
   end
  
   def test_machine
@@ -148,6 +148,11 @@ class TC_Sys_Uname < Test::Unit::TestCase
     end
     assert_nothing_raised{ Uname.uname }
     assert_kind_of(Struct, Uname.uname)
+
+    if RUBY_VERSION.to_f >= 1.9
+      members = members.map{ |e| e.to_sym }
+    end
+
     assert_equal(members, Uname.uname.members)
   end
    
