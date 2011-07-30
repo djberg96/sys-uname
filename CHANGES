@@ -1,3 +1,7 @@
+== 0.8.6 - ???
+* Fixed a failing test for Ruby 1.9.x.
+* Some minor doc updates.
+
 == 0.8.5 - 11-Dec-2010
 * Removed some non-ascii characters that somehow made it into the source.
 * Some updates to the Rakefile, including a default task.
