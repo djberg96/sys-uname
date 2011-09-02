@@ -41,6 +41,9 @@ namespace 'gem' do
     if WINDOWS
       spec.files = spec.files.reject{ |f| f.include?('ext') }
       spec.platform = Gem::Platform::CURRENT
+      spec.platform.cpu = 'universal'
+      spec.platform.version = nil
+      spec.original_platform = spec.platform
     else
       spec.files = spec.files.reject{ |f| f.include?('lib') }
       spec.extensions = ['ext/extconf.rb']
