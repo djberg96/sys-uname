@@ -1,5 +1,6 @@
-== 0.8.6 - ???
+== 0.8.6 - 2-Sep-2011
 * Fixed a failing test for Ruby 1.9.x.
+* The gemspec for Windows is now 'universal'.
 * Some minor doc updates.
 
 == 0.8.5 - 11-Dec-2010
