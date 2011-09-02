@@ -88,7 +88,7 @@ Uname.model
    Returns the model type,  e.g. "PowerBook5,1"
     
 == HP-UX Only
-Uname.id
+Uname.id_number
    Returns the id number, e.g. 234233587. This is a String, not a Fixnum.
 
 == Notes
