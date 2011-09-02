@@ -298,7 +298,7 @@ void Init_uname()
 #endif
    NULL);
 
-   /* 0.8.6: The version of this library */
+   /* 0.8.6: The version of the sys-uname library */
    rb_define_const(cUname, "VERSION", rb_str_new2(SYS_UNAME_VERSION));
 }
 
