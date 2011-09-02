@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.extra_rdoc_files  = ['CHANGES', 'README', 'MANIFEST', 'doc/uname.txt']
   spec.rubyforge_project = 'sysutils'
 
-  spec.add_development_dependency('test-unit', '>= 2.0.6')
+  spec.add_development_dependency('test-unit', '>= 2.1.0')
    
   spec.description = <<-EOF
     The sys-uname library provides an interface for gathering information
