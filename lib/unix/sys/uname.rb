@@ -15,10 +15,13 @@ module Sys
     # :stopdoc
 
     # Buffer size for uname struct char arrays
-    if RbConfig::CONFIG['host_os'] =~ /linux/i
-      BUFSIZE = 65
-    else
-      BUFSIZE = 256
+    case RbConfig::CONFIG['host_os']
+      when /linux/i
+        BUFSIZE = 65
+      when /bsd/i
+        BUFSIZE = 32
+      else
+        BUFSIZE = 256
     end
 
     attach_function :uname, [:pointer], :int
