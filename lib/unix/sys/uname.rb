@@ -101,7 +101,7 @@ module Sys
       struct.version  = utsname[:version].to_s
       struct.machine  = utsname[:machine].to_s
 
-      if RbConfig::CONFIG['host_os'] =~ /darwin/i
+      if RbConfig::CONFIG['host_os'] =~ /darwin|bsd/i
         struct.model = get_model()
       end
 
