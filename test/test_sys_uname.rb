@@ -125,7 +125,7 @@ class TC_Uname < Test::Unit::TestCase
         members.push('domainname')
       when /sunos|solaris/i
         members.push('architecture','platform')
-      when /powerpc|darwin/i
+      when /powerpc|darwin|bsd/i
         members.push('model')
       when /hpux/i
         members.push('id')
