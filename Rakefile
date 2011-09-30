@@ -9,6 +9,7 @@ WINDOWS = CONFIG['host_os'] =~ /msdos|mswin|win32|windows|mingw|cygwin/i
 CLEAN.include(
   '**/*.gem',               # Gem files
   '**/*.rbc',               # Rubinius
+  '.rbx', '**/*/.rbx',      # Rubinius
   '**/*.o',                 # C object file
   '**/*.log',               # Ruby extension build log
   '**/Makefile',            # C Makefile
