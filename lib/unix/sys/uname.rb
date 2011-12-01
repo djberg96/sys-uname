@@ -14,7 +14,12 @@ module Sys
 
     # :stopdoc
 
-    BUFSIZE = 256 # Buffer size for strings
+    # Buffer size for uname struct char arrays
+    if RbConfig::CONFIG['host_os'] =~ /linux/i
+      BUFSIZE = 65
+    else
+      BUFSIZE = 256
+    end
 
     attach_function :uname, [:pointer], :int
 
@@ -53,6 +58,10 @@ module Sys
         :version,  [:char, BUFSIZE],
         :machine,  [:char, BUFSIZE]
       ]
+
+      if RbConfig::CONFIG['host_os'] =~ /linux/i
+        members.push(:domainname, [:char, BUFSIZE])
+      end
 
       if RbConfig::CONFIG['host_os'] =~ /hpux/i
         members.push(:__id_number, [:char, BUFSIZE])
@@ -105,6 +114,10 @@ module Sys
 
       if RbConfig::CONFIG['host_os'] =~ /hpux/i
         struct.id_number = utsname[:__id_number].to_s
+      end
+
+      if RbConfig::CONFIG['host_os'] =~ /linux/i
+        struct.domainname = utsname[:domainname].to_s
       end
 
       # Let's add a members method that works for testing and compatibility
