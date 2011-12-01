@@ -19,7 +19,7 @@ module Sys
       when /linux/i
         BUFSIZE = 65
       when /bsd/i
-        BUFSIZE = 32
+        BUFSIZE = 32 # TODO: version method chopped
       else
         BUFSIZE = 256
     end
