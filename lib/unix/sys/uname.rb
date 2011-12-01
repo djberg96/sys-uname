@@ -54,7 +54,7 @@ module Sys
         :machine,  [:char, BUFSIZE]
       ]
 
-      if Config::CONFIG['host_os'] =~ /hpux/i
+      if RbConfig::CONFIG['host_os'] =~ /hpux/i
         members.push(:__id_number, [:char, BUFSIZE])
       end
 
@@ -93,7 +93,7 @@ module Sys
         struct.model = get_model()
       end
 
-      if Config::CONFIG['host_os'] =~ /sunos|solaris/i
+      if RbConfig::CONFIG['host_os'] =~ /sunos|solaris/i
         struct.architecture = get_si(SI_ARCHITECTURE)
         struct.platform     = get_si(SI_PLATFORM)
         struct.hw_serial    = get_si(SI_HW_SERIAL)
@@ -103,7 +103,7 @@ module Sys
         struct.dhcp_cache   = get_si(SI_DHCP_CACHE)
       end
 
-      if Config::CONFIG['host_os'] =~ /hpux/i
+      if RbConfig::CONFIG['host_os'] =~ /hpux/i
         struct.id_number = utsname[:__id_number].to_s
       end
 
