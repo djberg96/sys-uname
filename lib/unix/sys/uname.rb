@@ -7,7 +7,8 @@ module Sys
   # The Uname class encapsulates information about the system.
   class Uname
     extend FFI::Library
-      
+    ffi_lib('c')
+
     # The version of the sys-uname library
     VERSION = '0.9.0'
 
@@ -43,7 +44,7 @@ module Sys
       alias :uname_c :uname
       remove_method :uname
     end
-      
+
     class UnameFFIStruct < FFI::Struct
       members = [
         :sysname,  [:char, BUFSIZE],
@@ -76,7 +77,7 @@ module Sys
     #   require 'sys/uname'
     #
     #   p Sys::Uname.uname
-    # 
+    #
     def self.uname
       utsname = UnameFFIStruct.new
       uname_c(utsname)
@@ -117,7 +118,7 @@ module Sys
 
       struct.freeze
     end
-      
+
     # Returns the name of this implementation of the operating system.
     #
     # Example:
@@ -127,7 +128,7 @@ module Sys
     def self.sysname
       uname.sysname
     end
-      
+
     # Returns the name of this node within the communications network to
     # which this node is attached, if any. This is often, but not
     # necessarily, the same as the host name.
@@ -135,11 +136,11 @@ module Sys
     # Example:
     #
     #  Uname.nodename # => 'your_host.foo.com'
-    # 
+    #
     def self.nodename
       uname.nodename
     end
-      
+
     # Returns the current release level of your operating system.
     #
     # Example:
@@ -149,7 +150,7 @@ module Sys
     def self.release
       uname.release
     end
-      
+
     # Returns the current version level of your operating system.
     #
     # Example:
@@ -159,7 +160,7 @@ module Sys
     def self.version
       uname.version
     end
-      
+
     # Returns the machine hardware type.
     #
     # Example:
@@ -169,7 +170,7 @@ module Sys
     def self.machine
       uname.machine
     end
-      
+
     if defined? :sysctl
       # Returns the model type.
       #
