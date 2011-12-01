@@ -24,30 +24,35 @@ class TC_Uname < Test::Unit::TestCase
     assert_respond_to(Uname, :machine)
     assert_nothing_raised{ Uname.machine }
     assert_kind_of(String, Uname.machine)
+    assert_true(Uname.machine.size > 0)
   end
 
   test "version singleton method works as expected" do
     assert_respond_to(Uname, :version)
     assert_nothing_raised{ Uname.version }
     assert_kind_of(String, Uname.version)
+    assert_true(Uname.version.size > 0)
   end
 
   test "nodename singleton method works as expected" do
     assert_respond_to(Uname, :nodename)
     assert_nothing_raised{ Uname.nodename }
     assert_kind_of(String, Uname.nodename)
+    assert_true(Uname.nodename.size > 0)
   end
 
   test "release singleton method works as expected" do
     assert_respond_to(Uname, :release)
     assert_nothing_raised{ Uname.release }
     assert_kind_of(String, Uname.release)
+    assert_true(Uname.release.size > 0)
   end
 
   test "sysname singleton method works as expected" do
     assert_respond_to(Uname, :sysname)
     assert_nothing_raised{ Uname.sysname }
     assert_kind_of(String, Uname.sysname)
+    assert_true(Uname.sysname.size > 0)
   end
 
   test "architecture singleton method works as expected on solaris" do

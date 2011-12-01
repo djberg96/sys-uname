@@ -5,6 +5,7 @@
 # should generally be run via the 'rake example' task.
 ########################################################################
 require 'sys/uname'
+require 'rbconfig'
 include Sys
 
 puts "VERSION: " + Uname::VERSION
@@ -14,8 +15,8 @@ puts 'Version: ' + Uname.version
 puts 'Release: ' + Uname.release
 puts 'Machine: ' + Uname.machine # May be "unknown" on Win32
 
-if RUBY_PLATFORM =~ /sun|solaris/i
-   print "\nSolaris specific tests\n" 
+if RbConfig::CONFIG['host_os'] =~ /sun|solaris/i
+   print "\nSolaris specific tests\n"
    puts "==========================="
    puts 'Architecture: ' + Uname.architecture
    puts 'Platform: ' + Uname.platform
@@ -26,13 +27,13 @@ if RUBY_PLATFORM =~ /sun|solaris/i
    puts 'DHCP Cache: ' + Uname.dhcp_cache # might be empty
 end
 
-if RUBY_PLATFORM =~ /powerpc|darwin|bsd|mach/i
-   print "\nBSD/OS X specific tests\n" 
+if RbConfig::CONFIG['host_os'] =~ /powerpc|darwin|bsd|mach/i
+   print "\nBSD/OS X specific tests\n"
    puts "======================="
    puts 'Model: ' + Uname.model
 end
 
-if RUBY_PLATFORM =~ /hpux/i
+if RbConfig::CONFIG['host_os'] =~ /hpux/i
    print "\nHP-UX specific tests\n"
    puts "========================"
    puts "ID: " + Uname.id
