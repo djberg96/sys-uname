@@ -98,7 +98,7 @@ module Sys
       struct.version  = utsname[:version].to_s
       struct.machine  = utsname[:machine].to_s
 
-      if defined? :sysctl
+      if RbConfig::CONFIG['host_os'] =~ /darwin/i
         struct.model = get_model()
       end
 

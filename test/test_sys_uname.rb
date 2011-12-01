@@ -121,6 +121,8 @@ class TC_Uname < Test::Unit::TestCase
   test "uname struct contains expected members based on platform" do
     members = %w/sysname nodename machine version release/
     case Config::CONFIG['host_os']
+      when /linux/i
+        members.push('domainname')
       when /sunos|solaris/i
         members.push('architecture','platform')
       when /powerpc|darwin/i
