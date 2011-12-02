@@ -1,5 +1,5 @@
 ##############################################################################
-# tc_uname.rb
+# test_sys_uname.rb
 #
 # Test suite for the sys-uname package. This test suite should be run via
 # the 'rake test' task.
@@ -13,7 +13,7 @@ include Sys
 
 class TC_Uname < Test::Unit::TestCase
   def self.startup
-    @@host_os = Config::CONFIG['host_os']
+    @@host_os = RbConfig::CONFIG['host_os']
   end
 
   test "version constant is set to expected value" do
@@ -83,11 +83,11 @@ class TC_Uname < Test::Unit::TestCase
     assert_kind_of(String, Uname.hw_provider)
   end
 
-  test "hw_serial_number singleton method works as expected on solaris" do
+  test "hw_serial singleton method works as expected on solaris" do
     omit_unless(@@host_os =~ /sunos|solaris/i, "Solaris only")
-    assert_respond_to(Uname, :hw_serial_number)
-    assert_nothing_raised{ Uname.hw_serial_number }
-    assert_kind_of(Integer, Uname.hw_serial_number)
+    assert_respond_to(Uname, :hw_serial)
+    assert_nothing_raised{ Uname.hw_serial }
+    assert_kind_of(Integer, Uname.hw_serial)
   end
 
   test "srpc_domain singleton method works as expected on solaris" do
@@ -120,17 +120,20 @@ class TC_Uname < Test::Unit::TestCase
 
   test "uname struct contains expected members based on platform" do
     members = %w/sysname nodename machine version release/
-    case Config::CONFIG['host_os']
+    case RbConfig::CONFIG['host_os']
       when /linux/i
         members.push('domainname')
       when /sunos|solaris/i
-        members.push('architecture','platform')
+        members.push(
+          'architecture', 'platform', 'hw_serial', 'hw_provider',
+          'srpc_domain', 'isalist', 'dhcp_cache'
+        )
       when /powerpc|darwin|bsd/i
         members.push('model')
       when /hpux/i
         members.push('id')
       when /win32|mingw|cygwin|dos|windows/i
-        members = %w/
+        members = %w[
           boot_device build_number build_type caption code_set country_code
           creation_class_name cscreation_class_name csd_version cs_name
           current_time_zone debug description distributed
@@ -147,7 +150,7 @@ class TC_Uname < Test::Unit::TestCase
           status system_device system_directory total_swap_space_size
           total_virtual_memory_size total_visible_memory_size version
           windows_directory
-        /
+        ]
     end
 
     assert_nothing_raised{ Uname.uname }
