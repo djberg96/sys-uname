@@ -124,7 +124,7 @@ module Sys
         struct.hw_serial    = get_si(SI_HW_SERIAL)
         struct.hw_provider  = get_si(SI_HW_PROVIDER)
         struct.srpc_domain  = get_si(SI_SRPC_DOMAIN)
-        struct.isalist      = get_si(SI_ISALIST)
+        struct.isa_list     = get_si(SI_ISALIST)
         struct.dhcp_cache   = get_si(SI_DHCP_CACHE)
 
         # FFI and Solaris don't get along so well, so we try again

@@ -126,7 +126,7 @@ class TC_Uname < Test::Unit::TestCase
       when /sunos|solaris/i
         members.push(
           'architecture', 'platform', 'hw_serial', 'hw_provider',
-          'srpc_domain', 'isalist', 'dhcp_cache'
+          'srpc_domain', 'isa_list', 'dhcp_cache'
         )
       when /powerpc|darwin|bsd/i
         members.push('model')
