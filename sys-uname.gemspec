@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
     spec.require_paths = ['lib', 'lib/windows']
   else
     spec.require_paths = ['lib', 'lib/unix']
-    spec.add_dependency('ffi', '>= 0.5.0')
+    spec.add_dependency('ffi', '>= 1.0.0')
   end
 
   spec.description = <<-EOF
