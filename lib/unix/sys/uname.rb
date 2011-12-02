@@ -40,7 +40,7 @@ module Sys
     end
 
     begin
-      attach_function :sysinfo, [:int, :string, :long], :long
+      attach_function :sysinfo, [:int, :pointer, :long], :long
       SI_ARCHITECTURE = 6   # Instruction set architecture
       SI_HW_SERIAL    = 7   # Hardware serial number
       SI_HW_PROVIDER  = 8   # Hardware manufacturer
