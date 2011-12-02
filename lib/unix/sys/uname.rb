@@ -208,6 +208,52 @@ module Sys
     end
 
     if defined? :sysinfo
+      # The  basic instruction  set  architecture  of  the current
+      # system, e.g. sparc, i386, etc.
+      #
+      def self.architecture
+        uname.architecture
+      end
+
+      # The specific model of the hardware platform, e.g Sun-Blade-1500, etc.
+      #
+      def self.platform
+        uname.platform
+      end
+
+      # The string consisting of the ASCII hexidecimal encoding of the name
+      # of the interface configured by boot(1M) followed by the DHCPACK reply
+      # from the server.
+      #
+      def self.dhcp_cache
+        uname.dhcp_cache
+      end
+
+      # The variant instruction set architectures executable on the
+      # current system.
+      #
+      def self.isa_list
+        uname.isa_list
+      end
+
+      # The ASCII representation of the hardware-specific serial number
+      # of the physical machine on which the function is executed.
+      #
+      def self.hw_serial
+        uname.hw_serial.to_i
+      end
+
+      # The name of the of the hardware provider.
+      #
+      def self.hw_provider
+        uname.hw_provider
+      end
+
+      # The Secure Remote Procedure Call domain name.
+      #
+      def self.srpc_domain
+        uname.srpc_domain
+      end
     end
 
     private
