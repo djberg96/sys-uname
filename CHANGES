@@ -1,3 +1,7 @@
+== 0.9.0 - ???
+* Conversion to FFI.
+* Added some additional information for Solaris.
+
 == 0.8.3 - 26-Apr-2008
 * Added an explicit "require 'time'" in the Windows version because recent
   versions of Ruby now need it.
