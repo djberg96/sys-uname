@@ -9,6 +9,9 @@ module Sys
     extend FFI::Library
     ffi_lib('c')
 
+    # Error raised if the uname() function fails.
+    class Error < StandardError; end
+
     # The version of the sys-uname library
     VERSION = '0.9.0'
 
@@ -20,6 +23,8 @@ module Sys
         BUFSIZE = 65
       when /bsd/i
         BUFSIZE = 32 # TODO: version method chopped
+      when /sunos|solaris/i
+        BUFSIZE = 257
       else
         BUFSIZE = 256
     end
@@ -92,7 +97,10 @@ module Sys
     #
     def self.uname
       utsname = UnameFFIStruct.new
-      uname_c(utsname)
+
+      if uname_c(utsname) < 0
+        raise Error, "uname() function call failed"
+      end
 
       struct = OpenStruct.new
       struct.sysname  = utsname[:sysname].to_s
