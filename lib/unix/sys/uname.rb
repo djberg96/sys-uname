@@ -41,6 +41,11 @@ module Sys
 
     begin
       attach_function :sysinfo, [:int, :pointer, :long], :long
+      SI_SYSNAME      = 1   # OS name
+      SI_HOSTNAME     = 2   # Node name
+      SI_RELEASE      = 3   # Operating system release
+      SI_VERSION      = 4   # Version field of utsname
+      SI_MACHINE      = 5   # Machine type
       SI_ARCHITECTURE = 6   # Instruction set architecture
       SI_HW_SERIAL    = 7   # Hardware serial number
       SI_HW_PROVIDER  = 8   # Hardware manufacturer
@@ -121,6 +126,13 @@ module Sys
         struct.srpc_domain  = get_si(SI_SRPC_DOMAIN)
         struct.isalist      = get_si(SI_ISALIST)
         struct.dhcp_cache   = get_si(SI_DHCP_CACHE)
+
+        # FFI and Solaris don't get along so well, so we try again
+        struct.sysname  = get_si(SI_SYSNAME) if struct.sysname.empty?
+        struct.nodename = get_si(SI_HOSTNAME) if struct.nodename.empty?
+        struct.release  = get_si(SI_RELEASE) if struct.release.empty?
+        struct.version  = get_si(SI_VERSION) if struct.version.empty?
+        struct.machine  = get_si(SI_MACHINE) if struct.machine.empty?
       end
 
       if RbConfig::CONFIG['host_os'] =~ /hpux/i
