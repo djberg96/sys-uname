@@ -112,7 +112,7 @@ Uname.id
    Ruby's
 
 == Copyright
-   (C) 2002-2008 Daniel J. Berger
+   (C) 2002-2012 Daniel J. Berger
    All Rights Reserved
 
 == Warranty
