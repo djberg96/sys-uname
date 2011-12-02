@@ -1,17 +1,12 @@
 = Description
    A Ruby interface for getting operating system information. The name comes
-   from the Unix 'uname' command, but this library works on Windows as well.
+   from the Unix 'uname' command, but this library works on MS Windows as well.
 
 = Prerequisites
-=== Unix
-   Ruby 1.8.0 or later.
-=== MS Windows
-   Ruby 1.8.2 or later.  Earlier versions segfault due to OLE bugs.
-   Active WMI service (normally on by default).
+  ffi 1.0 or later
 
 = Installation
-   rake test (optional)
-   rake install (non-gem) or rake install_gem (gems)
+  gem install sys-uname
    
 = Synopsis
    require 'sys/uname'
@@ -20,8 +15,7 @@
    p Uname.uname
    
 = Solaris Notes
-   Folks building this package on SunOS get two extra methods: architecture()
-   and platform()
+   Users on SunOS get two extra methods: architecture and platform.
 
 = BSD flavors, including OS X
    Users on BSD platforms get the extra Uname.model method.
