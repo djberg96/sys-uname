@@ -1,6 +1,9 @@
 require 'rake'
 require 'rake/testtask'
+require 'rake/clean'
 require 'rbconfig'
+
+CLEAN.include("**/*.rbc", "**/*.rbx", "**/*.gem")
 
 desc "Run the example program"
 task :example do
