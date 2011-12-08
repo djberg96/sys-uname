@@ -15,6 +15,13 @@ namespace :gem do
   desc "Create the sys-uname gem"
   task :create do
     spec = eval(IO.read('sys-uname.gemspec'))
+
+    if File::ALT_SEPARATOR
+      spec.platform = Gem::Platform::CURRENT
+      spec.platform.cpu = 'universal'
+      spec.platform.version = nil
+    end
+    
     Gem::Builder.new(spec).build
   end
 

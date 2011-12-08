@@ -15,7 +15,6 @@ Gem::Specification.new do |spec|
   spec.rubyforge_project = 'sysutils'
 
   if Config::CONFIG['host_os'] =~ /mswin|windows|dos|mingw|cygwin/i
-    spec.platform = Gem::Platform::CURRENT
     spec.require_paths = ['lib', 'lib/windows']
   else
     spec.require_paths = ['lib', 'lib/unix']
