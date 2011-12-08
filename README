@@ -1,6 +1,6 @@
 = Description
-   A Ruby interface for getting operating system information. The name comes
-   from the Unix 'uname' command, but this library works on MS Windows as well.
+  A Ruby interface for getting operating system information. The name comes
+  from the Unix 'uname' command, but this library works on MS Windows as well.
 
 = Prerequisites
   ffi 1.0 or later
@@ -9,27 +9,28 @@
   gem install sys-uname
    
 = Synopsis
-   require 'sys/uname'
-   include Sys
+  require 'sys/uname'
+  include Sys
    
-   p Uname.uname
+  p Uname.uname
    
 = Solaris Notes
-   Users on SunOS get two extra methods: architecture and platform.
+  Users on SunOS get several extra methods: architecture, platform,
+  hw_serial, hw_provider, srpc_domain, isa_list, and dhcp_cache.
 
 = BSD flavors, including OS X
-   Users on BSD platforms get the extra Uname.model method.
+  Users on BSD platforms get the extra Uname.model method.
 
 = HP-UX Notes
-   HP-UX users get the extra Uname.id_number method.  This is actually a
-   String, not a Fixnum, because that's how it's defined in the utsname
-   struct.
+  HP-UX users get the extra Uname.id_number method. This is actually a
+  String, not a Fixnum, because that's how it's defined in the utsname
+  struct.
 
 = MS Windows Notes
-   The C version for Windows has been completely scrapped in favor of an OLE
-   plus WMI approach.  It is pure Ruby.  Please see the MSDN documentation for
-   the Win32_OperatingSystem class for a complete list of what each of the
-   UnameStruct members mean.
+  The C version for Windows has been completely scrapped in favor of an OLE
+  plus WMI approach.  It is pure Ruby.  Please see the MSDN documentation for
+  the Win32_OperatingSystem class for a complete list of what each of the
+  UnameStruct members mean.
 
 = Documentation
   For more details, see the 'uname.txt' file under the 'doc' directory. 
