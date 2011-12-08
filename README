@@ -7,6 +7,9 @@
 
 = Installation
   gem install sys-uname
+
+  # If that doesn't work and you're on Windows try this:
+  gem install sys-uname --platform universal-mingw32
    
 = Synopsis
   require 'sys/uname'
