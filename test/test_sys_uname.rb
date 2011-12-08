@@ -153,6 +153,8 @@ class TC_Uname < Test::Unit::TestCase
         ]
     end
 
+    members.map!{ |e| e.to_sym } if RUBY_VERSION.to_f >= 1.9
+
     assert_nothing_raised{ Uname.uname }
     assert_kind_of(Struct, Uname.uname)
     assert_equal(members.sort, Uname.uname.members.sort)
