@@ -394,7 +394,7 @@ class TC_Uname < Test::Unit::TestCase
     end
 
     # This is nil on NT 4
-    def test_service_pack_major_version
+    def test_service_pack_minor_version
       assert_nothing_raised{ Uname.uname.service_pack_minor_version}
       assert_kind_of(Fixnum, Uname.uname.service_pack_minor_version)
     end
