@@ -83,7 +83,41 @@ module Sys
       layout(*members)
     end
 
+    fields = %w[
+      sysname
+      nodename
+      release
+      version
+      machine
+    ]
+
+    if RbConfig::CONFIG['host_os'] =~ /linux/i
+      fields.push('domainname')
+    end
+
+    if RbConfig::CONFIG['host_os'] =~ /hpux/i
+      fields.push('id_number')
+    end
+
+    if RbConfig::CONFIG['host_os'] =~ /sunos|solaris/i
+      fields.push(
+        'architecture',
+        'dhcp_cache',
+        'hw_provider',
+        'hw_serial',
+        'isa_list',
+        'platform',
+        'srpc_domain'
+      )
+    end
+
+    if RbConfig::CONFIG['host_os'] =~ /darwin|bsd/i
+      fields.push('model')
+    end
+
     # :startdoc:
+
+    UnameStruct = Struct.new("UnameStruct", *fields)
 
     # Returns a struct that contains the sysname, nodename, machine, version
     # and release of your system.
@@ -107,40 +141,40 @@ module Sys
         raise Error, "uname() function call failed"
       end
 
-      struct = OpenStruct.new
-      struct.sysname  = utsname[:sysname].to_s
-      struct.nodename = utsname[:nodename].to_s
-      struct.release  = utsname[:release].to_s
-      struct.version  = utsname[:version].to_s
-      struct.machine  = utsname[:machine].to_s
+      struct = UnameStruct.new
+      struct[:sysname]  = utsname[:sysname].to_s
+      struct[:nodename] = utsname[:nodename].to_s
+      struct[:release]  = utsname[:release].to_s
+      struct[:version]  = utsname[:version].to_s
+      struct[:machine]  = utsname[:machine].to_s
 
       if RbConfig::CONFIG['host_os'] =~ /darwin|bsd/i
-        struct.model = get_model()
+        struct[:model] = get_model()
       end
 
       if RbConfig::CONFIG['host_os'] =~ /sunos|solaris/i
-        struct.architecture = get_si(SI_ARCHITECTURE)
-        struct.platform     = get_si(SI_PLATFORM)
-        struct.hw_serial    = get_si(SI_HW_SERIAL)
-        struct.hw_provider  = get_si(SI_HW_PROVIDER)
-        struct.srpc_domain  = get_si(SI_SRPC_DOMAIN)
-        struct.isa_list     = get_si(SI_ISALIST)
-        struct.dhcp_cache   = get_si(SI_DHCP_CACHE)
+        struct[:architecture] = get_si(SI_ARCHITECTURE)
+        struct[:platform]     = get_si(SI_PLATFORM)
+        struct[:hw_serial]    = get_si(SI_HW_SERIAL)
+        struct[:hw_provider]  = get_si(SI_HW_PROVIDER)
+        struct[:srpc_domain]  = get_si(SI_SRPC_DOMAIN)
+        struct[:isa_list]     = get_si(SI_ISALIST)
+        struct[:dhcp_cache]   = get_si(SI_DHCP_CACHE)
 
         # FFI and Solaris don't get along so well, so we try again
-        struct.sysname  = get_si(SI_SYSNAME) if struct.sysname.empty?
-        struct.nodename = get_si(SI_HOSTNAME) if struct.nodename.empty?
-        struct.release  = get_si(SI_RELEASE) if struct.release.empty?
-        struct.version  = get_si(SI_VERSION) if struct.version.empty?
-        struct.machine  = get_si(SI_MACHINE) if struct.machine.empty?
+        struct[:sysname]  = get_si(SI_SYSNAME) if struct.sysname.empty?
+        struct[:nodename] = get_si(SI_HOSTNAME) if struct.nodename.empty?
+        struct[:release]  = get_si(SI_RELEASE) if struct.release.empty?
+        struct[:version]  = get_si(SI_VERSION) if struct.version.empty?
+        struct[:machine]  = get_si(SI_MACHINE) if struct.machine.empty?
       end
 
       if RbConfig::CONFIG['host_os'] =~ /hpux/i
-        struct.id_number = utsname[:__id_number].to_s
+        struct[:id_number] = utsname[:__id_number].to_s
       end
 
       if RbConfig::CONFIG['host_os'] =~ /linux/i
-        struct.domainname = utsname[:domainname].to_s
+        struct[:domainname] = utsname[:domainname].to_s
       end
 
       # Let's add a members method that works for testing and compatibility

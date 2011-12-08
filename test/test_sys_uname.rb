@@ -154,7 +154,7 @@ class TC_Uname < Test::Unit::TestCase
     end
 
     assert_nothing_raised{ Uname.uname }
-    assert_kind_of(OpenStruct, Uname.uname)
+    assert_kind_of(Struct, Uname.uname)
     assert_equal(members.sort, Uname.uname.members.sort)
   end
 
