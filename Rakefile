@@ -16,7 +16,7 @@ end
 
 namespace :gem do
   desc "Create the sys-uname gem"
-  task :create do
+  task :create => [:clean] do
     spec = eval(IO.read('sys-uname.gemspec'))
 
     if File::ALT_SEPARATOR
