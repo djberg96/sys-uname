@@ -160,6 +160,15 @@ class TC_Uname < Test::Unit::TestCase
     assert_equal(members.sort, Uname.uname.members.sort)
   end
 
+  test "ffi and internal functions are not public" do
+    methods = Uname.methods(false).map{ |e| e.to_s }
+    assert_false(methods.include?('get_model'))
+    assert_false(methods.include?('get_si'))
+    assert_false(methods.include?('uname_c'))
+    assert_false(methods.include?('sysctl'))
+    assert_false(methods.include?('sysinfo'))
+  end
+
   # The following tests are win32 only
   if File::ALT_SEPARATOR
     def test_boot_device

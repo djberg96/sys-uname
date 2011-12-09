@@ -13,7 +13,7 @@ module Sys
     class Error < StandardError; end
 
     # The version of the sys-uname library
-    VERSION = '0.9.0'
+    VERSION = '0.9.1'
 
     # :stopdoc
 
@@ -33,6 +33,8 @@ module Sys
 
     begin
       attach_function :sysctl, [:pointer, :uint, :pointer, :pointer, :pointer, :size_t], :int
+      private_class_method :sysctl
+
       CTL_HW   = 6   # Generic hardware/cpu
       HW_MODEL = 2   # Specific machine model
     rescue FFI::NotFoundError
@@ -41,6 +43,8 @@ module Sys
 
     begin
       attach_function :sysinfo, [:int, :pointer, :long], :long
+      private_class_method :sysinfo
+
       SI_SYSNAME      = 1   # OS name
       SI_HOSTNAME     = 2   # Node name
       SI_RELEASE      = 3   # Operating system release
@@ -62,6 +66,8 @@ module Sys
       alias :uname_c :uname
       remove_method :uname
     end
+
+    private_class_method :uname_c
 
     class UnameFFIStruct < FFI::Struct
       members = [
@@ -316,6 +322,8 @@ module Sys
       buf.strip
     end
 
+    private_class_method :get_model
+
     # Returns the various sysinfo information based on +flag+.
     #
     def self.get_si(flag)
@@ -323,5 +331,7 @@ module Sys
       sysinfo(flag, buf, BUFSIZE)
       buf.strip
     end
+
+    private_class_method :get_si
   end
 end
