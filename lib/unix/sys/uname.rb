@@ -7,7 +7,7 @@ module Sys
   # The Uname class encapsulates information about the system.
   class Uname
     extend FFI::Library
-    ffi_lib('c')
+    ffi_lib FFI::Library::LIBC
 
     # Error raised if the uname() function fails.
     class Error < StandardError; end
@@ -29,7 +29,8 @@ module Sys
         BUFSIZE = 256
     end
 
-    attach_function :uname, [:pointer], :int
+    attach_function :uname_c, :uname, [:pointer], :int
+    private_class_method :uname_c
 
     begin
       attach_function :sysctl, [:pointer, :uint, :pointer, :pointer, :pointer, :size_t], :int
@@ -60,14 +61,6 @@ module Sys
     rescue FFI::NotFoundError
       # Ignore. Not suppored.
     end
-
-    # Temporarily remove the uname method to avoid function name conflict
-    class << self
-      alias :uname_c :uname
-      remove_method :uname
-    end
-
-    private_class_method :uname_c
 
     class UnameFFIStruct < FFI::Struct
       members = [
