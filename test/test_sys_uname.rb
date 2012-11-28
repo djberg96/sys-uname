@@ -380,12 +380,12 @@ class TC_Uname < Test::Unit::TestCase
 
     def test_quantum_length
       assert_nothing_raised{ Uname.uname.quantum_length}
-      assert_kind_of(Fixnum, Uname.uname.quantum_length)
+      assert_kind_of([Fixnum, NilClass], Uname.uname.quantum_length)
     end
 
     def test_quantum_type
       assert_nothing_raised{ Uname.uname.quantum_type}
-      assert_kind_of(Fixnum, Uname.uname.quantum_type)
+      assert_kind_of([Fixnum, NilClass], Uname.uname.quantum_type)
     end
 
     def test_registered_user
