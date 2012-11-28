@@ -109,7 +109,7 @@ Uname.id
    Add additional info for Linux, Solaris, BSD.
 
 == License
-   Ruby's
+   Artistic 2.0
 
 == Copyright
    (C) 2002-2012 Daniel J. Berger

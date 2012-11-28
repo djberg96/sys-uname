@@ -6,15 +6,15 @@ Gem::Specification.new do |spec|
   spec.author    = 'Daniel J. Berger'
   spec.email     = 'djberg96@gmail.com'
   spec.homepage  = 'http://www.rubyforge.org/projects/sysutils'
-  spec.platform  = Gem::Platform::RUBY
   spec.summary   = 'An interface for returning uname (platform) information'
   spec.test_file = 'test/test_sys_uname.rb'
+  spec.license   = 'Artistic 2.0'
   spec.files     = Dir['**/*'].reject{ |f| f.include?('git') } 
 
   spec.extra_rdoc_files  = ['CHANGES', 'README', 'MANIFEST', 'doc/uname.txt']
   spec.rubyforge_project = 'sysutils'
 
-  if Config::CONFIG['host_os'] =~ /mswin|windows|dos|mingw|cygwin/i
+  if File::ALT_SEPARATOR
     spec.require_paths = ['lib', 'lib/windows']
   else
     spec.require_paths = ['lib', 'lib/unix']
