@@ -1,17 +1,14 @@
 ##############################################################################
 # test_sys_uname.rb
 #
-# Test suite for the sys-uname package. This test suite should be run via
-# the 'rake test' task.
+# Test suite for the sys-uname library. Run 'rake test' to execute tests.
 ##############################################################################
-gem 'test-unit'
-require 'test/unit'
-
+require 'test-unit'
 require 'sys/uname'
 require 'rbconfig'
 include Sys
 
-class TC_Uname < Test::Unit::TestCase
+class TC_Sys_Uname < Test::Unit::TestCase
   def self.startup
     @@host_os = RbConfig::CONFIG['host_os']
   end
