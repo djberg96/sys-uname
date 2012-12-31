@@ -1,6 +1,8 @@
 == 0.9.1 - ???
 * Made FFI functions private.
 * Properly alias uname FFI function.
+* Fixed the QuantumLength and QuantumType bug again (see 0.8.4), which I
+  somehow accidentally reintroduced.
 
 == 0.9.0 - 8-Dec-2011
 * Conversion to FFI.

@@ -85,7 +85,6 @@ module Sys
       rescue WIN32OLERuntimeError => e
         raise Error, e
       else
-        query = "select * from Win32_OperatingSystem"
         wmi.InstancesOf("Win32_OperatingSystem").each{ |ole|
           str = "#{ole.Version} #{ole.BuildNumber}-"
           str << "#{ole.ServicePackMajorVersion}"
@@ -104,7 +103,6 @@ module Sys
       rescue WIN32OLERuntimeError => e
         raise Error, e
       else
-        query = "select * from Win32_OperatingSystem"
         wmi.InstancesOf("Win32_OperatingSystem").each{ |ole|
           return ole.Caption
         }
@@ -122,7 +120,6 @@ module Sys
       rescue WIN32OLERuntimeError => e
         raise Error, e
       else
-        query = "select * from Win32_OperatingSystem"
         wmi.InstancesOf("Win32_OperatingSystem").each{ |ole|
           return ole.CSName
         }
@@ -366,7 +363,6 @@ module Sys
       rescue WIN32OLERuntimeError => e
         raise Error, e
       else
-        query = "select * from Win32_OperatingSystem"
         wmi.InstancesOf("Win32_OperatingSystem").each{ |ole|
           return ole.Version
         }
@@ -384,7 +380,6 @@ module Sys
       rescue WIN32OLERuntimeError => e
         raise Error, e
       else
-        query = "select * from Win32_OperatingSystem"
         wmi.InstancesOf("Win32_OperatingSystem").each{ |os|
           return UnameStruct.new(
             os.BootDevice,
@@ -424,8 +419,8 @@ module Sys
             os.PlusProductID,
             os.PlusVersionNumber,
             os.Primary,
-            os.QuantumLength,
-            os.QuantumType,
+            os.respond_to?(:QuantumLength) ? os.QuantumLength : nil,
+            os.respond_to?(:QuantumType) ? os.QuantumType : nil,
             os.RegisteredUser,
             os.SerialNumber,
             os.ServicePackMajorVersion,
