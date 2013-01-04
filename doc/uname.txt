@@ -112,7 +112,7 @@ Uname.id
    Artistic 2.0
 
 == Copyright
-   (C) 2002-2012 Daniel J. Berger
+   (C) 2002-2013 Daniel J. Berger
    All Rights Reserved
 
 == Warranty
