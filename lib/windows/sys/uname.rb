@@ -11,6 +11,7 @@ module Sys
     # This is the error raised if any of the Sys::Uname methods should fail.
     class Error < StandardError; end
 
+    # The version of the sys-uname library.
     VERSION = '0.9.1'
 
     fields = %w[
