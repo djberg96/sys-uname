@@ -2,7 +2,7 @@ require 'rubygems'
 
 Gem::Specification.new do |spec|
   spec.name      = 'sys-uname'
-  spec.version   = '0.9.1'
+  spec.version   = '0.9.2'
   spec.author    = 'Daniel J. Berger'
   spec.email     = 'djberg96@gmail.com'
   spec.homepage  = 'http://www.rubyforge.org/projects/sysutils'
