@@ -20,9 +20,7 @@ namespace :gem do
     spec = eval(IO.read('sys-uname.gemspec'))
 
     if File::ALT_SEPARATOR
-      spec.platform = Gem::Platform::CURRENT
-      spec.platform.cpu = 'universal'
-      spec.platform.version = nil
+      spec.platform = Gem::Platform::new(['universal', 'mingw32'])
     end
     
     Gem::Builder.new(spec).build
