@@ -285,10 +285,16 @@ module Sys
             return "Crusoe TM5000 Family"
           when 121
             return "Crusoe TM3000 Family"
+          when 122
+            return "Efficeon TM8000 Family"
           when 128
             return "Weitek"
           when 130
             return "Itanium Processor"
+          when 131
+            return "AMD Athlon 64 Processor Family"
+          when 132
+            return "AMD Opteron Processor Family"
           when 144
             return "PA-RISC Family"
           when 145
@@ -327,12 +333,18 @@ module Sys
             return "AMD Opteron Family"
           when 190
             return "K7"
+          when 198
+            return "Intel Core i7-2760QM"
           when 200
             return "IBM390 Family"
           when 201
             return "G4"
           when 202
             return "G5"
+          when 203
+            return "G6"
+          when 204
+            return "z/Architecture Base"
           when 250
             return "i860"
           when 251
