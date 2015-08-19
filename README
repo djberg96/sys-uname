@@ -13,9 +13,15 @@
    
 = Synopsis
   require 'sys/uname'
-  include Sys
+
+  # You now have Sys::Uname and Sys::Platform classes available.
    
-  p Uname.uname
+  # Get full information about your system
+  p Sys::Uname.uname
+
+  # Check individual details about your system
+  p Sys::Platform.linux? # => true
+  p Sys::Platform::ARCH  # => :x86_46
    
 = Solaris Notes
   Users on SunOS get several extra methods: architecture, platform,
@@ -31,9 +37,14 @@
 
 = MS Windows Notes
   The C version for Windows has been completely scrapped in favor of an OLE
-  plus WMI approach.  It is pure Ruby.  Please see the MSDN documentation for
+  plus WMI approach. It is pure Ruby. Please see the MSDN documentation for
   the Win32_OperatingSystem class for a complete list of what each of the
   UnameStruct members mean.
+
+= The Platform class
+  This was added both as a nicer way to check simple information about your
+  system, and as a replacement for the old 'Platform' gem which is no longer
+  maintained.
 
 = Documentation
   For more details, see the 'uname.txt' file under the 'doc' directory. 
