@@ -1,25 +1,19 @@
 require 'rubygems'
 
 Gem::Specification.new do |spec|
-  spec.name      = 'sys-uname'
-  spec.version   = '0.9.2'
-  spec.author    = 'Daniel J. Berger'
-  spec.email     = 'djberg96@gmail.com'
-  spec.homepage  = 'http://www.rubyforge.org/projects/sysutils'
-  spec.summary   = 'An interface for returning uname (platform) information'
-  spec.test_file = 'test/test_sys_uname.rb'
-  spec.license   = 'Artistic 2.0'
-  spec.files     = Dir['**/*'].reject{ |f| f.include?('git') } 
+  spec.name       = 'sys-uname'
+  spec.version    = '1.0.0'
+  spec.author     = 'Daniel J. Berger'
+  spec.email      = 'djberg96@gmail.com'
+  spec.homepage   = 'http://github.com/djberg96/sys-uname'
+  spec.summary    = 'An interface for returning uname (platform) information'
+  spec.license    = 'Artistic 2.0'
+  spec.files      = Dir['**/*'].reject{ |f| f.include?('git') } 
+  spec.test_files = FileList['test/test_sys_uname.rb', 'test/test_sys_platform.rb']
 
   spec.extra_rdoc_files  = ['CHANGES', 'README', 'MANIFEST', 'doc/uname.txt']
-  spec.rubyforge_project = 'sysutils'
 
-  if File::ALT_SEPARATOR
-    spec.require_paths = ['lib', 'lib/windows']
-  else
-    spec.require_paths = ['lib', 'lib/unix']
-    spec.add_dependency('ffi', '>= 1.0.0')
-  end
+  spec.add_dependency('ffi', '>= 1.0.0')
 
   spec.description = <<-EOF
     The sys-uname library provides an interface for gathering information
