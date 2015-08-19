@@ -17,13 +17,9 @@ end
 namespace :gem do
   desc "Create the sys-uname gem"
   task :create => [:clean] do
+    require 'rubygems/package'
     spec = eval(IO.read('sys-uname.gemspec'))
-
-    if File::ALT_SEPARATOR
-      spec.platform = Gem::Platform::new(['universal', 'mingw32'])
-    end
-    
-    Gem::Builder.new(spec).build
+    Gem::Package.build(spec)
   end
 
   desc "Install the sys-uname gem"
