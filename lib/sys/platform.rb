@@ -6,12 +6,13 @@ module Sys
     # Returns a basic OS family, either :windows or :unix
     OS = File::ALT_SEPARATOR ? :windows : :unix
 
-    # Returns the OS type, :windows, :macosx, :linux, etc
+    # Returns the OS type, :macosx, :linux, :mingw32, etc
     IMPL = case Uname.sysname
       when /darwin|mac/i
         :macosx
       when /mingw|windows/i
-        :windows
+        require 'rbconfig'
+        RbConfig::Config['host_os'].to_sym
       when /linux/i
         :linux
       when /sunos|solaris/i
