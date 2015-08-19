@@ -13,6 +13,10 @@ class TC_Sys_Platform < Test::Unit::TestCase
     @@windows = @@host_os =~ /mingw|mswin|windows/i ? true : false
   end
 
+  test "the VERSION constant is set to the expected value" do
+    assert_equal('1.0.1', Sys::Platform::VERSION)
+  end
+
   test "the ARCH constant is defined" do
     assert_kind_of(Symbol, Sys::Platform::ARCH)
   end
@@ -23,6 +27,10 @@ class TC_Sys_Platform < Test::Unit::TestCase
 
   test "the IMPL constant is defined" do
     assert_kind_of(Symbol, Sys::Platform::IMPL)
+  end
+
+  test "the IMPL returns an expected value" do
+    assert_true([:mingw, :mswin].include?(Sys::Platform::IMPL))
   end
 
   test "the mac? method is defined and returns a boolean" do
