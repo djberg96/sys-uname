@@ -210,7 +210,7 @@ class TC_Sys_Uname < Test::Unit::TestCase
 
     def test_csd_version
       assert_nothing_raised{ Uname.uname.csd_version }
-      assert_kind_of(String, Uname.uname.csd_version)
+      assert_kind_of([String, NilClass], Uname.uname.csd_version)
     end
 
     def test_cs_name
