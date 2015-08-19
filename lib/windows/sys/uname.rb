@@ -20,7 +20,7 @@ module Sys
     class Error < StandardError; end
 
     # The version of the sys-uname library.
-    VERSION = '0.9.2'
+    VERSION = '1.0.0'
 
     fields = %w[
       boot_device
@@ -132,6 +132,35 @@ module Sys
         wmi.InstancesOf("Win32_OperatingSystem").each{ |ole|
           return ole.CSName
         }
+      end
+    end
+
+    # Returns the CPU architecture, e.g. "x86"
+    #
+    def self.architecture(cpu_num=0, host=Socket.gethostname)
+      cs = "winmgmts:{impersonationLevel=impersonate,(security)}"
+      cs << "//#{host}/root/cimv2:Win32_Processor='cpu#{cpu_num}'"
+      begin
+        wmi = WIN32OLE.connect(cs)
+      rescue WIN32OLERuntimeError => e
+        raise Error, e
+      else
+        case wmi.Architecture
+          when 0
+            "x86"
+          when 1
+            "mips"
+          when 2
+            "alpha"
+          when 3
+            "powerpc"
+          when 6
+            "ia64"
+          when 9
+            "x86_64"
+          else
+            "unknown"
+        end
       end
     end
 
