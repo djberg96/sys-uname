@@ -1,3 +1,11 @@
+== 1.0.1 - 19-Aug-2015
+* Modified Platform::IMPL so that it does not include "32" as part of the
+  symbol name. This isn't useful since it's the same on 32 or 64-bit Windows.
+* Reorganized code a bit so that the VERSION constant is in a single place.
+* For consistency, there is also a Platform::VERSION. This is the same value
+  as Uname::VERSION.
+* Added a test for Sys::Platform::IMPL on Windows.
+
 == 1.0.0 - 19-Aug-2015
 * Added a sys-uname.rb shim so that you can require this library with
   "sys-uname" or "sys/uname".
