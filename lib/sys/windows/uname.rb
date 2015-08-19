@@ -19,9 +19,6 @@ module Sys
     # This is the error raised if any of the Sys::Uname methods should fail.
     class Error < StandardError; end
 
-    # The version of the sys-uname library.
-    VERSION = '1.0.0'
-
     fields = %w[
       boot_device
       build_number

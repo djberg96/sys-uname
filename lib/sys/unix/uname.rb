@@ -12,9 +12,6 @@ module Sys
     # Error raised if the uname() function fails.
     class Error < StandardError; end
 
-    # The version of the sys-uname library
-    VERSION = '1.0.0'
-
     # :stopdoc
 
     # Buffer size for uname struct char arrays
