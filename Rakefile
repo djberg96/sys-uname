@@ -31,12 +31,6 @@ end
 
 desc "Run the test suite"
 Rake::TestTask.new("test") do |t|
-  if File::ALT_SEPARATOR
-    t.libs << 'lib/windows'
-  else
-    t.libs << 'lib/unix'
-  end
-
   t.warning = true
   t.verbose = true
 end
