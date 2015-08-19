@@ -1,5 +1,3 @@
-require_relative '../sys-uname'
-
 module Sys
   class Platform
     # The CPU architecture
