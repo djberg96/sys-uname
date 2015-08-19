@@ -5,6 +5,8 @@
 * Added a Sys::Platform class that adds several boolean methods to check
   your operating system. It also adds the ARCH, OS, and IMPL constants
   to simulate, and ultimately replace, the old "Platform" gem.
+* There is now just a single gem, instead of a separate gem for Windows
+  and Unix, so you shouldn't need to worry about platform checking.
 
 == 0.9.2 - 1-May-2013
 * Added a workaround for a win32ole thread bug. Thanks go to Tianlong Wu
