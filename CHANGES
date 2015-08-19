@@ -1,6 +1,7 @@
 == 1.0.0 - 19-Aug-2015
 * Added a sys-uname.rb shim so that you can require this library with
   "sys-uname" or "sys/uname".
+* Added the architecture method for MS Windows.
 * Added a Sys::Platform class that adds several boolean methods to check
   your operating system. It also adds the ARCH, OS, and IMPL constants
   to simulate, and ultimately replace, the old "Platform" gem.
