@@ -13,7 +13,7 @@ module Sys
     class Error < StandardError; end
 
     # The version of the sys-uname library
-    VERSION = '0.9.2'
+    VERSION = '1.0.0'
 
     # :stopdoc
 
