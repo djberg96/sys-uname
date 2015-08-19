@@ -12,7 +12,7 @@ module Sys
         :macosx
       when /mingw|windows/i
         require 'rbconfig'
-        RbConfig::Config['host_os'].to_sym
+        RbConfig::CONFIG['host_os'].split('_').first.to_sym
       when /linux/i
         :linux
       when /sunos|solaris/i
