@@ -30,6 +30,7 @@ class TC_Sys_Platform < Test::Unit::TestCase
   end
 
   test "the IMPL returns an expected value" do
+    omit_unless(@@windows)
     assert_true([:mingw, :mswin].include?(Sys::Platform::IMPL))
   end
 
