@@ -3,6 +3,7 @@
 * README
 * Rakefile
 * sys-uname.gemspec
+* certs/djberg96_pub.pem
 * doc/uname.txt
 * examples/uname_test.rb
 * ext/extconf.rb
