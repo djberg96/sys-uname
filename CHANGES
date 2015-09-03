@@ -1,3 +1,7 @@
+== 1.0.2 - 3-Sep-2015
+* The gem is now signed.
+* Modified gemspec and Rakefile to support signing.
+
 == 1.0.1 - 19-Aug-2015
 * Modified Platform::IMPL so that it does not include "32" as part of the
   symbol name. This isn't useful since it's the same on 32 or 64-bit Windows.
