@@ -19,6 +19,7 @@ namespace :gem do
   task :create => [:clean] do
     require 'rubygems/package'
     spec = eval(IO.read('sys-uname.gemspec'))
+    spec.signing_key = File.join(Dir.home, '.ssh', 'gem-private_key.pem')
     Gem::Package.build(spec)
   end
 
