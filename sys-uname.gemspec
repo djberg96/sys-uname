@@ -2,7 +2,7 @@ require 'rubygems'
 
 Gem::Specification.new do |spec|
   spec.name       = 'sys-uname'
-  spec.version    = '1.0.3'
+  spec.version    = '1.0.4'
   spec.author     = 'Daniel J. Berger'
   spec.email      = 'djberg96@gmail.com'
   spec.homepage   = 'http://github.com/djberg96/sys-uname'
@@ -15,6 +15,15 @@ Gem::Specification.new do |spec|
   spec.extra_rdoc_files  = ['CHANGES', 'README', 'MANIFEST', 'doc/uname.txt']
 
   spec.add_dependency('ffi', '>= 1.0.0')
+
+  spec.metadata = {
+    'homepage_uri'      => 'https://github.com/djberg96/sys-uname',
+    'bug_tracker_uri'   => 'https://github.com/djberg96/sys-uname/issues',
+    'changelog_uri'     => 'https://github.com/djberg96/sys-uname/blob/ffi/CHANGES',
+    'documentation_uri' => 'https://github.com/djberg96/sys-uname/wiki',
+    'source_code_uri'   => 'https://github.com/djberg96/sys-uname',
+    'wiki_uri'          => 'https://github.com/djberg96/sys-uname/wiki'
+  }
 
   spec.description = <<-EOF
     The sys-uname library provides an interface for gathering information
