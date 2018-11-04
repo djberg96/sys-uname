@@ -14,7 +14,8 @@ class TC_Sys_Uname < Test::Unit::TestCase
   end
 
   test "version constant is set to expected value" do
-    assert_equal('1.0.3', Uname::VERSION)
+    assert_equal('1.0.4', Uname::VERSION)
+    assert_true(Uname::VERSION.frozen?)
   end
 
   test "machine singleton method works as expected" do

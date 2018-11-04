@@ -1,7 +1,7 @@
 module Sys
   class Uname
     # The version of the sys-uname gem.
-    VERSION = '1.0.3'.freeze
+    VERSION = '1.0.4'.freeze
   end
 
   class Platform
