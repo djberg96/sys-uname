@@ -1,3 +1,7 @@
+== 1.0.4 - 4-Nov-2018
+* Added metadata to the gemspec.
+* Updated the cert, which will expire in about 10 years.
+
 == 1.0.3 - 31-Oct-2016
 * Updated the gem cert. It will expire on 31-Oct-2019.
 * Minor updates to the Rakefile and gemspec.
