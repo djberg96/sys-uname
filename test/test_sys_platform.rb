@@ -14,7 +14,8 @@ class TC_Sys_Platform < Test::Unit::TestCase
   end
 
   test "the VERSION constant is set to the expected value" do
-    assert_equal('1.0.4', Sys::Platform::VERSION)
+    assert_equal('1.1.0', Sys::Platform::VERSION)
+    assert_true(Sys::Platform::VERSION.frozen?)
   end
 
   test "the ARCH constant is defined" do
