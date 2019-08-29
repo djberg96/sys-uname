@@ -26,17 +26,17 @@ VERSION
 
 == Class Methods
 Uname.sysname
-   Returns the operating system name.  e.g. "SunOS"
+   Returns the operating system name, e.g. "SunOS"
     
 Uname.nodename
-   Returns the nodename.  This is usually, but not necessarily, the 
+   Returns the nodename. This is usually, but not necessarily, the 
    same as the system's hostname.
 	
    You cannot currently set the nodename (root or otherwise). This may
    be added in a future release.
 
 Uname.machine
-   Returns the machine hardware type.  e.g. "i686"
+   Returns the machine hardware type, e.g. "i686"
     
 Uname.version
    Returns the operating system version. e.g. "5.8".  In the case of MS
@@ -44,12 +44,12 @@ Uname.version
    a hyphen, e.g. "2915-Service Pack 2".
     
 Uname.release
-   Returns the operating system release. e.g. "2.2.16-3"
+   Returns the operating system release, e.g. "2.2.16-3"
     
 Uname.uname
    Returns a struct of type UnameStruct that contains sysname, nodename,
-   machine, version, and release.  On Solaris, it will also include 
-   architecture and platform.  On HP-UX, it will also include id_number.
+   machine, version, and release. On Solaris, it will also include 
+   architecture and platform. On HP-UX, it will also include id_number.
     
    MS Windows - there are many more, and different, fields in the struct.
    Please see the MSDN documenation on the Win32_OperatingSystem WMI class
@@ -57,10 +57,10 @@ Uname.uname
     
 == Solaris Only
 Uname.architecture
-   Returns the instruction set architecture.  e.g. "sparc"
+   Returns the instruction set architecture, e.g. "sparc"
     
 Uname.platform
-   Returns the platform identifier.  e.g. "SUNW,Sun-Blade-100"
+   Returns the platform identifier, e.g. "SUNW,Sun-Blade-100"
     
 Uname.isa_list
    Returns a space separated string containing a list of all variant
@@ -85,15 +85,15 @@ Uname.dhcp_cache
     
 == BSD Platforms Only (including OS X)
 Uname.model
-   Returns the model type,  e.g. "PowerBook5,1"
+   Returns the model type, e.g. "PowerBook5,1"
     
 == HP-UX Only
 Uname.id
-   Returns the id number, e.g. 234233587.  This is a String, not a Fixnum.
+   Returns the id number, e.g. 234233587. This is a String, not a Fixnum.
 
 == Notes
    Not all of the information that you might be used to seeing with
-   a 'uname -a' is available.  This may be added in future releases,
+   a 'uname -a' is available. This may be added in future releases,
    but since different implementations provide different information
    (via different header files) it will be a bit of a pain.
 
@@ -102,17 +102,17 @@ Uname.id
    UnameStruct members mean.
 
 == Known Bugs
-   None that I'm aware of.  Please log any bugs on the project page at
-   http://www.rubyforge.org/projects/sysutils.
+   None that I'm aware of. Please log any bugs on the project page at
+   https://github.com/djberg96/sys-uname 
 	
 == Future Plans
    Add additional info for Linux, Solaris, BSD.
 
 == License
-   Artistic 2.0
+   Apache-2.0
 
 == Copyright
-   (C) 2002-2013 Daniel J. Berger
+   (C) 2002-2019 Daniel J. Berger
    All Rights Reserved
 
 == Warranty
