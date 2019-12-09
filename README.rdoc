@@ -1,6 +1,6 @@
 == Description
-A Ruby interface for getting operating system information. The name comes
-from the Unix 'uname' command, but this library works on MS Windows as well.
+A cross-platform Ruby interface for getting operating system information. The name
+comes from the Unix 'uname' command, but this library works on MS Windows as well.
 
 == Prerequisites
 ffi 1.0 or later
