@@ -2,7 +2,7 @@ require 'rubygems'
 
 Gem::Specification.new do |spec|
   spec.name       = 'sys-uname'
-  spec.version    = '1.1.0'
+  spec.version    = '1.1.1'
   spec.author     = 'Daniel J. Berger'
   spec.email      = 'djberg96@gmail.com'
   spec.homepage   = 'http://github.com/djberg96/sys-uname'
@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.test_files = Dir['test/test*.rb']
   spec.cert_chain = ['certs/djberg96_pub.pem']
 
-  spec.extra_rdoc_files  = ['CHANGES', 'README', 'MANIFEST', 'doc/uname.txt']
+  spec.extra_rdoc_files = Dir['*.rdoc']
 
   spec.add_dependency('ffi', '>= 1.0.0')
 
