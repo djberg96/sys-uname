@@ -22,21 +22,21 @@ RSpec.describe Sys::Uname do
     expect(described_class.machine.size).to be > 0
   end
 
+  example "version singleton method works as expected" do
+    expect(described_class).to respond_to(:version)
+    expect{ described_class.version }.not_to raise_error
+    expect(described_class.version).to be_kind_of(String)
+    expect(described_class.version.size).to be > 0
+  end
+
+  example "nodename singleton method works as expected" do
+    expect(described_class).to respond_to(:nodename)
+    expect{ described_class.nodename }.not_to raise_error
+    expect(described_class.nodename).to be_kind_of(String)
+    expect(described_class.nodename.size).to be > 0
+  end
+
 =begin
-  test "version singleton method works as expected" do
-    assert_respond_to(described_class, :version)
-    assert_nothing_raised{ described_class.version }
-    assert_kind_of(String, described_class.version)
-    assert_true(described_class.version.size > 0)
-  end
-
-  test "nodename singleton method works as expected" do
-    assert_respond_to(described_class, :nodename)
-    assert_nothing_raised{ described_class.nodename }
-    assert_kind_of(String, described_class.nodename)
-    assert_true(described_class.nodename.size > 0)
-  end
-
   test "release singleton method works as expected" do
     assert_respond_to(described_class, :release)
     assert_nothing_raised{ described_class.release }
