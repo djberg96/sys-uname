@@ -48,4 +48,4 @@ I may dump the "Uname" portion of this library, and rename the project
 to just sys-platform.
 
 == Documentation
-For more details, see the 'uname.txt' file under the 'doc' directory. 
+For more details, see the 'uname.rdoc' file under the 'doc' directory. 
