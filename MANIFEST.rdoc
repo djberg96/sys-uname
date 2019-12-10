@@ -1,6 +1,6 @@
-* MANIFEST
-* CHANGES
-* README
+* CHANGES.rdoc
+* MANIFEST.rdoc
+* README.rdoc
 * Rakefile
 * sys-uname.gemspec
 * certs/djberg96_pub.pem
