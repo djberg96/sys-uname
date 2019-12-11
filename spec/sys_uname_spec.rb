@@ -10,110 +10,113 @@ require 'rbconfig'
 RSpec.describe Sys::Uname do
   let(:os) { RbConfig::CONFIG['host_os'] }
 
-  example "version constant is set to expected value" do
-    expect(Sys::Uname::VERSION).to eql('1.1.1')
-    expect(Sys::Uname::VERSION.frozen?).to be(true)
-  end
+  context "singleton methods" do
+    example "version constant is set to expected value" do
+      expect(Sys::Uname::VERSION).to eql('1.1.1')
+      expect(Sys::Uname::VERSION.frozen?).to be(true)
+    end
 
-  example "machine singleton method works as expected" do
-    expect(described_class).to respond_to(:machine)
-    expect{ described_class.machine }.not_to raise_error
-    expect(described_class.machine).to be_kind_of(String)
-    expect(described_class.machine.size).to be > 0
-  end
+    example "machine singleton method works as expected" do
+      expect(described_class).to respond_to(:machine)
+      expect{ described_class.machine }.not_to raise_error
+      expect(described_class.machine).to be_kind_of(String)
+      expect(described_class.machine.size).to be > 0
+    end
 
-  example "version singleton method works as expected" do
-    expect(described_class).to respond_to(:version)
-    expect{ described_class.version }.not_to raise_error
-    expect(described_class.version).to be_kind_of(String)
-    expect(described_class.version.size).to be > 0
-  end
+    example "version singleton method works as expected" do
+      expect(described_class).to respond_to(:version)
+      expect{ described_class.version }.not_to raise_error
+      expect(described_class.version).to be_kind_of(String)
+      expect(described_class.version.size).to be > 0
+    end
 
-  example "nodename singleton method works as expected" do
-    expect(described_class).to respond_to(:nodename)
-    expect{ described_class.nodename }.not_to raise_error
-    expect(described_class.nodename).to be_kind_of(String)
-    expect(described_class.nodename.size).to be > 0
-  end
+    example "nodename singleton method works as expected" do
+      expect(described_class).to respond_to(:nodename)
+      expect{ described_class.nodename }.not_to raise_error
+      expect(described_class.nodename).to be_kind_of(String)
+      expect(described_class.nodename.size).to be > 0
+    end
+
+    example "release singleton method works as expected" do
+      expect(described_class).to respond_to(:release)
+      expect{ described_class.release }.not_to raise_error
+      expect(described_class.release).to be_kind_of(String)
+      expect(described_class.release.size).to be > 0
+    end
 
 =begin
-  test "release singleton method works as expected" do
-    assert_respond_to(described_class, :release)
-    assert_nothing_raised{ described_class.release }
-    assert_kind_of(String, described_class.release)
-    assert_true(described_class.release.size > 0)
-  end
+    test "sysname singleton method works as expected" do
+      assert_respond_to(described_class, :sysname)
+      assert_nothing_raised{ described_class.sysname }
+      assert_kind_of(String, described_class.sysname)
+      assert_true(described_class.sysname.size > 0)
+    end
 
-  test "sysname singleton method works as expected" do
-    assert_respond_to(described_class, :sysname)
-    assert_nothing_raised{ described_class.sysname }
-    assert_kind_of(String, described_class.sysname)
-    assert_true(described_class.sysname.size > 0)
-  end
+    test "architecture singleton method works as expected on solaris" do
+      omit_unless(@@host_os =~ /sunos|solaris/i, "Solaris only")
+      assert_respond_to(described_class, :architecture)
+      assert_nothing_raised{ described_class.architecture }
+      assert_kind_of(String, described_class.architecture)
+    end
 
-  test "architecture singleton method works as expected on solaris" do
-    omit_unless(@@host_os =~ /sunos|solaris/i, "Solaris only")
-    assert_respond_to(described_class, :architecture)
-    assert_nothing_raised{ described_class.architecture }
-    assert_kind_of(String, described_class.architecture)
-  end
+    test "platform singleton method works as expected on solaris" do
+      omit_unless(@@host_os =~ /sunos|solaris/i, "Solaris only")
+      assert_respond_to(described_class, :platform)
+      assert_nothing_raised{ described_class.platform }
+      assert_kind_of(String, described_class.platform)
+    end
 
-  test "platform singleton method works as expected on solaris" do
-    omit_unless(@@host_os =~ /sunos|solaris/i, "Solaris only")
-    assert_respond_to(described_class, :platform)
-    assert_nothing_raised{ described_class.platform }
-    assert_kind_of(String, described_class.platform)
-  end
+    test "isa_list singleton method works as expected on solaris" do
+      omit_unless(@@host_os =~ /sunos|solaris/i, "Solaris only")
+      assert_respond_to(described_class, :isa_list)
+      assert_nothing_raised{ described_class.isa_list }
+      assert_kind_of(String, described_class.isa_list)
+    end
 
-  test "isa_list singleton method works as expected on solaris" do
-    omit_unless(@@host_os =~ /sunos|solaris/i, "Solaris only")
-    assert_respond_to(described_class, :isa_list)
-    assert_nothing_raised{ described_class.isa_list }
-    assert_kind_of(String, described_class.isa_list)
-  end
+    test "hw_provider singleton method works as expected on solaris" do
+      omit_unless(@@host_os =~ /sunos|solaris/i, "Solaris only")
+      assert_respond_to(described_class,:hw_provider)
+      assert_nothing_raised{ described_class.hw_provider }
+      assert_kind_of(String, described_class.hw_provider)
+    end
 
-  test "hw_provider singleton method works as expected on solaris" do
-    omit_unless(@@host_os =~ /sunos|solaris/i, "Solaris only")
-    assert_respond_to(described_class,:hw_provider)
-    assert_nothing_raised{ described_class.hw_provider }
-    assert_kind_of(String, described_class.hw_provider)
-  end
+    test "hw_serial singleton method works as expected on solaris" do
+      omit_unless(@@host_os =~ /sunos|solaris/i, "Solaris only")
+      assert_respond_to(described_class, :hw_serial)
+      assert_nothing_raised{ described_class.hw_serial }
+      assert_kind_of(Integer, described_class.hw_serial)
+    end
 
-  test "hw_serial singleton method works as expected on solaris" do
-    omit_unless(@@host_os =~ /sunos|solaris/i, "Solaris only")
-    assert_respond_to(described_class, :hw_serial)
-    assert_nothing_raised{ described_class.hw_serial }
-    assert_kind_of(Integer, described_class.hw_serial)
-  end
+    test "srpc_domain singleton method works as expected on solaris" do
+      omit_unless(@@host_os =~ /sunos|solaris/i, "Solaris only")
+      assert_respond_to(described_class, :srpc_domain)
+      assert_nothing_raised{ described_class.srpc_domain }
+      assert_kind_of(String, described_class.srpc_domain)
+    end
 
-  test "srpc_domain singleton method works as expected on solaris" do
-    omit_unless(@@host_os =~ /sunos|solaris/i, "Solaris only")
-    assert_respond_to(described_class, :srpc_domain)
-    assert_nothing_raised{ described_class.srpc_domain }
-    assert_kind_of(String, described_class.srpc_domain)
-  end
+    test "dhcp_cache singleton method works as expected on solaris" do
+      omit_unless(@@host_os =~ /sunos|solaris/i, "Solaris only")
+      assert_respond_to(described_class, :dhcp_cache)
+      assert_nothing_raised{ described_class.dhcp_cache }
+      assert_kind_of(String, described_class.dhcp_cache)
+    end
 
-  test "dhcp_cache singleton method works as expected on solaris" do
-    omit_unless(@@host_os =~ /sunos|solaris/i, "Solaris only")
-    assert_respond_to(described_class, :dhcp_cache)
-    assert_nothing_raised{ described_class.dhcp_cache }
-    assert_kind_of(String, described_class.dhcp_cache)
-  end
+    test "model singleton method works as expected on BSD and Darwin" do
+      omit_unless(@@host_os =~ /darwin|powerpc|bsd|mach/i, "BSD/Darwin only")
+      assert_respond_to(described_class, :model)
+      assert_nothing_raised{ described_class.model }
+      assert_kind_of(String, described_class.model)
+    end
 
-  test "model singleton method works as expected on BSD and Darwin" do
-    omit_unless(@@host_os =~ /darwin|powerpc|bsd|mach/i, "BSD/Darwin only")
-    assert_respond_to(described_class, :model)
-    assert_nothing_raised{ described_class.model }
-    assert_kind_of(String, described_class.model)
-  end
+    test "id_number singleton method works as expected on HP-UX" do
+      omit_unless(@@host_os =~ /hpux/i, "HP-UX only")
+      assert_respond_to(described_class, :id_number)
+      assert_nothing_raised{ described_class.id_number }
+      assert_kind_of(String, described_class.id_number)
+    end
+=end
 
-  test "id_number singleton method works as expected on HP-UX" do
-    omit_unless(@@host_os =~ /hpux/i, "HP-UX only")
-    assert_respond_to(described_class, :id_number)
-    assert_nothing_raised{ described_class.id_number }
-    assert_kind_of(String, described_class.id_number)
-  end
-
+=begin
   test "uname struct contains expected members based on platform" do
     members = %w/sysname nodename machine version release/
     case RbConfig::CONFIG['host_os']
@@ -458,6 +461,6 @@ RSpec.describe Sys::Uname do
       assert_nothing_raised{ described_class.uname.windows_directory}
       assert_kind_of(String, described_class.uname.windows_directory)
     end
-  end
 =end
+  end
 end
