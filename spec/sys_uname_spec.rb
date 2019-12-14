@@ -164,301 +164,300 @@ RSpec.describe Sys::Uname do
       expect(methods).not_to include('sysinfo')
     end
   end
+
+  context "instance methods for MS Windows", :if => File::ALT_SEPARATOR do
+    example "boot_device" do
+      expect{ described_class.uname.boot_device }.not_to raise_error
+      expect(described_class.uname.boot_device).to be_kind_of(String)
+    end
+
+    example "build_number" do
+      expect{ described_class.uname.build_number }.not_to raise_rror
+      expect(described_class.uname.build_number).to be_kind_of(String)
+    end
+
 =begin
-
-  # The following tests are win32 only
-  if File::ALT_SEPARATOR
-    def test_boot_device
-      assert_nothing_raised{ described_class.uname.boot_device }
-      assert_kind_of(String, described_class.uname.boot_device)
+    example "build_type" do
+      expect{ described_class.uname.build_type }
+      expect(String, described_class.uname.build_type)
     end
 
-    def test_build_number
-      assert_nothing_raised{ described_class.uname.build_number }
-      assert_kind_of(String, described_class.uname.build_number)
+    example "caption" do
+      expect{ described_class.uname.caption }
+      expect(String, described_class.uname.caption)
     end
 
-    def test_build_type
-      assert_nothing_raised{ described_class.uname.build_type }
-      assert_kind_of(String, described_class.uname.build_type)
+    example "code_set" do
+      expect{ described_class.uname.code_set }
+      expect(String, described_class.uname.code_set)
     end
 
-    def test_caption
-      assert_nothing_raised{ described_class.uname.caption }
-      assert_kind_of(String, described_class.uname.caption)
+    example "country_code" do
+      expect{ described_class.uname.country_code }
+      expect(String, described_class.uname.country_code)
     end
 
-    def test_code_set
-      assert_nothing_raised{ described_class.uname.code_set }
-      assert_kind_of(String, described_class.uname.code_set)
+    example "creation_class_name" do
+      expect{ described_class.uname.creation_class_name }
+      expect(String, described_class.uname.creation_class_name)
     end
 
-    def test_country_code
-      assert_nothing_raised{ described_class.uname.country_code }
-      assert_kind_of(String, described_class.uname.country_code)
+    example "cscreation_class_name" do
+      expect{ described_class.uname.cscreation_class_name }
+      expect(String, described_class.uname.cscreation_class_name)
     end
 
-    def test_creation_class_name
-      assert_nothing_raised{ described_class.uname.creation_class_name }
-      assert_kind_of(String, described_class.uname.creation_class_name)
+    example "csd_version" do
+      expect{ described_class.uname.csd_version }
+      expect([String, NilClass], described_class.uname.csd_version)
     end
 
-    def test_cscreation_class_name
-      assert_nothing_raised{ described_class.uname.cscreation_class_name }
-      assert_kind_of(String, described_class.uname.cscreation_class_name)
+    example "cs_name" do
+      expect{ described_class.uname.cs_name }
+      expect(String, described_class.uname.cs_name)
     end
 
-    def test_csd_version
-      assert_nothing_raised{ described_class.uname.csd_version }
-      assert_kind_of([String, NilClass], described_class.uname.csd_version)
+    example "current_time_zone" do
+      expect{ described_class.uname.current_time_zone }
+      expect(Fixnum, described_class.uname.current_time_zone)
     end
 
-    def test_cs_name
-      assert_nothing_raised{ described_class.uname.cs_name }
-      assert_kind_of(String, described_class.uname.cs_name)
-    end
-
-    def test_current_time_zone
-      assert_nothing_raised{ described_class.uname.current_time_zone }
-      assert_kind_of(Fixnum, described_class.uname.current_time_zone)
-    end
-
-    def test_debug
-      assert_nothing_raised{ described_class.uname.debug }
+    example "debug" do
+      expect{ described_class.uname.debug }
       assert_boolean(described_class.uname.debug)
     end
 
-    def test_description
-      assert_nothing_raised{ described_class.uname.description }
-      assert_kind_of(String, described_class.uname.description)
+    example "description" do
+      expect{ described_class.uname.description }
+      expect(String, described_class.uname.description)
     end
 
-    def test_distributed
-      assert_nothing_raised{ described_class.uname.distributed }
+    example "distributed" do
+      expect{ described_class.uname.distributed }
       assert_boolean(described_class.uname.distributed)
     end
 
     # Not yet supported - WinXP or later only
-    #def test_encryption_level
-    #   assert_nothing_raised{ described_class.uname.encryption_level }
-    #   assert_kind_of(Fixnum,described_class.uname.encryption_level)
+    #example "encryption_level
+    #   expect{ described_class.uname.encryption_level }
+    #   expect(Fixnum,described_class.uname.encryption_level)
     #end
 
-    def test_foreground_application_boost
-      assert_nothing_raised{ described_class.uname.foreground_application_boost }
-      assert_kind_of(Fixnum, described_class.uname.foreground_application_boost)
+    example "foreground_application_boost" do
+      expect{ described_class.uname.foreground_application_boost }
+      expect(Fixnum, described_class.uname.foreground_application_boost)
     end
 
-    def test_free_physical_memory
-      assert_nothing_raised{ described_class.uname.free_physical_memory }
-      assert_kind_of(Fixnum, described_class.uname.free_physical_memory)
+    example "free_physical_memory" do
+      expect{ described_class.uname.free_physical_memory }
+      expect(Fixnum, described_class.uname.free_physical_memory)
     end
 
-    def test_free_space_in_paging_files
-      assert_nothing_raised{ described_class.uname.free_space_in_paging_files }
-      assert_kind_of(Fixnum, described_class.uname.free_space_in_paging_files)
+    example "free_space_in_paging_files" do
+      expect{ described_class.uname.free_space_in_paging_files }
+      expect(Fixnum, described_class.uname.free_space_in_paging_files)
     end
 
-    def test_free_virtual_memory
-      assert_nothing_raised{ described_class.uname.free_virtual_memory}
-      assert_kind_of(Fixnum, described_class.uname.free_virtual_memory)
+    example "free_virtual_memory" do
+      expect{ described_class.uname.free_virtual_memory}
+      expect(Fixnum, described_class.uname.free_virtual_memory)
     end
 
-    def test_install_date
-      assert_nothing_raised{ described_class.uname.install_date}
-      assert_kind_of(Time, described_class.uname.install_date)
+    example "install_date" do
+      expect{ described_class.uname.install_date}
+      expect(Time, described_class.uname.install_date)
     end
 
     # Not yet supported - WinXP or later only
-    #def test_large_system_cache
-    #   assert_nothing_raised{ described_class.uname.large_system_cache}
-    #   assert_kind_of(Time,described_class.uname.large_system_cache)
+    #example "large_system_cache
+    #   expect{ described_class.uname.large_system_cache}
+    #   expect(Time,described_class.uname.large_system_cache)
     #end
 
-    def test_last_bootup_time
-      assert_nothing_raised{ described_class.uname.last_bootup_time}
-      assert_kind_of(Time, described_class.uname.last_bootup_time)
+    example "last_bootup_time" do
+      expect{ described_class.uname.last_bootup_time}
+      expect(Time, described_class.uname.last_bootup_time)
     end
 
-    def test_local_date_time
-      assert_nothing_raised{ described_class.uname.local_date_time}
-      assert_kind_of(Time, described_class.uname.local_date_time)
+    example "local_date_time" do
+      expect{ described_class.uname.local_date_time}
+      expect(Time, described_class.uname.local_date_time)
     end
 
-    def test_locale
-      assert_nothing_raised{ described_class.uname.locale}
-      assert_kind_of(String, described_class.uname.locale)
+    example "locale" do
+      expect{ described_class.uname.locale}
+      expect(String, described_class.uname.locale)
     end
 
-    def test_manufacturer
-      assert_nothing_raised{ described_class.uname.manufacturer}
-      assert_kind_of(String, described_class.uname.manufacturer)
+    example "manufacturer" do
+      expect{ described_class.uname.manufacturer}
+      expect(String, described_class.uname.manufacturer)
     end
 
-    def test_max_number_of_processes
-      assert_nothing_raised{ described_class.uname.max_number_of_processes}
-      assert_kind_of(Fixnum, described_class.uname.max_number_of_processes)
+    example "max_number_of_processes" do
+      expect{ described_class.uname.max_number_of_processes}
+      expect(Fixnum, described_class.uname.max_number_of_processes)
     end
 
-    def test_max_process_memory_size
-      assert_nothing_raised{ described_class.uname.max_process_memory_size}
-      assert_kind_of(Integer, described_class.uname.max_process_memory_size)
+    example "max_process_memory_size" do
+      expect{ described_class.uname.max_process_memory_size}
+      expect(Integer, described_class.uname.max_process_memory_size)
     end
 
-    def test_name
-      assert_nothing_raised{ described_class.uname.name}
-      assert_kind_of(String, described_class.uname.name)
+    example "name" do
+      expect{ described_class.uname.name}
+      expect(String, described_class.uname.name)
     end
 
     # Fails on Win XP Pro - returns nil - reason unknown
-    #def test_number_of_licensed_users
-    #   assert_nothing_raised{ described_class.uname.number_of_licensed_users}
-    #   assert_kind_of(Fixnum,described_class.uname.number_of_licensed_users)
+    #example "number_of_licensed_users
+    #   expect{ described_class.uname.number_of_licensed_users}
+    #   expect(Fixnum,described_class.uname.number_of_licensed_users)
     #end
 
-    def test_number_of_processes
-      assert_nothing_raised{ described_class.uname.number_of_processes}
-      assert_kind_of(Fixnum, described_class.uname.number_of_processes)
+    example "number_of_processes" do
+      expect{ described_class.uname.number_of_processes}
+      expect(Fixnum, described_class.uname.number_of_processes)
     end
 
-    def test_number_of_users
-      assert_nothing_raised{ described_class.uname.number_of_users}
-      assert_kind_of(Fixnum, described_class.uname.number_of_users)
+    example "number_of_users" do
+      expect{ described_class.uname.number_of_users}
+      expect(Fixnum, described_class.uname.number_of_users)
     end
 
-    def test_organization
-      assert_nothing_raised{ described_class.uname.organization}
-      assert_kind_of(String, described_class.uname.organization)
+    example "organization" do
+      expect{ described_class.uname.organization}
+      expect(String, described_class.uname.organization)
     end
 
     # Eventually replace Fixnum with a string (?)
-    def test_os_language
-      assert_nothing_raised{ described_class.uname.os_language}
-      assert_kind_of(Fixnum, described_class.uname.os_language)
+    example "os_language" do
+      expect{ described_class.uname.os_language}
+      expect(Fixnum, described_class.uname.os_language)
     end
 
     # Fails on Win XP Pro - returns nil - reason unknown
-    #def test_os_product_suite
-    #   assert_nothing_raised{ described_class.uname.os_product_suite}
-    #   assert_kind_of(Fixnum,described_class.uname.os_product_suite)
+    #example "os_product_suite
+    #   expect{ described_class.uname.os_product_suite}
+    #   expect(Fixnum,described_class.uname.os_product_suite)
     #end
 
-    def test_os_type
-       assert_nothing_raised{ described_class.uname.os_type}
-       assert_kind_of(Fixnum, described_class.uname.os_type)
+    example "os_type" do
+       expect{ described_class.uname.os_type}
+       expect(Fixnum, described_class.uname.os_type)
     end
 
     # Fails?
-    #def test_other_type_restriction
-    #   assert_nothing_raised{ described_class.uname.other_type_restriction}
-    #   assert_kind_of(Fixnum,described_class.uname.other_type_restriction)
+    #example "other_type_restriction
+    #   expect{ described_class.uname.other_type_restriction}
+    #   expect(Fixnum,described_class.uname.other_type_restriction)
     #end
 
     # Might be nil
-    def test_plus_product_id
-      assert_nothing_raised{ described_class.uname.plus_product_id }
+    example "plus_product_id" do
+      expect{ described_class.uname.plus_product_id }
     end
 
     # Might be nil
-    def test_plus_version_number
-      assert_nothing_raised{ described_class.uname.plus_version_number}
+    example "plus_version_number" do
+      expect{ described_class.uname.plus_version_number}
     end
 
-    def test_primary
-      assert_nothing_raised{ described_class.uname.primary}
+    example "primary" do
+      expect{ described_class.uname.primary}
       assert_boolean(described_class.uname.primary)
     end
 
     # Not yet supported - WinXP or later only
-    # def test_product_type
-    #   assert_nothing_raised{ described_class.uname.product_type}
-    #   assert_kind_of(Fixnum,described_class.uname.product_type)
+    # example "product_type
+    #   expect{ described_class.uname.product_type}
+    #   expect(Fixnum,described_class.uname.product_type)
     # end
 
-    def test_quantum_length
-      assert_nothing_raised{ described_class.uname.quantum_length}
-      assert_kind_of([Fixnum, NilClass], described_class.uname.quantum_length)
+    example "quantum_length" do
+      expect{ described_class.uname.quantum_length}
+      expect([Fixnum, NilClass], described_class.uname.quantum_length)
     end
 
-    def test_quantum_type
-      assert_nothing_raised{ described_class.uname.quantum_type}
-      assert_kind_of([Fixnum, NilClass], described_class.uname.quantum_type)
+    example "quantum_type" do
+      expect{ described_class.uname.quantum_type}
+      expect([Fixnum, NilClass], described_class.uname.quantum_type)
     end
 
-    def test_registered_user
-      assert_nothing_raised{ described_class.uname.registered_user}
-      assert_kind_of(String, described_class.uname.registered_user)
+    example "registered_user" do
+      expect{ described_class.uname.registered_user}
+      expect(String, described_class.uname.registered_user)
     end
 
-    def test_serial_number
-      assert_nothing_raised{ described_class.uname.serial_number}
-      assert_kind_of(String, described_class.uname.serial_number)
-    end
-
-    # This is nil on NT 4
-    def test_service_pack_major_version
-      assert_nothing_raised{ described_class.uname.service_pack_major_version}
-      assert_kind_of(Fixnum, described_class.uname.service_pack_major_version)
+    example "serial_number" do
+      expect{ described_class.uname.serial_number}
+      expect(String, described_class.uname.serial_number)
     end
 
     # This is nil on NT 4
-    def test_service_pack_minor_version
-      assert_nothing_raised{ described_class.uname.service_pack_minor_version}
-      assert_kind_of(Fixnum, described_class.uname.service_pack_minor_version)
+    example "service_pack_major_version" do
+      expect{ described_class.uname.service_pack_major_version}
+      expect(Fixnum, described_class.uname.service_pack_major_version)
     end
 
-    def test_status
-      assert_nothing_raised{ described_class.uname.status}
-      assert_kind_of(String, described_class.uname.status)
+    # This is nil on NT 4
+    example "service_pack_minor_version" do
+      expect{ described_class.uname.service_pack_minor_version}
+      expect(Fixnum, described_class.uname.service_pack_minor_version)
+    end
+
+    example "status" do
+      expect{ described_class.uname.status}
+      expect(String, described_class.uname.status)
     end
 
     # Not yet supported - WinXP or later only
-    #def test_suite_mask
-    #   assert_nothing_raised{ described_class.uname.suite_mask}
-    #   assert_kind_of(String,described_class.uname.suite_mask)
+    #example "suite_mask
+    #   expect{ described_class.uname.suite_mask}
+    #   expect(String,described_class.uname.suite_mask)
     #end
 
-    def test_system_device
-      assert_nothing_raised{ described_class.uname.system_device}
-      assert_kind_of(String, described_class.uname.system_device)
+    example "system_device" do
+      expect{ described_class.uname.system_device}
+      expect(String, described_class.uname.system_device)
     end
 
-    def test_system_directory
-      assert_nothing_raised{ described_class.uname.system_directory}
-      assert_kind_of(String, described_class.uname.system_directory)
+    example "system_directory" do
+      expect{ described_class.uname.system_directory}
+      expect(String, described_class.uname.system_directory)
     end
 
     # Not yet supported - WinXP or later only
-    #def test_system_drive
-    #   assert_nothing_raised{ described_class.uname.system_drive}
-    #   assert_kind_of(String,described_class.uname.system_drive)
+    #example "system_drive
+    #   expect{ described_class.uname.system_drive}
+    #   expect(String,described_class.uname.system_drive)
     #end
 
     # Fails on Win XP Pro - returns nil - reason unknown
-    #def test_total_swap_space_size
-    #   assert_nothing_raised{ described_class.uname.total_swap_space_size}
-    #   assert_kind_of(Fixnum,described_class.uname.total_swap_space_size)
+    #example "total_swap_space_size
+    #   expect{ described_class.uname.total_swap_space_size}
+    #   expect(Fixnum,described_class.uname.total_swap_space_size)
     #end
 
-    def test_total_virtual_memory_size
-      assert_nothing_raised{ described_class.uname.total_virtual_memory_size}
-      assert_kind_of(Fixnum, described_class.uname.total_virtual_memory_size)
+    example "total_virtual_memory_size" do
+      expect{ described_class.uname.total_virtual_memory_size}
+      expect(Fixnum, described_class.uname.total_virtual_memory_size)
     end
 
-    def test_total_visible_memory_size
-      assert_nothing_raised{ described_class.uname.total_visible_memory_size}
-      assert_kind_of(Fixnum, described_class.uname.total_visible_memory_size)
+    example "total_visible_memory_size" do
+      expect{ described_class.uname.total_visible_memory_size}
+      expect(Fixnum, described_class.uname.total_visible_memory_size)
     end
 
-    def test_version
-      assert_nothing_raised{ described_class.uname.version}
-      assert_kind_of(String, described_class.uname.version)
+    example "version" do
+      expect{ described_class.uname.version}
+      expect(String, described_class.uname.version)
     end
 
-    def test_windows_directory
-      assert_nothing_raised{ described_class.uname.windows_directory}
-      assert_kind_of(String, described_class.uname.windows_directory)
+    example "windows_directory" do
+      expect{ described_class.uname.windows_directory}
+      expect(String, described_class.uname.windows_directory)
     end
-  end
 =end
+  end
 end
