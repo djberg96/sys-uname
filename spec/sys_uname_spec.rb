@@ -110,57 +110,61 @@ RSpec.describe Sys::Uname do
     end
   end
 
-=begin
-  test "uname struct contains expected members based on platform" do
-    members = %w/sysname nodename machine version release/
-    case RbConfig::CONFIG['host_os']
-      when /linux/i
-        members.push('domainname')
-      when /sunos|solaris/i
-        members.push(
-          'architecture', 'platform', 'hw_serial', 'hw_provider',
-          'srpc_domain', 'isa_list', 'dhcp_cache'
-        )
-      when /powerpc|darwin|bsd/i
-        members.push('model')
-      when /hpux/i
-        members.push('id')
-      when /win32|mingw|cygwin|dos|windows/i
-        members = %w[
-          boot_device build_number build_type caption code_set country_code
-          creation_class_name cscreation_class_name csd_version cs_name
-          current_time_zone debug description distributed
-          foreground_application_boost free_physical_memory
-          free_space_in_paging_files free_virtual_memory
-          install_date last_bootup_time local_date_time locale
-          manufacturer max_number_of_processes max_process_memory_size
-          name number_of_licensed_users number_of_processes
-          number_of_users organization os_language os_product_suite
-          os_type other_type_description plus_product_id
-          plus_version_number primary quantum_length quantum_type
-          registered_user serial_number service_pack_major_version
-          service_pack_minor_version size_stored_in_paging_files
-          status system_device system_directory total_swap_space_size
-          total_virtual_memory_size total_visible_memory_size version
-          windows_directory
-        ]
+  context "uname struct" do
+    example "uname struct contains expected members based on platform" do
+      members = %w/sysname nodename machine version release/
+      case RbConfig::CONFIG['host_os']
+        when /linux/i
+          members.push('domainname')
+        when /sunos|solaris/i
+          members.push(
+            'architecture', 'platform', 'hw_serial', 'hw_provider',
+            'srpc_domain', 'isa_list', 'dhcp_cache'
+          )
+        when /powerpc|darwin|bsd/i
+          members.push('model')
+        when /hpux/i
+          members.push('id')
+        when /win32|mingw|cygwin|dos|windows/i
+          members = %w[
+            boot_device build_number build_type caption code_set country_code
+            creation_class_name cscreation_class_name csd_version cs_name
+            current_time_zone debug description distributed
+            foreground_application_boost free_physical_memory
+            free_space_in_paging_files free_virtual_memory
+            install_date last_bootup_time local_date_time locale
+            manufacturer max_number_of_processes max_process_memory_size
+            name number_of_licensed_users number_of_processes
+            number_of_users organization os_language os_product_suite
+            os_type other_type_description plus_product_id
+            plus_version_number primary quantum_length quantum_type
+            registered_user serial_number service_pack_major_version
+            service_pack_minor_version size_stored_in_paging_files
+            status system_device system_directory total_swap_space_size
+            total_virtual_memory_size total_visible_memory_size version
+            windows_directory
+          ]
+      end
+
+      members.map!{ |e| e.to_sym } if RUBY_VERSION.to_f >= 1.9
+
+      expect{ described_class.uname }.not_to raise_error
+      expect(described_class.uname).to be_kind_of(Struct)
+      expect(described_class.uname.members.sort).to eql(members.sort)
     end
-
-    members.map!{ |e| e.to_sym } if RUBY_VERSION.to_f >= 1.9
-
-    assert_nothing_raised{ described_class.uname }
-    assert_kind_of(Struct, described_class.uname)
-    assert_equal(members.sort, described_class.uname.members.sort)
   end
 
-  test "ffi and internal functions are not public" do
-    methods = described_class.methods(false).map{ |e| e.to_s }
-    assert_false(methods.include?('get_model'))
-    assert_false(methods.include?('get_si'))
-    assert_false(methods.include?('uname_c'))
-    assert_false(methods.include?('sysctl'))
-    assert_false(methods.include?('sysinfo'))
+  context "ffi" do
+    example "ffi and internal functions are not public" do
+      methods = described_class.methods(false).map{ |e| e.to_s }
+      expect(methods).not_to include('get_model')
+      expect(methods).not_to include('get_si')
+      expect(methods).not_to include('uname_c')
+      expect(methods).not_to include('sysctl')
+      expect(methods).not_to include('sysinfo')
+    end
   end
+=begin
 
   # The following tests are win32 only
   if File::ALT_SEPARATOR
