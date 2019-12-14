@@ -8,12 +8,6 @@ require 'sys/uname'
 require 'rbconfig'
 
 RSpec.describe Sys::Uname do
-  before(:all) do
-    @host_os = RbConfig::CONFIG['host_os']
-    @solaris = /sunos|solaris/.match(@os)
-    @darwin  = /darwin|apple|mac/.match(@os)
-  end
-
   context "universal singleton methods" do
     example "version constant is set to expected value" do
       expect(Sys::Uname::VERSION).to eql('1.1.1')
@@ -56,7 +50,7 @@ RSpec.describe Sys::Uname do
     end
   end
 
-  context "singleton methods for Solaris only", :if => @solaris do
+  context "singleton methods for Solaris only", :if => RbConfig::CONFIG['host_os'] =~ /sunos|solaris/i do
     example "architecture singleton method works as expected on solaris" do
       expect(described_class).to respond_to(:architecture)
       expect{ described_class.architecture }.not_to raise_error
@@ -100,21 +94,21 @@ RSpec.describe Sys::Uname do
     end
   end
 
-=begin
-    test "model singleton method works as expected on BSD and Darwin" do
-      omit_unless(@@host_os =~ /darwin|powerpc|bsd|mach/i, "BSD/Darwin only")
-      assert_respond_to(described_class, :model)
-      assert_nothing_raised{ described_class.model }
-      assert_kind_of(String, described_class.model)
+  context "singleton methods for BSD and Darwin only", :if => RbConfig::CONFIG['host_os'] =~ /darwin|bsd/i do
+    example "model singleton method works as expected on BSD and Darwin" do
+      expect(described_class).to respond_to(:model)
+      expect{ described_class.model }.not_to raise_error
+      expect(described_class.model).to be_kind_of(String)
     end
+  end
 
-    test "id_number singleton method works as expected on HP-UX" do
-      omit_unless(@@host_os =~ /hpux/i, "HP-UX only")
-      assert_respond_to(described_class, :id_number)
-      assert_nothing_raised{ described_class.id_number }
-      assert_kind_of(String, described_class.id_number)
+  context "singleton methods for HP-UX only", :if => RbConfig::CONFIG['host_os'] =~ /hpux/i do
+    example "id_number singleton method works as expected on HP-UX" do
+      expect(described_class).to respond_to(:id_number)
+      expect{ described_class.id_number }.not_to raise_error
+      expect(described_class.id_number).to be_kind_of(String)
     end
-=end
+  end
 
 =begin
   test "uname struct contains expected members based on platform" do
