@@ -40,6 +40,7 @@ module Sys
       free_space_in_paging_files
       free_virtual_memory
       install_date
+      large_system_cache
       last_bootup_time
       local_date_time
       locale
@@ -450,6 +451,7 @@ module Sys
             self.convert(os.FreeSpaceInPagingFiles),
             self.convert(os.FreeVirtualMemory),
             self.parse_ms_date(os.InstallDate),
+            self.parse_ms_date(os.LargeSystemCache),
             self.parse_ms_date(os.LastBootUpTime),
             self.parse_ms_date(os.LocalDateTime),
             os.Locale,

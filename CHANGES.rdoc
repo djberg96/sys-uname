@@ -1,4 +1,9 @@
-== 1.1.1 - 10-Doc-2019
+== 1.1.2 - ???
+* Changed test suite from test-unit to rspec.
+* Several new fields were added to the returned object on Windows. The fields
+  are encryption_level, 
+
+== 1.1.1 - 10-Dec-2019
 * Renamed various text files to include explicit .rdoc extension so that
   they show up more nicely on github.
 

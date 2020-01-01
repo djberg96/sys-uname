@@ -132,7 +132,7 @@ RSpec.describe Sys::Uname do
             current_time_zone debug description distributed encryption_level
             foreground_application_boost free_physical_memory
             free_space_in_paging_files free_virtual_memory
-            install_date last_bootup_time local_date_time locale
+            install_date large_system_cache last_bootup_time local_date_time locale
             manufacturer max_number_of_processes max_process_memory_size
             name number_of_licensed_users number_of_processes
             number_of_users organization os_language os_product_suite
@@ -238,41 +238,40 @@ RSpec.describe Sys::Uname do
 
     example "encryption_level" do
       expect{ described_class.uname.encryption_level }.not_to raise_error
-      expect(described_class.uname.encryption_level).to be_kind_of(Numeric)
+      expect(described_class.uname.encryption_level).to be_kind_of(Integer)
     end
 
-=begin
     example "foreground_application_boost" do
-      expect{ described_class.uname.foreground_application_boost }
-      expect(Fixnum, described_class.uname.foreground_application_boost)
+      expect{ described_class.uname.foreground_application_boost }.not_to raise_error
+      expect(described_class.uname.foreground_application_boost).to be_kind_of(Integer)
     end
 
     example "free_physical_memory" do
-      expect{ described_class.uname.free_physical_memory }
-      expect(Fixnum, described_class.uname.free_physical_memory)
+      expect{ described_class.uname.free_physical_memory }.not_to raise_error
+      expect(described_class.uname.free_physical_memory).to be_kind_of(Integer)
     end
 
     example "free_space_in_paging_files" do
-      expect{ described_class.uname.free_space_in_paging_files }
-      expect(Fixnum, described_class.uname.free_space_in_paging_files)
+      expect{ described_class.uname.free_space_in_paging_files }.not_to raise_error
+      expect(described_class.uname.free_space_in_paging_files).to be_kind_of(Integer)
     end
 
     example "free_virtual_memory" do
-      expect{ described_class.uname.free_virtual_memory}
-      expect(Fixnum, described_class.uname.free_virtual_memory)
+      expect{ described_class.uname.free_virtual_memory}.not_to raise_error
+      expect(described_class.uname.free_virtual_memory).to be_kind_of(Integer)
     end
 
     example "install_date" do
-      expect{ described_class.uname.install_date}
-      expect(Time, described_class.uname.install_date)
+      expect{ described_class.uname.install_date}.not_to raise_error
+      expect(described_class.uname.install_date).to be_kind_of(Time)
     end
 
-    # Not yet supported - WinXP or later only
-    #example "large_system_cache
-    #   expect{ described_class.uname.large_system_cache}
-    #   expect(Time,described_class.uname.large_system_cache)
-    #end
+    example "large_system_cache" do
+      expect{ described_class.uname.large_system_cache}.not_to raise_error
+      expect(described_class.uname.large_system_cache).to be_kind_of(Time).or be_kind_of(NilClass)
+    end
 
+=begin
     example "last_bootup_time" do
       expect{ described_class.uname.last_bootup_time}
       expect(Time, described_class.uname.last_bootup_time)
