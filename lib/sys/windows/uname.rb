@@ -34,6 +34,7 @@ module Sys
       debug
       description
       distributed
+      encryption_level
       foreground_application_boost
       free_physical_memory
       free_space_in_paging_files
@@ -443,6 +444,7 @@ module Sys
             os.Debug,
             os.Description,
             os.Distributed,
+            os.EncryptionLevel,
             os.ForegroundApplicationBoost,
             self.convert(os.FreePhysicalMemory),
             self.convert(os.FreeSpaceInPagingFiles),

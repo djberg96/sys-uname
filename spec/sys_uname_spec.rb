@@ -129,7 +129,7 @@ RSpec.describe Sys::Uname do
           members = %w[
             boot_device build_number build_type caption code_set country_code
             creation_class_name cscreation_class_name csd_version cs_name
-            current_time_zone debug description distributed
+            current_time_zone debug description distributed encryption_level
             foreground_application_boost free_physical_memory
             free_space_in_paging_files free_virtual_memory
             install_date last_bootup_time local_date_time locale
@@ -172,77 +172,76 @@ RSpec.describe Sys::Uname do
     end
 
     example "build_number" do
-      expect{ described_class.uname.build_number }.not_to raise_rror
+      expect{ described_class.uname.build_number }.not_to raise_error
       expect(described_class.uname.build_number).to be_kind_of(String)
     end
 
-=begin
     example "build_type" do
-      expect{ described_class.uname.build_type }
-      expect(String, described_class.uname.build_type)
+      expect{ described_class.uname.build_type }.not_to raise_error
+      expect(described_class.uname.build_type).to be_kind_of(String)
     end
 
     example "caption" do
-      expect{ described_class.uname.caption }
-      expect(String, described_class.uname.caption)
+      expect{ described_class.uname.caption }.not_to raise_error
+      expect(described_class.uname.caption).to be_kind_of(String)
     end
 
     example "code_set" do
-      expect{ described_class.uname.code_set }
-      expect(String, described_class.uname.code_set)
+      expect{ described_class.uname.code_set }.not_to raise_error
+      expect(described_class.uname.code_set).to be_kind_of(String)
     end
 
     example "country_code" do
-      expect{ described_class.uname.country_code }
-      expect(String, described_class.uname.country_code)
+      expect{ described_class.uname.country_code }.not_to raise_error
+      expect(described_class.uname.country_code).to be_kind_of(String)
     end
 
     example "creation_class_name" do
-      expect{ described_class.uname.creation_class_name }
-      expect(String, described_class.uname.creation_class_name)
+      expect{ described_class.uname.creation_class_name }.not_to raise_error
+      expect(described_class.uname.creation_class_name).to be_kind_of(String)
     end
 
     example "cscreation_class_name" do
-      expect{ described_class.uname.cscreation_class_name }
-      expect(String, described_class.uname.cscreation_class_name)
+      expect{ described_class.uname.cscreation_class_name }.not_to raise_error
+      expect(described_class.uname.cscreation_class_name).to be_kind_of(String)
     end
 
     example "csd_version" do
-      expect{ described_class.uname.csd_version }
-      expect([String, NilClass], described_class.uname.csd_version)
+      expect{ described_class.uname.csd_version }.not_to raise_error
+      expect(described_class.uname.csd_version).to be_kind_of(String).or be_kind_of(NilClass)
     end
 
     example "cs_name" do
-      expect{ described_class.uname.cs_name }
-      expect(String, described_class.uname.cs_name)
+      expect{ described_class.uname.cs_name }.not_to raise_error
+      expect(described_class.uname.cs_name).to be_kind_of(String)
     end
 
     example "current_time_zone" do
-      expect{ described_class.uname.current_time_zone }
-      expect(Fixnum, described_class.uname.current_time_zone)
+      expect{ described_class.uname.current_time_zone }.not_to raise_error
+      expect(described_class.uname.current_time_zone).to be_kind_of(Fixnum)
     end
 
     example "debug" do
-      expect{ described_class.uname.debug }
-      assert_boolean(described_class.uname.debug)
+      expect{ described_class.uname.debug }.not_to raise_error
+      expect(described_class.uname.debug).to be(true).or be(false)
     end
 
     example "description" do
-      expect{ described_class.uname.description }
-      expect(String, described_class.uname.description)
+      expect{ described_class.uname.description }.not_to raise_error
+      expect(described_class.uname.description).to be_kind_of(String)
     end
 
     example "distributed" do
-      expect{ described_class.uname.distributed }
-      assert_boolean(described_class.uname.distributed)
+      expect{ described_class.uname.distributed }.not_to raise_error
+      expect(described_class.uname.distributed).to be(true).or be(false)
     end
 
-    # Not yet supported - WinXP or later only
-    #example "encryption_level
-    #   expect{ described_class.uname.encryption_level }
-    #   expect(Fixnum,described_class.uname.encryption_level)
-    #end
+    example "encryption_level" do
+      expect{ described_class.uname.encryption_level }.not_to raise_error
+      expect(described_class.uname.encryption_level).to be_kind_of(Numeric)
+    end
 
+=begin
     example "foreground_application_boost" do
       expect{ described_class.uname.foreground_application_boost }
       expect(Fixnum, described_class.uname.foreground_application_boost)
