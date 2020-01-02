@@ -218,7 +218,7 @@ RSpec.describe Sys::Uname do
 
     example "current_time_zone" do
       expect{ described_class.uname.current_time_zone }.not_to raise_error
-      expect(described_class.uname.current_time_zone).to be_kind_of(Fixnum)
+      expect(described_class.uname.current_time_zone).to be_kind_of(Integer)
     end
 
     example "debug" do
@@ -266,42 +266,42 @@ RSpec.describe Sys::Uname do
       expect(described_class.uname.install_date).to be_kind_of(Time)
     end
 
-=begin
     example "last_bootup_time" do
-      expect{ described_class.uname.last_bootup_time}
-      expect(Time, described_class.uname.last_bootup_time)
+      expect{ described_class.uname.last_bootup_time}.not_to raise_error
+      expect(described_class.uname.last_bootup_time).to be_kind_of(Time)
     end
 
     example "local_date_time" do
-      expect{ described_class.uname.local_date_time}
-      expect(Time, described_class.uname.local_date_time)
+      expect{ described_class.uname.local_date_time}.not_to raise_error
+      expect(described_class.uname.local_date_time).to be_kind_of(Time)
     end
 
     example "locale" do
-      expect{ described_class.uname.locale}
-      expect(String, described_class.uname.locale)
+      expect{ described_class.uname.locale}.not_to raise_error
+      expect(described_class.uname.locale).to be_kind_of(String)
     end
 
     example "manufacturer" do
-      expect{ described_class.uname.manufacturer}
-      expect(String, described_class.uname.manufacturer)
+      expect{ described_class.uname.manufacturer}.not_to raise_error
+      expect(described_class.uname.manufacturer).to be_kind_of(String)
     end
 
     example "max_number_of_processes" do
-      expect{ described_class.uname.max_number_of_processes}
-      expect(Fixnum, described_class.uname.max_number_of_processes)
+      expect{ described_class.uname.max_number_of_processes}.not_to raise_error
+      expect(described_class.uname.max_number_of_processes).to be_kind_of(Integer)
     end
 
     example "max_process_memory_size" do
-      expect{ described_class.uname.max_process_memory_size}
-      expect(Integer, described_class.uname.max_process_memory_size)
+      expect{ described_class.uname.max_process_memory_size}.not_to raise_error
+      expect(described_class.uname.max_process_memory_size).to be_kind_of(Integer)
     end
 
     example "name" do
-      expect{ described_class.uname.name}
-      expect(String, described_class.uname.name)
+      expect{ described_class.uname.name }.not_to raise_error
+      expect(described_class.uname.name).to be_kind_of(String)
     end
 
+=begin
     # Fails on Win XP Pro - returns nil - reason unknown
     #example "number_of_licensed_users
     #   expect{ described_class.uname.number_of_licensed_users}
