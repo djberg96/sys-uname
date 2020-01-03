@@ -137,7 +137,7 @@ RSpec.describe Sys::Uname do
             name number_of_licensed_users number_of_processes
             number_of_users organization os_language os_product_suite
             os_type other_type_description plus_product_id
-            plus_version_number primary quantum_length quantum_type
+            plus_version_number primary product_type quantum_length quantum_type
             registered_user serial_number service_pack_major_version
             service_pack_minor_version size_stored_in_paging_files
             status system_device system_directory total_swap_space_size
@@ -301,72 +301,67 @@ RSpec.describe Sys::Uname do
       expect(described_class.uname.name).to be_kind_of(String)
     end
 
-=begin
-    # Fails on Win XP Pro - returns nil - reason unknown
-    #example "number_of_licensed_users
-    #   expect{ described_class.uname.number_of_licensed_users}
-    #   expect(Fixnum,described_class.uname.number_of_licensed_users)
-    #end
+    example "number_of_licensed_users" do
+      expect{ described_class.uname.number_of_licensed_users }.not_to raise_error
+      expect(described_class.uname.number_of_licensed_users).to be_kind_of(Integer).or be_kind_of(NilClass)
+    end
 
     example "number_of_processes" do
-      expect{ described_class.uname.number_of_processes}
-      expect(Fixnum, described_class.uname.number_of_processes)
+      expect{ described_class.uname.number_of_processes }.not_to raise_error
+      expect(described_class.uname.number_of_processes).to be_kind_of(Integer)
     end
 
     example "number_of_users" do
-      expect{ described_class.uname.number_of_users}
-      expect(Fixnum, described_class.uname.number_of_users)
+      expect{ described_class.uname.number_of_users }.not_to raise_error
+      expect(described_class.uname.number_of_users).to be_kind_of(Integer)
     end
 
     example "organization" do
-      expect{ described_class.uname.organization}
-      expect(String, described_class.uname.organization)
+      expect{ described_class.uname.organization }.not_to raise_error 
+      expect(described_class.uname.organization).to be_kind_of(String)
     end
 
-    # Eventually replace Fixnum with a string (?)
     example "os_language" do
-      expect{ described_class.uname.os_language}
-      expect(Fixnum, described_class.uname.os_language)
+      expect{ described_class.uname.os_language }.not_to raise_error
+      expect(described_class.uname.os_language).to be_kind_of(Integer)
     end
 
-    # Fails on Win XP Pro - returns nil - reason unknown
-    #example "os_product_suite
-    #   expect{ described_class.uname.os_product_suite}
-    #   expect(Fixnum,described_class.uname.os_product_suite)
-    #end
+    example "os_product_suite" do
+      expect{ described_class.uname.os_product_suite }.not_to raise_error
+      expect(described_class.uname.os_product_suite).to be_kind_of(Integer)
+    end
 
     example "os_type" do
-       expect{ described_class.uname.os_type}
-       expect(Fixnum, described_class.uname.os_type)
+      expect{ described_class.uname.os_type }.not_to raise_error
+      expect(described_class.uname.os_type).to be_kind_of(Integer)
     end
 
-    # Fails?
-    #example "other_type_restriction
-    #   expect{ described_class.uname.other_type_restriction}
-    #   expect(Fixnum,described_class.uname.other_type_restriction)
-    #end
+    example "other_type_description" do
+      expect{ described_class.uname.other_type_description}.not_to raise_error
+      expect(described_class.uname.other_type_description).to be_kind_of(String).or be_kind_of(NilClass)
+    end
 
-    # Might be nil
     example "plus_product_id" do
-      expect{ described_class.uname.plus_product_id }
+      expect{ described_class.uname.plus_product_id }.not_to raise_error
+      expect(described_class.uname.plus_product_id).to be_kind_of(Integer).or be_kind_of(NilClass)
     end
 
-    # Might be nil
     example "plus_version_number" do
-      expect{ described_class.uname.plus_version_number}
+      expect{ described_class.uname.plus_version_number }.not_to raise_error
+      expect(described_class.uname.plus_version_number).to be_kind_of(Integer).or be_kind_of(NilClass)
     end
 
     example "primary" do
-      expect{ described_class.uname.primary}
-      assert_boolean(described_class.uname.primary)
+      expect{ described_class.uname.primary }.not_to raise_error
+      expect(described_class.uname.primary).to eql(true).or eql(false)
     end
 
-    # Not yet supported - WinXP or later only
-    # example "product_type
-    #   expect{ described_class.uname.product_type}
-    #   expect(Fixnum,described_class.uname.product_type)
-    # end
+    example "product_type" do
+      expect{ described_class.uname.product_type }.not_to raise_error
+      expect(described_class.uname.product_type).to be_kind_of(Integer)
+    end
 
+=begin
     example "quantum_length" do
       expect{ described_class.uname.quantum_length}
       expect([Fixnum, NilClass], described_class.uname.quantum_length)

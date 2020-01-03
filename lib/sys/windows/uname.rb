@@ -58,6 +58,7 @@ module Sys
       plus_product_id
       plus_version_number
       primary
+      product_type
       quantum_length
       quantum_type
       registered_user
@@ -468,6 +469,7 @@ module Sys
             os.PlusProductID,
             os.PlusVersionNumber,
             os.Primary,
+            os.ProductType,
             os.respond_to?(:QuantumLength) ? os.QuantumLength : nil,
             os.respond_to?(:QuantumType) ? os.QuantumType : nil,
             os.RegisteredUser,
