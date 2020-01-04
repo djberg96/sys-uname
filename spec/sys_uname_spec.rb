@@ -140,7 +140,7 @@ RSpec.describe Sys::Uname do
             plus_version_number primary product_type quantum_length quantum_type
             registered_user serial_number service_pack_major_version
             service_pack_minor_version size_stored_in_paging_files
-            status system_device system_directory total_swap_space_size
+            status suite_mask system_device system_directory total_swap_space_size
             total_virtual_memory_size total_visible_memory_size version
             windows_directory
           ]
@@ -208,7 +208,7 @@ RSpec.describe Sys::Uname do
 
     example "csd_version" do
       expect{ described_class.uname.csd_version }.not_to raise_error
-      expect(described_class.uname.csd_version).to be_kind_of(String).or be_kind_of(NilClass)
+      expect(described_class.uname.csd_version).to be_kind_of(String).or be_nil
     end
 
     example "cs_name" do
@@ -303,7 +303,7 @@ RSpec.describe Sys::Uname do
 
     example "number_of_licensed_users" do
       expect{ described_class.uname.number_of_licensed_users }.not_to raise_error
-      expect(described_class.uname.number_of_licensed_users).to be_kind_of(Integer).or be_kind_of(NilClass)
+      expect(described_class.uname.number_of_licensed_users).to be_kind_of(Integer).or be_nil
     end
 
     example "number_of_processes" do
@@ -338,17 +338,17 @@ RSpec.describe Sys::Uname do
 
     example "other_type_description" do
       expect{ described_class.uname.other_type_description}.not_to raise_error
-      expect(described_class.uname.other_type_description).to be_kind_of(String).or be_kind_of(NilClass)
+      expect(described_class.uname.other_type_description).to be_kind_of(String).or be_nil
     end
 
     example "plus_product_id" do
       expect{ described_class.uname.plus_product_id }.not_to raise_error
-      expect(described_class.uname.plus_product_id).to be_kind_of(Integer).or be_kind_of(NilClass)
+      expect(described_class.uname.plus_product_id).to be_kind_of(Integer).or be_nil
     end
 
     example "plus_version_number" do
       expect{ described_class.uname.plus_version_number }.not_to raise_error
-      expect(described_class.uname.plus_version_number).to be_kind_of(Integer).or be_kind_of(NilClass)
+      expect(described_class.uname.plus_version_number).to be_kind_of(Integer).or be_nil
     end
 
     example "primary" do
@@ -361,60 +361,57 @@ RSpec.describe Sys::Uname do
       expect(described_class.uname.product_type).to be_kind_of(Integer)
     end
 
-=begin
     example "quantum_length" do
-      expect{ described_class.uname.quantum_length}
-      expect([Fixnum, NilClass], described_class.uname.quantum_length)
+      expect{ described_class.uname.quantum_length }.not_to raise_error
+      expect(described_class.uname.quantum_length).to be_kind_of(Integer).or be_nil
     end
 
     example "quantum_type" do
-      expect{ described_class.uname.quantum_type}
-      expect([Fixnum, NilClass], described_class.uname.quantum_type)
+      expect{ described_class.uname.quantum_type }.not_to raise_error
+      expect(described_class.uname.quantum_type).to be_kind_of(Integer).or be_nil
     end
 
     example "registered_user" do
-      expect{ described_class.uname.registered_user}
-      expect(String, described_class.uname.registered_user)
+      expect{ described_class.uname.registered_user }.not_to raise_error
+      expect(described_class.uname.registered_user).to be_kind_of(String)
     end
 
     example "serial_number" do
-      expect{ described_class.uname.serial_number}
-      expect(String, described_class.uname.serial_number)
+      expect{ described_class.uname.serial_number }.not_to raise_error
+      expect(described_class.uname.serial_number).to be_kind_of(String)
     end
 
-    # This is nil on NT 4
     example "service_pack_major_version" do
-      expect{ described_class.uname.service_pack_major_version}
-      expect(Fixnum, described_class.uname.service_pack_major_version)
+      expect{ described_class.uname.service_pack_major_version }.not_to raise_error
+      expect(described_class.uname.service_pack_major_version).to be_kind_of(Integer)
     end
 
-    # This is nil on NT 4
     example "service_pack_minor_version" do
-      expect{ described_class.uname.service_pack_minor_version}
-      expect(Fixnum, described_class.uname.service_pack_minor_version)
+      expect{ described_class.uname.service_pack_minor_version }.not_to raise_error
+      expect(described_class.uname.service_pack_minor_version).to be_kind_of(Integer)
     end
 
     example "status" do
-      expect{ described_class.uname.status}
-      expect(String, described_class.uname.status)
+      expect{ described_class.uname.status }.not_to raise_error
+      expect(described_class.uname.status).to be_kind_of(String)
     end
 
-    # Not yet supported - WinXP or later only
-    #example "suite_mask
-    #   expect{ described_class.uname.suite_mask}
-    #   expect(String,described_class.uname.suite_mask)
-    #end
+    example "suite_mask" do
+      expect{ described_class.uname.suite_mask }.not_to raise_error
+      expect(described_class.uname.suite_mask).to be_kind_of(Integer)
+    end
 
     example "system_device" do
-      expect{ described_class.uname.system_device}
-      expect(String, described_class.uname.system_device)
+      expect{ described_class.uname.system_device }.not_to raise_error
+      expect(described_class.uname.system_device).to be_kind_of(String)
     end
 
     example "system_directory" do
-      expect{ described_class.uname.system_directory}
-      expect(String, described_class.uname.system_directory)
+      expect{ described_class.uname.system_directory }.not_to raise_error
+      expect(described_class.uname.system_directory).to be_kind_of(String)
     end
 
+=begin
     # Not yet supported - WinXP or later only
     #example "system_drive
     #   expect{ described_class.uname.system_drive}

@@ -67,6 +67,7 @@ module Sys
       service_pack_minor_version
       size_stored_in_paging_files
       status
+      suite_mask
       system_device
       system_directory
       total_swap_space_size
@@ -478,6 +479,7 @@ module Sys
             os.ServicePackMinorVersion,
             self.convert(os.SizeStoredInPagingFiles),
             os.Status,
+            os.SuiteMask,
             os.SystemDevice,
             os.SystemDirectory,
             self.convert(os.TotalSwapSpaceSize),
