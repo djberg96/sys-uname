@@ -140,7 +140,7 @@ RSpec.describe Sys::Uname do
             plus_version_number primary product_type quantum_length quantum_type
             registered_user serial_number service_pack_major_version
             service_pack_minor_version size_stored_in_paging_files
-            status suite_mask system_device system_directory total_swap_space_size
+            status suite_mask system_device system_directory system_drive total_swap_space_size
             total_virtual_memory_size total_visible_memory_size version
             windows_directory
           ]
@@ -411,38 +411,35 @@ RSpec.describe Sys::Uname do
       expect(described_class.uname.system_directory).to be_kind_of(String)
     end
 
-=begin
-    # Not yet supported - WinXP or later only
-    #example "system_drive
-    #   expect{ described_class.uname.system_drive}
-    #   expect(String,described_class.uname.system_drive)
-    #end
+    example "system_drive" do
+      expect{ described_class.uname.system_drive }.not_to raise_error
+      expect(described_class.uname.system_drive).to be_kind_of(String)
+      expect(described_class.uname.system_drive).to eql("C:")
+    end
 
-    # Fails on Win XP Pro - returns nil - reason unknown
-    #example "total_swap_space_size
-    #   expect{ described_class.uname.total_swap_space_size}
-    #   expect(Fixnum,described_class.uname.total_swap_space_size)
-    #end
+    example "total_swap_space_size" do
+      expect{ described_class.uname.total_swap_space_size }.not_to raise_error
+      expect(described_class.uname.total_swap_space_size).to be_kind_of(Integer).or be_nil
+    end
 
     example "total_virtual_memory_size" do
-      expect{ described_class.uname.total_virtual_memory_size}
-      expect(Fixnum, described_class.uname.total_virtual_memory_size)
+      expect{ described_class.uname.total_virtual_memory_size }.not_to raise_error
+      expect(described_class.uname.total_virtual_memory_size).to be_kind_of(Integer)
     end
 
     example "total_visible_memory_size" do
-      expect{ described_class.uname.total_visible_memory_size}
-      expect(Fixnum, described_class.uname.total_visible_memory_size)
+      expect{ described_class.uname.total_visible_memory_size }.not_to raise_error
+      expect(described_class.uname.total_visible_memory_size).to be_kind_of(Fixnum)
     end
 
     example "version" do
-      expect{ described_class.uname.version}
-      expect(String, described_class.uname.version)
+      expect{ described_class.uname.version }.not_to raise_error
+      expect(described_class.uname.version).to be_kind_of(String)
     end
 
     example "windows_directory" do
-      expect{ described_class.uname.windows_directory}
-      expect(String, described_class.uname.windows_directory)
+      expect{ described_class.uname.windows_directory }.not_to raise_error
+      expect(described_class.uname.windows_directory).to be_kind_of(String)
     end
-=end
   end
 end
