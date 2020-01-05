@@ -34,6 +34,7 @@ module Sys
       debug
       description
       distributed
+      encryption_level
       foreground_application_boost
       free_physical_memory
       free_space_in_paging_files
@@ -57,6 +58,7 @@ module Sys
       plus_product_id
       plus_version_number
       primary
+      product_type
       quantum_length
       quantum_type
       registered_user
@@ -65,8 +67,10 @@ module Sys
       service_pack_minor_version
       size_stored_in_paging_files
       status
+      suite_mask
       system_device
       system_directory
+      system_drive
       total_swap_space_size
       total_virtual_memory_size
       total_visible_memory_size
@@ -443,6 +447,7 @@ module Sys
             os.Debug,
             os.Description,
             os.Distributed,
+            os.EncryptionLevel,
             os.ForegroundApplicationBoost,
             self.convert(os.FreePhysicalMemory),
             self.convert(os.FreeSpaceInPagingFiles),
@@ -466,6 +471,7 @@ module Sys
             os.PlusProductID,
             os.PlusVersionNumber,
             os.Primary,
+            os.ProductType,
             os.respond_to?(:QuantumLength) ? os.QuantumLength : nil,
             os.respond_to?(:QuantumType) ? os.QuantumType : nil,
             os.RegisteredUser,
@@ -474,8 +480,10 @@ module Sys
             os.ServicePackMinorVersion,
             self.convert(os.SizeStoredInPagingFiles),
             os.Status,
+            os.SuiteMask,
             os.SystemDevice,
             os.SystemDirectory,
+            os.SystemDrive,
             self.convert(os.TotalSwapSpaceSize),
             self.convert(os.TotalVirtualMemorySize),
             self.convert(os.TotalVisibleMemorySize),

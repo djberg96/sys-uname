@@ -2,6 +2,7 @@ require 'rake'
 require 'rake/testtask'
 require 'rake/clean'
 require 'rbconfig'
+require 'rspec/core/rake_task'
 
 CLEAN.include("**/*.rbc", "**/*.rbx", "**/*.gem")
 
@@ -31,9 +32,6 @@ namespace :gem do
 end
 
 desc "Run the test suite"
-Rake::TestTask.new("test") do |t|
-  t.warning = true
-  t.verbose = true
-end
+RSpec::Core::RakeTask.new(:spec)
 
-task :default => :test
+task :default => :spec

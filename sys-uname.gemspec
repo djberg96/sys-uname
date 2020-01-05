@@ -2,19 +2,20 @@ require 'rubygems'
 
 Gem::Specification.new do |spec|
   spec.name       = 'sys-uname'
-  spec.version    = '1.1.1'
+  spec.version    = '1.2.0'
   spec.author     = 'Daniel J. Berger'
   spec.email      = 'djberg96@gmail.com'
   spec.homepage   = 'http://github.com/djberg96/sys-uname'
   spec.summary    = 'An interface for returning uname (platform) information'
   spec.license    = 'Apache-2.0'
   spec.files      = Dir['**/*'].reject{ |f| f.include?('git') } 
-  spec.test_files = Dir['test/test*.rb']
+  spec.test_files = Dir['spec/*_spec.rb']
   spec.cert_chain = ['certs/djberg96_pub.pem']
 
   spec.extra_rdoc_files = Dir['*.rdoc']
 
   spec.add_dependency('ffi', '>= 1.0.0')
+  spec.add_development_dependency('rspec', '~> 3.9')
 
   spec.metadata = {
     'homepage_uri'      => 'https://github.com/djberg96/sys-uname',

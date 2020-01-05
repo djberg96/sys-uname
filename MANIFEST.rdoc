@@ -6,7 +6,6 @@
 * certs/djberg96_pub.pem
 * doc/uname.txt
 * examples/uname_test.rb
-* ext/extconf.rb
-* ext/uname.c
 * lib/sys/uname.rb
-* test/tc_uname.rb
+* spec/sys_uname_spec.rb
+* spec/sys_platform_spec.rb
