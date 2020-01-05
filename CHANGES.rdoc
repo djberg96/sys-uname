@@ -1,5 +1,6 @@
-== 1.2.0 - 4-Jan-2020
-* Changed test suite from test-unit to rspec.
+== 1.2.0 - 5-Jan-2020
+* Changed test suite from test-unit to rspec, which was also added as a
+  development dependency.
 * Several new fields were added to the returned object on Windows. The fields
   are encryption_level, product_type, suite_mask and system_drive.
 

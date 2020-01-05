@@ -32,8 +32,6 @@ namespace :gem do
 end
 
 desc "Run the test suite"
-RSpec::Core::RakeTask.new(:spec) do |t|
-  #t.pattern = ['spec/spec_helper.rb', 'spec/sys_proctable_all_spec.rb']
-end
+RSpec::Core::RakeTask.new(:spec)
 
 task :default => :spec
