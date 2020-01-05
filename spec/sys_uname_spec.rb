@@ -10,7 +10,7 @@ require 'rbconfig'
 RSpec.describe Sys::Uname do
   context "universal singleton methods" do
     example "version constant is set to expected value" do
-      expect(Sys::Uname::VERSION).to eql('1.1.1')
+      expect(Sys::Uname::VERSION).to eql('1.2.0')
       expect(Sys::Uname::VERSION.frozen?).to be(true)
     end
 
@@ -429,7 +429,7 @@ RSpec.describe Sys::Uname do
 
     example "total_visible_memory_size" do
       expect{ described_class.uname.total_visible_memory_size }.not_to raise_error
-      expect(described_class.uname.total_visible_memory_size).to be_kind_of(Fixnum)
+      expect(described_class.uname.total_visible_memory_size).to be_kind_of(Integer)
     end
 
     example "version" do

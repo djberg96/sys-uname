@@ -1,23 +1,22 @@
 ##############################################################################
-# test_sys_platform.rb
+# sys_platform_spec.rb
 #
 # Test suite for the Sys::Platform class.
 ##############################################################################
-require 'test-unit'
+require 'rspec'
 require 'sys/uname'
 require 'rbconfig'
 
-class TC_Sys_Platform < Test::Unit::TestCase
-  def self.startup
-    @@host_os = RbConfig::CONFIG['host_os']
-    @@windows = @@host_os =~ /mingw|mswin|windows/i ? true : false
+RSpec.describe Sys::Platform do
+  let(:host_os){ RbConfig::CONFIG['host_os'] }
+  let(:windows){ RbConfig::CONFIG['host_os'] =~ /mingw|mswin|windows/i ? true : false }
+
+  example "the VERSION constant is set to the expected value" do
+    expect(Sys::Platform::VERSION).to eql('1.2.0')
+    expect(Sys::Platform::VERSION).to be_frozen
   end
 
-  test "the VERSION constant is set to the expected value" do
-    assert_equal('1.1.1', Sys::Platform::VERSION)
-    assert_true(Sys::Platform::VERSION.frozen?)
-  end
-
+=begin
   test "the ARCH constant is defined" do
     assert_kind_of(Symbol, Sys::Platform::ARCH)
   end
@@ -72,9 +71,5 @@ class TC_Sys_Platform < Test::Unit::TestCase
     assert_respond_to(Sys::Platform, :bsd?)
     assert_boolean(Sys::Platform.bsd?)
   end
-
-  def self.shutdown
-    @@host_os = nil
-    @@windows = nil
-  end
+=end
 end
