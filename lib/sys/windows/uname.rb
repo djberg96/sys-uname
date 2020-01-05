@@ -70,6 +70,7 @@ module Sys
       suite_mask
       system_device
       system_directory
+      system_drive
       total_swap_space_size
       total_virtual_memory_size
       total_visible_memory_size
@@ -482,6 +483,7 @@ module Sys
             os.SuiteMask,
             os.SystemDevice,
             os.SystemDirectory,
+            os.SystemDrive,
             self.convert(os.TotalSwapSpaceSize),
             self.convert(os.TotalVirtualMemorySize),
             self.convert(os.TotalVisibleMemorySize),
