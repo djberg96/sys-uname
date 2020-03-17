@@ -1,3 +1,6 @@
+== 1.2.1 - 17-Mar-2020
+* Properly include a LICENSE file as per the Apache-2.0 license.
+
 == 1.2.0 - 5-Jan-2020
 * Changed test suite from test-unit to rspec, which was also added as a
   development dependency.
