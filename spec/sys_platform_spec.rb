@@ -15,7 +15,7 @@ RSpec.describe Sys::Platform do
   end
 
   example "the VERSION constant is set to the expected value" do
-    expect(Sys::Platform::VERSION).to eql('1.2.0')
+    expect(Sys::Platform::VERSION).to eql('1.2.1')
     expect(Sys::Platform::VERSION).to be_frozen
   end
 
