@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.metadata = {
     'homepage_uri'      => 'https://github.com/djberg96/sys-uname',
     'bug_tracker_uri'   => 'https://github.com/djberg96/sys-uname/issues',
-    'changelog_uri'     => 'https://github.com/djberg96/sys-uname/blob/ffi/CHANGES',
+    'changelog_uri'     => 'https://github.com/djberg96/sys-uname/blob/ffi/CHANGES.rdoc',
     'documentation_uri' => 'https://github.com/djberg96/sys-uname/wiki',
     'source_code_uri'   => 'https://github.com/djberg96/sys-uname',
     'wiki_uri'          => 'https://github.com/djberg96/sys-uname/wiki'
