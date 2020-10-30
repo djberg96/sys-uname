@@ -1,6 +1,7 @@
 * CHANGES.rdoc
 * MANIFEST.rdoc
 * README.rdoc
+* Gemfile
 * Rakefile
 * sys-uname.gemspec
 * certs/djberg96_pub.pem
