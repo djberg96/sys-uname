@@ -12,6 +12,8 @@ Gem::Specification.new do |spec|
   spec.test_files = Dir['spec/*_spec.rb']
   spec.cert_chain = ['certs/djberg96_pub.pem']
 
+  spec.extra_rdoc_files = Dir['doc/*.rdoc']
+
   spec.add_dependency('ffi', '~> 1.1')
   spec.add_development_dependency('rspec', '~> 3.9')
   spec.add_development_dependency('rake')

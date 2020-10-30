@@ -4,7 +4,7 @@
 * Rakefile
 * sys-uname.gemspec
 * certs/djberg96_pub.pem
-* doc/uname.txt
+* doc/uname.rdoc
 * examples/uname_test.rb
 * lib/sys/uname.rb
 * spec/sys_uname_spec.rb
