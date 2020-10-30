@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.test_files = Dir['spec/*_spec.rb']
   spec.cert_chain = ['certs/djberg96_pub.pem']
 
-  spec.extra_rdoc_files = Dir['*.rdoc']
+  spec.extra_rdoc_files = Dir['doc/*.rdoc']
 
   spec.add_dependency('ffi', '~> 1.1')
   spec.add_development_dependency('rspec', '~> 3.9')
@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.metadata = {
     'homepage_uri'      => 'https://github.com/djberg96/sys-uname',
     'bug_tracker_uri'   => 'https://github.com/djberg96/sys-uname/issues',
-    'changelog_uri'     => 'https://github.com/djberg96/sys-uname/blob/ffi/CHANGES.rdoc',
+    'changelog_uri'     => 'https://github.com/djberg96/sys-uname/blob/ffi/CHANGES.md',
     'documentation_uri' => 'https://github.com/djberg96/sys-uname/wiki',
     'source_code_uri'   => 'https://github.com/djberg96/sys-uname',
     'wiki_uri'          => 'https://github.com/djberg96/sys-uname/wiki'

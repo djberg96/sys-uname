@@ -10,8 +10,8 @@ require 'rbconfig'
 RSpec.describe Sys::Uname do
   context "universal singleton methods" do
     example "version constant is set to expected value" do
-      expect(Sys::Uname::VERSION).to eql('1.2.1')
-      expect(Sys::Uname::VERSION.frozen?).to be(true)
+      expect(Sys::Uname::VERSION).to eql('1.2.2')
+      expect(Sys::Uname::VERSION).to be_frozen
     end
 
     example "machine singleton method works as expected" do
