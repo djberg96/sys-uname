@@ -2,7 +2,7 @@ require 'rubygems'
 
 Gem::Specification.new do |spec|
   spec.name       = 'sys-uname'
-  spec.version    = '1.2.1'
+  spec.version    = '1.2.2'
   spec.author     = 'Daniel J. Berger'
   spec.email      = 'djberg96@gmail.com'
   spec.homepage   = 'http://github.com/djberg96/sys-uname'
@@ -14,8 +14,9 @@ Gem::Specification.new do |spec|
 
   spec.extra_rdoc_files = Dir['*.rdoc']
 
-  spec.add_dependency('ffi', '>= 1.0.0')
+  spec.add_dependency('ffi', '~> 1.1')
   spec.add_development_dependency('rspec', '~> 3.9')
+  spec.add_development_dependency('rake')
 
   spec.metadata = {
     'homepage_uri'      => 'https://github.com/djberg96/sys-uname',

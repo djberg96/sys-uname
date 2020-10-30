@@ -4,7 +4,7 @@ require 'rake/clean'
 require 'rbconfig'
 require 'rspec/core/rake_task'
 
-CLEAN.include("**/*.rbc", "**/*.rbx", "**/*.gem")
+CLEAN.include("**/*.rbc", "**/*.rbx", "**/*.gem", "**/*.lock")
 
 desc "Run the example program"
 task :example do
@@ -21,7 +21,7 @@ namespace :gem do
     require 'rubygems/package'
     spec = eval(IO.read('sys-uname.gemspec'))
     spec.signing_key = File.join(Dir.home, '.ssh', 'gem-private_key.pem')
-    Gem::Package.build(spec, true)
+    Gem::Package.build(spec)
   end
 
   desc "Install the sys-uname gem"
