@@ -95,11 +95,9 @@ module Sys
       rescue WIN32OLERuntimeError => e
         raise Error, e
       else
-        wmi.InstancesOf("Win32_OperatingSystem").each{ |ole|
-          str = "#{ole.Version} #{ole.BuildNumber}-"
-          str << "#{ole.ServicePackMajorVersion}"
-          return str
-        }
+        ole = wmi.InstancesOf("Win32_OperatingSystem").ItemIndex(0)
+        str = "#{ole.Version} #{ole.BuildNumber}-"
+        "#{str}#{ole.ServicePackMajorVersion}"
       end
     end
 
@@ -113,9 +111,7 @@ module Sys
       rescue WIN32OLERuntimeError => e
         raise Error, e
       else
-        wmi.InstancesOf("Win32_OperatingSystem").each{ |ole|
-          return ole.Caption
-        }
+        wmi.InstancesOf("Win32_OperatingSystem").ItemIndex(0).Caption.strip
       end
     end
 
@@ -130,9 +126,7 @@ module Sys
       rescue WIN32OLERuntimeError => e
         raise Error, e
       else
-        wmi.InstancesOf("Win32_OperatingSystem").each{ |ole|
-          return ole.CSName
-        }
+        wmi.InstancesOf("Win32_OperatingSystem").ItemIndex(0).CSName
       end
     end
 
@@ -414,9 +408,7 @@ module Sys
       rescue WIN32OLERuntimeError => e
         raise Error, e
       else
-        wmi.InstancesOf("Win32_OperatingSystem").each{ |ole|
-          return ole.Version
-        }
+        wmi.InstancesOf("Win32_OperatingSystem").ItemIndex(0).Version
       end
     end
 
@@ -431,70 +423,68 @@ module Sys
       rescue WIN32OLERuntimeError => e
         raise Error, e
       else
-        wmi.InstancesOf("Win32_OperatingSystem").each{ |os|
-          return UnameStruct.new(
-            os.BootDevice,
-            os.BuildNumber,
-            os.BuildType,
-            os.Caption,
-            os.CodeSet,
-            os.CountryCode,
-            os.CreationClassName,
-            os.CSCreationClassName,
-            os.CSDVersion,
-            os.CSName,
-            os.CurrentTimeZone,
-            os.Debug,
-            os.Description,
-            os.Distributed,
-            os.EncryptionLevel,
-            os.ForegroundApplicationBoost,
-            self.convert(os.FreePhysicalMemory),
-            self.convert(os.FreeSpaceInPagingFiles),
-            self.convert(os.FreeVirtualMemory),
-            self.parse_ms_date(os.InstallDate),
-            self.parse_ms_date(os.LastBootUpTime),
-            self.parse_ms_date(os.LocalDateTime),
-            os.Locale,
-            os.Manufacturer,
-            os.MaxNumberOfProcesses,
-            self.convert(os.MaxProcessMemorySize),
-            os.Name,
-            os.NumberOfLicensedUsers,
-            os.NumberOfProcesses,
-            os.NumberOfUsers,
-            os.Organization,
-            os.OSLanguage,
-            os.OSProductSuite,
-            os.OSType,
-            os.OtherTypeDescription,
-            os.PlusProductID,
-            os.PlusVersionNumber,
-            os.Primary,
-            os.ProductType,
-            os.respond_to?(:QuantumLength) ? os.QuantumLength : nil,
-            os.respond_to?(:QuantumType) ? os.QuantumType : nil,
-            os.RegisteredUser,
-            os.SerialNumber,
-            os.ServicePackMajorVersion,
-            os.ServicePackMinorVersion,
-            self.convert(os.SizeStoredInPagingFiles),
-            os.Status,
-            os.SuiteMask,
-            os.SystemDevice,
-            os.SystemDirectory,
-            os.SystemDrive,
-            self.convert(os.TotalSwapSpaceSize),
-            self.convert(os.TotalVirtualMemorySize),
-            self.convert(os.TotalVisibleMemorySize),
-            os.Version,
-            os.WindowsDirectory
-          )
-        }
+        os = wmi.InstancesOf("Win32_OperatingSystem").ItemIndex(0)
+
+        UnameStruct.new(
+          os.BootDevice,
+          os.BuildNumber,
+          os.BuildType,
+          os.Caption,
+          os.CodeSet,
+          os.CountryCode,
+          os.CreationClassName,
+          os.CSCreationClassName,
+          os.CSDVersion,
+          os.CSName,
+          os.CurrentTimeZone,
+          os.Debug,
+          os.Description,
+          os.Distributed,
+          os.EncryptionLevel,
+          os.ForegroundApplicationBoost,
+          self.convert(os.FreePhysicalMemory),
+          self.convert(os.FreeSpaceInPagingFiles),
+          self.convert(os.FreeVirtualMemory),
+          self.parse_ms_date(os.InstallDate),
+          self.parse_ms_date(os.LastBootUpTime),
+          self.parse_ms_date(os.LocalDateTime),
+          os.Locale,
+          os.Manufacturer,
+          os.MaxNumberOfProcesses,
+          self.convert(os.MaxProcessMemorySize),
+          os.Name,
+          os.NumberOfLicensedUsers,
+          os.NumberOfProcesses,
+          os.NumberOfUsers,
+          os.Organization,
+          os.OSLanguage,
+          os.OSProductSuite,
+          os.OSType,
+          os.OtherTypeDescription,
+          os.PlusProductID,
+          os.PlusVersionNumber,
+          os.Primary,
+          os.ProductType,
+          os.respond_to?(:QuantumLength) ? os.QuantumLength : nil,
+          os.respond_to?(:QuantumType) ? os.QuantumType : nil,
+          os.RegisteredUser,
+          os.SerialNumber,
+          os.ServicePackMajorVersion,
+          os.ServicePackMinorVersion,
+          self.convert(os.SizeStoredInPagingFiles),
+          os.Status,
+          os.SuiteMask,
+          os.SystemDevice,
+          os.SystemDirectory,
+          os.SystemDrive,
+          self.convert(os.TotalSwapSpaceSize),
+          self.convert(os.TotalVirtualMemorySize),
+          self.convert(os.TotalVisibleMemorySize),
+          os.Version,
+          os.WindowsDirectory
+        )
       end
     end
-
-    private
 
     # Converts a string in the format '20040703074625.015625-360' into a
     # Ruby Time object.
@@ -504,6 +494,8 @@ module Sys
       return Time.parse(str.split('.')[0])
     end
 
+    private_class_method :parse_ms_date
+
     # There is a bug in win32ole where uint64 types are returned as a
     # String rather than a Fixnum/Bignum.  This deals with that for now.
     #
@@ -511,5 +503,7 @@ module Sys
       return nil if str.nil?  # Don't turn nil into 0
       return str.to_i
     end
+
+    private_class_method :convert
   end
 end
