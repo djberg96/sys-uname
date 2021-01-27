@@ -185,119 +185,6 @@ module Sys
       struct.freeze
     end
 
-    # Returns the name of this implementation of the operating system.
-    #
-    # Example:
-    #
-    #  Uname.sysname # => 'SunOS'
-    #
-    def self.sysname
-      uname.sysname
-    end
-
-    # Returns the name of this node within the communications network to
-    # which this node is attached, if any. This is often, but not
-    # necessarily, the same as the host name.
-    #
-    # Example:
-    #
-    #  Uname.nodename # => 'your_host.foo.com'
-    #
-    def self.nodename
-      uname.nodename
-    end
-
-    # Returns the current release level of your operating system.
-    #
-    # Example:
-    #
-    #  Uname.release # => '2.2.16-3'
-    #
-    def self.release
-      uname.release
-    end
-
-    # Returns the current version level of your operating system.
-    #
-    # Example:
-    #
-    #  Uname.version # => '5.9'
-    #
-    def self.version
-      uname.version
-    end
-
-    # Returns the machine hardware type.
-    #
-    # Example:
-    #
-    #  Uname.machine # => 'i686'
-    #
-    def self.machine
-      uname.machine
-    end
-
-    if defined? :sysctl
-      # Returns the model type.
-      #
-      # Example:
-      #
-      #  Uname.model # => 'MacBookPro5,3'
-      #
-      def self.model
-        uname.model
-      end
-    end
-
-    if defined? :sysinfo
-      # The  basic instruction  set  architecture  of  the current
-      # system, e.g. sparc, i386, etc.
-      #
-      def self.architecture
-        uname.architecture
-      end
-
-      # The specific model of the hardware platform, e.g Sun-Blade-1500, etc.
-      #
-      def self.platform
-        uname.platform
-      end
-
-      # The string consisting of the ASCII hexidecimal encoding of the name
-      # of the interface configured by boot(1M) followed by the DHCPACK reply
-      # from the server.
-      #
-      def self.dhcp_cache
-        uname.dhcp_cache
-      end
-
-      # The variant instruction set architectures executable on the
-      # current system.
-      #
-      def self.isa_list
-        uname.isa_list
-      end
-
-      # The ASCII representation of the hardware-specific serial number
-      # of the physical machine on which the function is executed.
-      #
-      def self.hw_serial
-        uname.hw_serial.to_i
-      end
-
-      # The name of the of the hardware provider.
-      #
-      def self.hw_provider
-        uname.hw_provider
-      end
-
-      # The Secure Remote Procedure Call domain name.
-      #
-      def self.srpc_domain
-        uname.srpc_domain
-      end
-    end
-
     private
 
     # Returns the model for systems that define sysctl().
@@ -323,5 +210,17 @@ module Sys
     end
 
     private_class_method :get_si
+  end
+
+  %w[sysname nodename release version machine].each do |f|
+    Uname.define_singleton_method(f.to_sym) { uname.send(f) }
+  end
+
+  Uname.define_singleton_method(:model) { uname.send(:model) } if defined? :sysctl
+
+  if defined? :sysinfo
+    %w[architecture platform dhcp_cache isa_list hw_provider model srpc_domain].each do |f|
+      Uname.define_singleton_method(f.to_sym) { uname.send(f) }
+    end
   end
 end
