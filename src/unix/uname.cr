@@ -28,7 +28,15 @@ module System
     get sysname, nodename, release, version, machine
   end
 
-  def self.uname
+  # Returns a `System::Uname` struct that has the following members:
+  #
+  # * sysname
+  # * nodename
+  # * release
+  # * version
+  # * machine
+  #
+  def self.uname : System::Uname
     uname_struct = LibC::Uname.new
 
     if LibC.uname(pointerof(uname_struct)) < 0
@@ -38,23 +46,34 @@ module System
     end
   end
 
-  def self.sysname
+  # Returns the operating system name.
+  #
+  def self.sysname : String
     uname.sysname
   end
 
-  def self.nodename
+  # Returns the nodename, i.e. the name it's known by on the network.
+  # Typically identical to the hostname.
+  #
+  def self.nodename : String
     uname.nodename
   end
 
-  def self.release
+  # Returns the operating system release.
+  #
+  def self.release : String
     uname.release
   end
 
-  def self.version
+  # Returns the operating system version.
+  #
+  def self.version : String
     uname.version
   end
 
-  def self.machine
+  # Returns the machine hardware name.
+  #
+  def self.machine : String
     uname.machine
   end
 end
