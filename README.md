@@ -3,11 +3,13 @@ A Crystal interface for getting operating system information. The name
 comes from the Unix 'uname' command.
 
 ## Installation
+Add this to your shard.yml file:
 ```
 dependencies:
   uname:
     github: djberg96/uname.cr
     version: 0.1.0 
+```
 
 ## Synopsis
 ```
