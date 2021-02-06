@@ -10,7 +10,7 @@ dependencies:
     version: 0.1.0 
 
 ## Synopsis
-```crystal
+```
 require "uname"
 
 # Get full information about your system.
