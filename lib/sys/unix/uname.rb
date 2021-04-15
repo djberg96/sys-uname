@@ -68,13 +68,9 @@ module Sys
         :machine,  [:char, BUFSIZE]
       ]
 
-      if RbConfig::CONFIG['host_os'] =~ /linux/i
-        members.push(:domainname, [:char, BUFSIZE])
-      end
+      members.push(:domainname, [:char, BUFSIZE]) if RbConfig::CONFIG['host_os'] =~ /linux/i
 
-      if RbConfig::CONFIG['host_os'] =~ /hpux/i
-        members.push(:__id_number, [:char, BUFSIZE])
-      end
+      members.push(:__id_number, [:char, BUFSIZE]) if RbConfig::CONFIG['host_os'] =~ /hpux/i
 
       layout(*members)
     end
@@ -87,13 +83,9 @@ module Sys
       machine
     ]
 
-    if RbConfig::CONFIG['host_os'] =~ /linux/i
-      fields.push('domainname')
-    end
+    fields.push('domainname') if RbConfig::CONFIG['host_os'] =~ /linux/i
 
-    if RbConfig::CONFIG['host_os'] =~ /hpux/i
-      fields.push('id_number')
-    end
+    fields.push('id_number') if RbConfig::CONFIG['host_os'] =~ /hpux/i
 
     if RbConfig::CONFIG['host_os'] =~ /sunos|solaris/i
       fields.push(
@@ -107,9 +99,7 @@ module Sys
       )
     end
 
-    if RbConfig::CONFIG['host_os'] =~ /darwin|bsd/i
-      fields.push('model')
-    end
+    fields.push('model') if RbConfig::CONFIG['host_os'] =~ /darwin|bsd/i
 
     # :startdoc:
 
@@ -133,9 +123,7 @@ module Sys
     def self.uname
       utsname = UnameFFIStruct.new
 
-      if uname_c(utsname) < 0
-        raise Error, 'uname() function call failed'
-      end
+      raise Error, 'uname() function call failed' if uname_c(utsname) < 0
 
       struct = UnameStruct.new
       struct[:sysname]  = utsname[:sysname].to_s
@@ -144,9 +132,7 @@ module Sys
       struct[:version]  = utsname[:version].to_s
       struct[:machine]  = utsname[:machine].to_s
 
-      if RbConfig::CONFIG['host_os'] =~ /darwin|bsd/i
-        struct[:model] = get_model()
-      end
+      struct[:model] = get_model() if RbConfig::CONFIG['host_os'] =~ /darwin|bsd/i
 
       if RbConfig::CONFIG['host_os'] =~ /sunos|solaris/i
         struct[:architecture] = get_si(SI_ARCHITECTURE)
@@ -165,13 +151,9 @@ module Sys
         struct[:machine]  = get_si(SI_MACHINE) if struct.machine.empty?
       end
 
-      if RbConfig::CONFIG['host_os'] =~ /hpux/i
-        struct[:id_number] = utsname[:__id_number].to_s
-      end
+      struct[:id_number] = utsname[:__id_number].to_s if RbConfig::CONFIG['host_os'] =~ /hpux/i
 
-      if RbConfig::CONFIG['host_os'] =~ /linux/i
-        struct[:domainname] = utsname[:domainname].to_s
-      end
+      struct[:domainname] = utsname[:domainname].to_s if RbConfig::CONFIG['host_os'] =~ /linux/i
 
       # Let's add a members method that works for testing and compatibility
       if struct.members.nil?
