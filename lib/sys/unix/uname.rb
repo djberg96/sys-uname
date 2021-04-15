@@ -16,11 +16,11 @@ module Sys
 
     # Buffer size for uname struct char arrays
     case RbConfig::CONFIG['host_os']
-      when /linux/i
+    when /linux/i
         BUFSIZE = 65
-      when /bsd/i
+    when /bsd/i
         BUFSIZE = 32 # TODO: version method chopped
-      when /sunos|solaris/i
+    when /sunos|solaris/i
         BUFSIZE = 257
       else
         BUFSIZE = 256

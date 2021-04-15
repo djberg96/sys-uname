@@ -8,16 +8,16 @@ module Sys
 
     # Returns the OS type, :macosx, :linux, :mingw32, etc
     IMPL = case Uname.sysname
-      when /darwin|mac/i
+           when /darwin|mac/i
         :macosx
-      when /mingw|windows/i
+           when /mingw|windows/i
         require 'rbconfig'
         RbConfig::CONFIG['host_os'].split('_').first[/[a-z]+/i].downcase.to_sym
-      when /linux/i
+           when /linux/i
         :linux
-      when /sunos|solaris/i
+           when /sunos|solaris/i
         :solaris
-      when /bsd/i
+           when /bsd/i
         :bsd
     end
 

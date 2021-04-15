@@ -141,17 +141,17 @@ module Sys
         raise Error, e
       else
         case wmi.Architecture
-          when 0
+        when 0
             'x86'
-          when 1
+        when 1
             'mips'
-          when 2
+        when 2
             'alpha'
-          when 3
+        when 3
             'powerpc'
-          when 6
+        when 6
             'ia64'
-          when 9
+        when 9
             'x86_64'
           else
             'unknown'
@@ -175,223 +175,223 @@ module Sys
       else
         # Convert a family number into the equivalent string
         case wmi.Family
-          when 1
+        when 1
             return 'Other'
-          when 2
+        when 2
             return 'Unknown'
-          when 3
+        when 3
             return '8086'
-          when 4
+        when 4
             return '80286'
-          when 5
+        when 5
             return '80386'
-          when 6
+        when 6
             return '80486'
-          when 7
+        when 7
             return '8087'
-          when 8
+        when 8
             return '80287'
-          when 9
+        when 9
             return '80387'
-          when 10
+        when 10
             return '80487'
-          when 11
+        when 11
             return 'Pentium brand'
-          when 12
+        when 12
             return 'Pentium Pro'
-          when 13
+        when 13
             return 'Pentium II'
-          when 14
+        when 14
             return 'Pentium processor with MMX technology'
-          when 15
+        when 15
             return 'Celeron'
-          when 16
+        when 16
             return 'Pentium II Xeon'
-          when 17
+        when 17
             return 'Pentium III'
-          when 18
+        when 18
             return 'M1 Family'
-          when 19
+        when 19
             return 'M2 Family'
-          when 24
+        when 24
             return 'K5 Family'
-          when 25
+        when 25
             return 'K6 Family'
-          when 26
+        when 26
             return 'K6-2'
-          when 27
+        when 27
             return 'K6-3'
-          when 28
+        when 28
             return 'AMD Athlon Processor Family'
-          when 29
+        when 29
             return 'AMD Duron Processor'
-          when 30
+        when 30
             return 'AMD2900 Family'
-          when 31
+        when 31
             return 'K6-2+'
-          when 32
+        when 32
             return 'Power PC Family'
-          when 33
+        when 33
             return 'Power PC 601'
-          when 34
+        when 34
             return 'Power PC 603'
-          when 35
+        when 35
             return 'Power PC 603+'
-          when 36
+        when 36
             return 'Power PC 604'
-          when 37
+        when 37
             return 'Power PC 620'
-          when 38
+        when 38
             return 'Power PC X704'
-          when 39
+        when 39
             return 'Power PC 750'
-          when 48
+        when 48
             return 'Alpha Family'
-          when 49
+        when 49
             return 'Alpha 21064'
-          when 50
+        when 50
             return 'Alpha 21066'
-          when 51
+        when 51
             return 'Alpha 21164'
-          when 52
+        when 52
             return 'Alpha 21164PC'
-          when 53
+        when 53
             return 'Alpha 21164a'
-          when 54
+        when 54
             return 'Alpha 21264'
-          when 55
+        when 55
             return 'Alpha 21364'
-          when 64
+        when 64
             return 'MIPS Family'
-          when 65
+        when 65
             return 'MIPS R4000'
-          when 66
+        when 66
             return 'MIPS R4200'
-          when 67
+        when 67
             return 'MIPS R4400'
-          when 68
+        when 68
             return 'MIPS R4600'
-          when 69
+        when 69
             return 'MIPS R10000'
-          when 80
+        when 80
             return 'SPARC Family'
-          when 81
+        when 81
             return 'SuperSPARC'
-          when 82
+        when 82
             return 'microSPARC II'
-          when 83
+        when 83
             return 'microSPARC IIep'
-          when 84
+        when 84
             return 'UltraSPARC'
-          when 85
+        when 85
             return 'UltraSPARC II'
-          when 86
+        when 86
             return 'UltraSPARC IIi'
-          when 87
+        when 87
             return 'UltraSPARC III'
-          when 88
+        when 88
             return 'UltraSPARC IIIi'
-          when 96
+        when 96
             return '68040'
-          when 97
+        when 97
             return '68xxx Family'
-          when 98
+        when 98
             return '68000'
-          when 99
+        when 99
             return '68010'
-          when 100
+        when 100
             return '68020'
-          when 101
+        when 101
             return '68030'
-          when 112
+        when 112
             return 'Hobbit Family'
-          when 120
+        when 120
             return 'Crusoe TM5000 Family'
-          when 121
+        when 121
             return 'Crusoe TM3000 Family'
-          when 122
+        when 122
             return 'Efficeon TM8000 Family'
-          when 128
+        when 128
             return 'Weitek'
-          when 130
+        when 130
             return 'Itanium Processor'
-          when 131
+        when 131
             return 'AMD Athlon 64 Processor Family'
-          when 132
+        when 132
             return 'AMD Opteron Processor Family'
-          when 144
+        when 144
             return 'PA-RISC Family'
-          when 145
+        when 145
             return 'PA-RISC 8500'
-          when 146
+        when 146
             return 'PA-RISC 8000'
-          when 147
+        when 147
             return 'PA-RISC 7300LC'
-          when 148
+        when 148
             return 'PA-RISC 7200'
-          when 149
+        when 149
             return 'PA-RISC 7100LC'
-          when 150
+        when 150
             return 'PA-RISC 7100'
-          when 160
+        when 160
             return 'V30 Family'
-          when 176
+        when 176
             return 'Pentium III Xeon'
-          when 177
+        when 177
             return 'Pentium III Processor with Intel SpeedStep Technology'
-          when 178
+        when 178
             return 'Pentium 4'
-          when 179
+        when 179
             return 'Intel Xeon'
-          when 180
+        when 180
             return 'AS400 Family'
-          when 181
+        when 181
             return 'Intel Xeon processor MP'
-          when 182
+        when 182
             return 'AMD AthlonXP Family'
-          when 183
+        when 183
             return 'AMD AthlonMP Family'
-          when 184
+        when 184
             return 'Intel Itanium 2'
-          when 185
+        when 185
             return 'AMD Opteron Family'
-          when 190
+        when 190
             return 'K7'
-          when 198
+        when 198
             return 'Intel Core i7-2760QM'
-          when 200
+        when 200
             return 'IBM390 Family'
-          when 201
+        when 201
             return 'G4'
-          when 202
+        when 202
             return 'G5'
-          when 203
+        when 203
             return 'G6'
-          when 204
+        when 204
             return 'z/Architecture Base'
-          when 250
+        when 250
             return 'i860'
-          when 251
+        when 251
             return 'i960'
-          when 260
+        when 260
              return 'SH-3'
-          when 261
+        when 261
             return 'SH-4'
-          when 280
+        when 280
             return 'ARM'
-          when 281
+        when 281
             return 'StrongARM'
-          when 300
+        when 300
             return '6x86'
-          when 301
+        when 301
             return 'MediaGX'
-          when 302
+        when 302
             return 'MII'
-          when 320
+        when 320
             return 'WinChip'
-          when 350
+        when 350
             return 'DSP'
-          when 500
+        when 500
             return 'Video Processor'
           else
             return 'Unknown'
