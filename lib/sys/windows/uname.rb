@@ -142,19 +142,19 @@ module Sys
       else
         case wmi.Architecture
         when 0
-            'x86'
+          'x86'
         when 1
-            'mips'
+          'mips'
         when 2
-            'alpha'
+          'alpha'
         when 3
-            'powerpc'
+          'powerpc'
         when 6
-            'ia64'
+          'ia64'
         when 9
-            'x86_64'
+          'x86_64'
           else
-            'unknown'
+          'unknown'
         end
       end
     end
@@ -176,225 +176,225 @@ module Sys
         # Convert a family number into the equivalent string
         case wmi.Family
         when 1
-            'Other'
+          'Other'
         when 2
-            'Unknown'
+          'Unknown'
         when 3
-            '8086'
+          '8086'
         when 4
-            '80286'
+          '80286'
         when 5
-            '80386'
+          '80386'
         when 6
-            '80486'
+          '80486'
         when 7
-            '8087'
+          '8087'
         when 8
-            '80287'
+          '80287'
         when 9
-            '80387'
+          '80387'
         when 10
-            '80487'
+          '80487'
         when 11
-            'Pentium brand'
+          'Pentium brand'
         when 12
-            'Pentium Pro'
+          'Pentium Pro'
         when 13
-            'Pentium II'
+          'Pentium II'
         when 14
-            'Pentium processor with MMX technology'
+          'Pentium processor with MMX technology'
         when 15
-            'Celeron'
+          'Celeron'
         when 16
-            'Pentium II Xeon'
+          'Pentium II Xeon'
         when 17
-            'Pentium III'
+          'Pentium III'
         when 18
-            'M1 Family'
+          'M1 Family'
         when 19
-            'M2 Family'
+          'M2 Family'
         when 24
-            'K5 Family'
+          'K5 Family'
         when 25
-            'K6 Family'
+          'K6 Family'
         when 26
-            'K6-2'
+          'K6-2'
         when 27
-            'K6-3'
+          'K6-3'
         when 28
-            'AMD Athlon Processor Family'
+          'AMD Athlon Processor Family'
         when 29
-            'AMD Duron Processor'
+          'AMD Duron Processor'
         when 30
-            'AMD2900 Family'
+          'AMD2900 Family'
         when 31
-            'K6-2+'
+          'K6-2+'
         when 32
-            'Power PC Family'
+          'Power PC Family'
         when 33
-            'Power PC 601'
+          'Power PC 601'
         when 34
-            'Power PC 603'
+          'Power PC 603'
         when 35
-            'Power PC 603+'
+          'Power PC 603+'
         when 36
-            'Power PC 604'
+          'Power PC 604'
         when 37
-            'Power PC 620'
+          'Power PC 620'
         when 38
-            'Power PC X704'
+          'Power PC X704'
         when 39
-            'Power PC 750'
+          'Power PC 750'
         when 48
-            'Alpha Family'
+          'Alpha Family'
         when 49
-            'Alpha 21064'
+          'Alpha 21064'
         when 50
-            'Alpha 21066'
+          'Alpha 21066'
         when 51
-            'Alpha 21164'
+          'Alpha 21164'
         when 52
-            'Alpha 21164PC'
+          'Alpha 21164PC'
         when 53
-            'Alpha 21164a'
+          'Alpha 21164a'
         when 54
-            'Alpha 21264'
+          'Alpha 21264'
         when 55
-            'Alpha 21364'
+          'Alpha 21364'
         when 64
-            'MIPS Family'
+          'MIPS Family'
         when 65
-            'MIPS R4000'
+          'MIPS R4000'
         when 66
-            'MIPS R4200'
+          'MIPS R4200'
         when 67
-            'MIPS R4400'
+          'MIPS R4400'
         when 68
-            'MIPS R4600'
+          'MIPS R4600'
         when 69
-            'MIPS R10000'
+          'MIPS R10000'
         when 80
-            'SPARC Family'
+          'SPARC Family'
         when 81
-            'SuperSPARC'
+          'SuperSPARC'
         when 82
-            'microSPARC II'
+          'microSPARC II'
         when 83
-            'microSPARC IIep'
+          'microSPARC IIep'
         when 84
-            'UltraSPARC'
+          'UltraSPARC'
         when 85
-            'UltraSPARC II'
+          'UltraSPARC II'
         when 86
-            'UltraSPARC IIi'
+          'UltraSPARC IIi'
         when 87
-            'UltraSPARC III'
+          'UltraSPARC III'
         when 88
-            'UltraSPARC IIIi'
+          'UltraSPARC IIIi'
         when 96
-            '68040'
+          '68040'
         when 97
-            '68xxx Family'
+          '68xxx Family'
         when 98
-            '68000'
+          '68000'
         when 99
-            '68010'
+          '68010'
         when 100
-            '68020'
+          '68020'
         when 101
-            '68030'
+          '68030'
         when 112
-            'Hobbit Family'
+          'Hobbit Family'
         when 120
-            'Crusoe TM5000 Family'
+          'Crusoe TM5000 Family'
         when 121
-            'Crusoe TM3000 Family'
+          'Crusoe TM3000 Family'
         when 122
-            'Efficeon TM8000 Family'
+          'Efficeon TM8000 Family'
         when 128
-            'Weitek'
+          'Weitek'
         when 130
-            'Itanium Processor'
+          'Itanium Processor'
         when 131
-            'AMD Athlon 64 Processor Family'
+          'AMD Athlon 64 Processor Family'
         when 132
-            'AMD Opteron Processor Family'
+          'AMD Opteron Processor Family'
         when 144
-            'PA-RISC Family'
+          'PA-RISC Family'
         when 145
-            'PA-RISC 8500'
+          'PA-RISC 8500'
         when 146
-            'PA-RISC 8000'
+          'PA-RISC 8000'
         when 147
-            'PA-RISC 7300LC'
+          'PA-RISC 7300LC'
         when 148
-            'PA-RISC 7200'
+          'PA-RISC 7200'
         when 149
-            'PA-RISC 7100LC'
+          'PA-RISC 7100LC'
         when 150
-            'PA-RISC 7100'
+          'PA-RISC 7100'
         when 160
-            'V30 Family'
+          'V30 Family'
         when 176
-            'Pentium III Xeon'
+          'Pentium III Xeon'
         when 177
-            'Pentium III Processor with Intel SpeedStep Technology'
+          'Pentium III Processor with Intel SpeedStep Technology'
         when 178
-            'Pentium 4'
+          'Pentium 4'
         when 179
-            'Intel Xeon'
+          'Intel Xeon'
         when 180
-            'AS400 Family'
+          'AS400 Family'
         when 181
-            'Intel Xeon processor MP'
+          'Intel Xeon processor MP'
         when 182
-            'AMD AthlonXP Family'
+          'AMD AthlonXP Family'
         when 183
-            'AMD AthlonMP Family'
+          'AMD AthlonMP Family'
         when 184
-            'Intel Itanium 2'
+          'Intel Itanium 2'
         when 185
-            'AMD Opteron Family'
+          'AMD Opteron Family'
         when 190
-            'K7'
+          'K7'
         when 198
-            'Intel Core i7-2760QM'
+          'Intel Core i7-2760QM'
         when 200
-            'IBM390 Family'
+          'IBM390 Family'
         when 201
-            'G4'
+          'G4'
         when 202
-            'G5'
+          'G5'
         when 203
-            'G6'
+          'G6'
         when 204
-            'z/Architecture Base'
+          'z/Architecture Base'
         when 250
-            'i860'
+          'i860'
         when 251
-            'i960'
+          'i960'
         when 260
-             'SH-3'
+          'SH-3'
         when 261
-            'SH-4'
+          'SH-4'
         when 280
-            'ARM'
+          'ARM'
         when 281
-            'StrongARM'
+          'StrongARM'
         when 300
-            '6x86'
+          '6x86'
         when 301
-            'MediaGX'
+          'MediaGX'
         when 302
-            'MII'
+          'MII'
         when 320
-            'WinChip'
+          'WinChip'
         when 350
-            'DSP'
+          'DSP'
         when 500
-            'Video Processor'
+          'Video Processor'
           else
-            'Unknown'
+          'Unknown'
         end
       end
     end
