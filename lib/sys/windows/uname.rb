@@ -88,7 +88,7 @@ module Sys
     # the 'InstancesOf' method to get the data we need, rather than
     # including it as part of the connection.
     #
-    def self.version(host=Socket.gethostname)
+    def self.version(host = Socket.gethostname)
       cs = "winmgmts://#{host}/root/cimv2"
       begin
         wmi = WIN32OLE.connect(cs)
@@ -103,7 +103,7 @@ module Sys
 
     # Returns the operating system name, e.g. "Microsoft Windows XP Home"
     #
-    def self.sysname(host=Socket.gethostname)
+    def self.sysname(host = Socket.gethostname)
       cs = 'winmgmts:{impersonationLevel=impersonate,(security)}'
       cs << "//#{host}/root/cimv2"
       begin
@@ -118,7 +118,7 @@ module Sys
     # Returns the nodename.  This is usually, but not necessarily, the
     # same as the system's hostname.
     #
-    def self.nodename(host=Socket.gethostname)
+    def self.nodename(host = Socket.gethostname)
       cs = 'winmgmts:{impersonationLevel=impersonate,(security)}'
       cs << "//#{host}/root/cimv2"
       begin
@@ -132,7 +132,7 @@ module Sys
 
     # Returns the CPU architecture, e.g. "x86"
     #
-    def self.architecture(cpu_num=0, host=Socket.gethostname)
+    def self.architecture(cpu_num = 0, host = Socket.gethostname)
       cs = 'winmgmts:{impersonationLevel=impersonate,(security)}'
       cs << "//#{host}/root/cimv2:Win32_Processor='cpu#{cpu_num}'"
       begin
@@ -165,7 +165,7 @@ module Sys
     # were unknown to the OS when the OS was originally released.  It
     # appears that MS doesn't necessarily patch this, either.
     #
-    def self.machine(cpu_num=0, host=Socket.gethostname)
+    def self.machine(cpu_num = 0, host = Socket.gethostname)
       cs = 'winmgmts:{impersonationLevel=impersonate,(security)}'
       cs << "//#{host}/root/cimv2:Win32_Processor='cpu#{cpu_num}'"
       begin
@@ -401,7 +401,7 @@ module Sys
 
     # Returns the release number, e.g. 5.1.2600.
     #
-    def self.release(host=Socket.gethostname)
+    def self.release(host = Socket.gethostname)
       cs = "winmgmts://#{host}/root/cimv2"
       begin
         wmi = WIN32OLE.connect(cs)
@@ -416,7 +416,7 @@ module Sys
     # machine, version, and release, as well as a plethora of other fields.
     # Please see the MSDN documentation for what each of these fields mean.
     #
-    def self.uname(host=Socket.gethostname)
+    def self.uname(host = Socket.gethostname)
       cs = "winmgmts://#{host}/root/cimv2"
       begin
         wmi = WIN32OLE.connect(cs)
