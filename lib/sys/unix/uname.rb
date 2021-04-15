@@ -113,7 +113,7 @@ module Sys
 
     # :startdoc:
 
-    UnameStruct = Struct.new("UnameStruct", *fields)
+    UnameStruct = Struct.new('UnameStruct', *fields)
 
     # Returns a struct that contains the sysname, nodename, machine, version
     # and release of your system.
@@ -134,7 +134,7 @@ module Sys
       utsname = UnameFFIStruct.new
 
       if uname_c(utsname) < 0
-        raise Error, "uname() function call failed"
+        raise Error, 'uname() function call failed'
       end
 
       struct = UnameStruct.new

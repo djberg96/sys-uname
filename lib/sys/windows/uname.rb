@@ -79,7 +79,7 @@ module Sys
     ]
 
     # The UnameStruct is used to store platform information for some methods.
-    UnameStruct = Struct.new("UnameStruct", *fields)
+    UnameStruct = Struct.new('UnameStruct', *fields)
 
     # Returns the version plus patch information of the operating system,
     # separated by a hyphen, e.g. "2915-Service Pack 2".
@@ -95,7 +95,7 @@ module Sys
       rescue WIN32OLERuntimeError => e
         raise Error, e
       else
-        ole = wmi.InstancesOf("Win32_OperatingSystem").ItemIndex(0)
+        ole = wmi.InstancesOf('Win32_OperatingSystem').ItemIndex(0)
         str = "#{ole.Version} #{ole.BuildNumber}-"
         "#{str}#{ole.ServicePackMajorVersion}"
       end
@@ -104,14 +104,14 @@ module Sys
     # Returns the operating system name, e.g. "Microsoft Windows XP Home"
     #
     def self.sysname(host=Socket.gethostname)
-      cs = "winmgmts:{impersonationLevel=impersonate,(security)}"
+      cs = 'winmgmts:{impersonationLevel=impersonate,(security)}'
       cs << "//#{host}/root/cimv2"
       begin
         wmi = WIN32OLE.connect(cs)
       rescue WIN32OLERuntimeError => e
         raise Error, e
       else
-        wmi.InstancesOf("Win32_OperatingSystem").ItemIndex(0).Caption.strip
+        wmi.InstancesOf('Win32_OperatingSystem').ItemIndex(0).Caption.strip
       end
     end
 
@@ -119,21 +119,21 @@ module Sys
     # same as the system's hostname.
     #
     def self.nodename(host=Socket.gethostname)
-      cs = "winmgmts:{impersonationLevel=impersonate,(security)}"
+      cs = 'winmgmts:{impersonationLevel=impersonate,(security)}'
       cs << "//#{host}/root/cimv2"
       begin
         wmi = WIN32OLE.connect(cs)
       rescue WIN32OLERuntimeError => e
         raise Error, e
       else
-        wmi.InstancesOf("Win32_OperatingSystem").ItemIndex(0).CSName
+        wmi.InstancesOf('Win32_OperatingSystem').ItemIndex(0).CSName
       end
     end
 
     # Returns the CPU architecture, e.g. "x86"
     #
     def self.architecture(cpu_num=0, host=Socket.gethostname)
-      cs = "winmgmts:{impersonationLevel=impersonate,(security)}"
+      cs = 'winmgmts:{impersonationLevel=impersonate,(security)}'
       cs << "//#{host}/root/cimv2:Win32_Processor='cpu#{cpu_num}'"
       begin
         wmi = WIN32OLE.connect(cs)
@@ -142,19 +142,19 @@ module Sys
       else
         case wmi.Architecture
           when 0
-            "x86"
+            'x86'
           when 1
-            "mips"
+            'mips'
           when 2
-            "alpha"
+            'alpha'
           when 3
-            "powerpc"
+            'powerpc'
           when 6
-            "ia64"
+            'ia64'
           when 9
-            "x86_64"
+            'x86_64'
           else
-            "unknown"
+            'unknown'
         end
       end
     end
@@ -166,7 +166,7 @@ module Sys
     # appears that MS doesn't necessarily patch this, either.
     #
     def self.machine(cpu_num=0, host=Socket.gethostname)
-      cs = "winmgmts:{impersonationLevel=impersonate,(security)}"
+      cs = 'winmgmts:{impersonationLevel=impersonate,(security)}'
       cs << "//#{host}/root/cimv2:Win32_Processor='cpu#{cpu_num}'"
       begin
         wmi = WIN32OLE.connect(cs)
@@ -176,225 +176,225 @@ module Sys
         # Convert a family number into the equivalent string
         case wmi.Family
           when 1
-            return "Other"
+            return 'Other'
           when 2
-            return "Unknown"
+            return 'Unknown'
           when 3
-            return "8086"
+            return '8086'
           when 4
-            return "80286"
+            return '80286'
           when 5
-            return "80386"
+            return '80386'
           when 6
-            return "80486"
+            return '80486'
           when 7
-            return "8087"
+            return '8087'
           when 8
-            return "80287"
+            return '80287'
           when 9
-            return "80387"
+            return '80387'
           when 10
-            return "80487"
+            return '80487'
           when 11
-            return "Pentium brand"
+            return 'Pentium brand'
           when 12
-            return "Pentium Pro"
+            return 'Pentium Pro'
           when 13
-            return "Pentium II"
+            return 'Pentium II'
           when 14
-            return "Pentium processor with MMX technology"
+            return 'Pentium processor with MMX technology'
           when 15
-            return "Celeron"
+            return 'Celeron'
           when 16
-            return "Pentium II Xeon"
+            return 'Pentium II Xeon'
           when 17
-            return "Pentium III"
+            return 'Pentium III'
           when 18
-            return "M1 Family"
+            return 'M1 Family'
           when 19
-            return "M2 Family"
+            return 'M2 Family'
           when 24
-            return "K5 Family"
+            return 'K5 Family'
           when 25
-            return "K6 Family"
+            return 'K6 Family'
           when 26
-            return "K6-2"
+            return 'K6-2'
           when 27
-            return "K6-3"
+            return 'K6-3'
           when 28
-            return "AMD Athlon Processor Family"
+            return 'AMD Athlon Processor Family'
           when 29
-            return "AMD Duron Processor"
+            return 'AMD Duron Processor'
           when 30
-            return "AMD2900 Family"
+            return 'AMD2900 Family'
           when 31
-            return "K6-2+"
+            return 'K6-2+'
           when 32
-            return "Power PC Family"
+            return 'Power PC Family'
           when 33
-            return "Power PC 601"
+            return 'Power PC 601'
           when 34
-            return "Power PC 603"
+            return 'Power PC 603'
           when 35
-            return "Power PC 603+"
+            return 'Power PC 603+'
           when 36
-            return "Power PC 604"
+            return 'Power PC 604'
           when 37
-            return "Power PC 620"
+            return 'Power PC 620'
           when 38
-            return "Power PC X704"
+            return 'Power PC X704'
           when 39
-            return "Power PC 750"
+            return 'Power PC 750'
           when 48
-            return "Alpha Family"
+            return 'Alpha Family'
           when 49
-            return "Alpha 21064"
+            return 'Alpha 21064'
           when 50
-            return "Alpha 21066"
+            return 'Alpha 21066'
           when 51
-            return "Alpha 21164"
+            return 'Alpha 21164'
           when 52
-            return "Alpha 21164PC"
+            return 'Alpha 21164PC'
           when 53
-            return "Alpha 21164a"
+            return 'Alpha 21164a'
           when 54
-            return "Alpha 21264"
+            return 'Alpha 21264'
           when 55
-            return "Alpha 21364"
+            return 'Alpha 21364'
           when 64
-            return "MIPS Family"
+            return 'MIPS Family'
           when 65
-            return "MIPS R4000"
+            return 'MIPS R4000'
           when 66
-            return "MIPS R4200"
+            return 'MIPS R4200'
           when 67
-            return "MIPS R4400"
+            return 'MIPS R4400'
           when 68
-            return "MIPS R4600"
+            return 'MIPS R4600'
           when 69
-            return "MIPS R10000"
+            return 'MIPS R10000'
           when 80
-            return "SPARC Family"
+            return 'SPARC Family'
           when 81
-            return "SuperSPARC"
+            return 'SuperSPARC'
           when 82
-            return "microSPARC II"
+            return 'microSPARC II'
           when 83
-            return "microSPARC IIep"
+            return 'microSPARC IIep'
           when 84
-            return "UltraSPARC"
+            return 'UltraSPARC'
           when 85
-            return "UltraSPARC II"
+            return 'UltraSPARC II'
           when 86
-            return "UltraSPARC IIi"
+            return 'UltraSPARC IIi'
           when 87
-            return "UltraSPARC III"
+            return 'UltraSPARC III'
           when 88
-            return "UltraSPARC IIIi"
+            return 'UltraSPARC IIIi'
           when 96
-            return "68040"
+            return '68040'
           when 97
-            return "68xxx Family"
+            return '68xxx Family'
           when 98
-            return "68000"
+            return '68000'
           when 99
-            return "68010"
+            return '68010'
           when 100
-            return "68020"
+            return '68020'
           when 101
-            return "68030"
+            return '68030'
           when 112
-            return "Hobbit Family"
+            return 'Hobbit Family'
           when 120
-            return "Crusoe TM5000 Family"
+            return 'Crusoe TM5000 Family'
           when 121
-            return "Crusoe TM3000 Family"
+            return 'Crusoe TM3000 Family'
           when 122
-            return "Efficeon TM8000 Family"
+            return 'Efficeon TM8000 Family'
           when 128
-            return "Weitek"
+            return 'Weitek'
           when 130
-            return "Itanium Processor"
+            return 'Itanium Processor'
           when 131
-            return "AMD Athlon 64 Processor Family"
+            return 'AMD Athlon 64 Processor Family'
           when 132
-            return "AMD Opteron Processor Family"
+            return 'AMD Opteron Processor Family'
           when 144
-            return "PA-RISC Family"
+            return 'PA-RISC Family'
           when 145
-            return "PA-RISC 8500"
+            return 'PA-RISC 8500'
           when 146
-            return "PA-RISC 8000"
+            return 'PA-RISC 8000'
           when 147
-            return "PA-RISC 7300LC"
+            return 'PA-RISC 7300LC'
           when 148
-            return "PA-RISC 7200"
+            return 'PA-RISC 7200'
           when 149
-            return "PA-RISC 7100LC"
+            return 'PA-RISC 7100LC'
           when 150
-            return "PA-RISC 7100"
+            return 'PA-RISC 7100'
           when 160
-            return "V30 Family"
+            return 'V30 Family'
           when 176
-            return "Pentium III Xeon"
+            return 'Pentium III Xeon'
           when 177
-            return "Pentium III Processor with Intel SpeedStep Technology"
+            return 'Pentium III Processor with Intel SpeedStep Technology'
           when 178
-            return "Pentium 4"
+            return 'Pentium 4'
           when 179
-            return "Intel Xeon"
+            return 'Intel Xeon'
           when 180
-            return "AS400 Family"
+            return 'AS400 Family'
           when 181
-            return "Intel Xeon processor MP"
+            return 'Intel Xeon processor MP'
           when 182
-            return "AMD AthlonXP Family"
+            return 'AMD AthlonXP Family'
           when 183
-            return "AMD AthlonMP Family"
+            return 'AMD AthlonMP Family'
           when 184
-            return "Intel Itanium 2"
+            return 'Intel Itanium 2'
           when 185
-            return "AMD Opteron Family"
+            return 'AMD Opteron Family'
           when 190
-            return "K7"
+            return 'K7'
           when 198
-            return "Intel Core i7-2760QM"
+            return 'Intel Core i7-2760QM'
           when 200
-            return "IBM390 Family"
+            return 'IBM390 Family'
           when 201
-            return "G4"
+            return 'G4'
           when 202
-            return "G5"
+            return 'G5'
           when 203
-            return "G6"
+            return 'G6'
           when 204
-            return "z/Architecture Base"
+            return 'z/Architecture Base'
           when 250
-            return "i860"
+            return 'i860'
           when 251
-            return "i960"
+            return 'i960'
           when 260
-             return "SH-3"
+             return 'SH-3'
           when 261
-            return "SH-4"
+            return 'SH-4'
           when 280
-            return "ARM"
+            return 'ARM'
           when 281
-            return "StrongARM"
+            return 'StrongARM'
           when 300
-            return "6x86"
+            return '6x86'
           when 301
-            return "MediaGX"
+            return 'MediaGX'
           when 302
-            return "MII"
+            return 'MII'
           when 320
-            return "WinChip"
+            return 'WinChip'
           when 350
-            return "DSP"
+            return 'DSP'
           when 500
-            return "Video Processor"
+            return 'Video Processor'
           else
-            return "Unknown"
+            return 'Unknown'
         end
       end
     end
@@ -408,7 +408,7 @@ module Sys
       rescue WIN32OLERuntimeError => e
         raise Error, e
       else
-        wmi.InstancesOf("Win32_OperatingSystem").ItemIndex(0).Version
+        wmi.InstancesOf('Win32_OperatingSystem').ItemIndex(0).Version
       end
     end
 
@@ -423,7 +423,7 @@ module Sys
       rescue WIN32OLERuntimeError => e
         raise Error, e
       else
-        os = wmi.InstancesOf("Win32_OperatingSystem").ItemIndex(0)
+        os = wmi.InstancesOf('Win32_OperatingSystem').ItemIndex(0)
 
         UnameStruct.new(
           os.BootDevice,
