@@ -30,7 +30,7 @@ module Sys
 
     # Returns whether or not you're on a Unixy (non-Windows) OS
     def self.unix?
-      Uname.sysname !~ /microsoft/i ? true : false
+      Uname.sysname =~ /microsoft/i ? false : true
     end
 
     # Returns whether or not you're on a mac, i.e. OSX
