@@ -32,7 +32,7 @@ module Sys
     private_class_method :uname_c
 
     begin
-      attach_function :sysctl, [:pointer, :uint, :pointer, :pointer, :pointer, :size_t], :int
+      attach_function :sysctl, %i[pointer uint pointer pointer pointer size_t], :int
       private_class_method :sysctl
 
       CTL_HW   = 6   # Generic hardware/cpu
@@ -42,7 +42,7 @@ module Sys
     end
 
     begin
-      attach_function :sysinfo, [:int, :pointer, :long], :long
+      attach_function :sysinfo, %i[int pointer long], :long
       private_class_method :sysinfo
 
       SI_SYSNAME      = 1   # OS name
