@@ -16,7 +16,6 @@ BEGIN{
 module Sys
   # The Uname class encapsulates uname (platform) information.
   class Uname
-
     # This is the error raised if any of the Sys::Uname methods should fail.
     class Error < StandardError; end
 
