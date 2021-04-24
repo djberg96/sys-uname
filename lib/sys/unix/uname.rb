@@ -159,11 +159,11 @@ module Sys
 
       # Let's add a members method that works for testing and compatibility
       if struct.members.nil?
-        struct.instance_eval(%Q{
+        struct.instance_eval <<-RUBY, __FILE__, __LINE__ + 1
           def members
-            @table.keys.map{ |k| k.to_s }
+            @table.keys.map(&:to_s)
           end
-        })
+        RUBY
       end
 
       struct.freeze
