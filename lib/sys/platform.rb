@@ -21,7 +21,7 @@ module Sys
                :solaris
              when /bsd/i
                :bsd
-    end
+           end
 
     # Returns whether or not you're on a Windows OS
     def self.windows?
