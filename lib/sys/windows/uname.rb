@@ -92,8 +92,8 @@ module Sys
       cs = "winmgmts://#{host}/root/cimv2"
       begin
         wmi = WIN32OLE.connect(cs)
-      rescue WIN32OLERuntimeError => e
-        raise Error, e
+      rescue WIN32OLERuntimeError => err
+        raise Error, err
       else
         ole = wmi.InstancesOf('Win32_OperatingSystem').ItemIndex(0)
         str = "#{ole.Version} #{ole.BuildNumber}-"
@@ -108,8 +108,8 @@ module Sys
       cs << "//#{host}/root/cimv2"
       begin
         wmi = WIN32OLE.connect(cs)
-      rescue WIN32OLERuntimeError => e
-        raise Error, e
+      rescue WIN32OLERuntimeError => err
+        raise Error, err
       else
         wmi.InstancesOf('Win32_OperatingSystem').ItemIndex(0).Caption.strip
       end
@@ -123,8 +123,8 @@ module Sys
       cs << "//#{host}/root/cimv2"
       begin
         wmi = WIN32OLE.connect(cs)
-      rescue WIN32OLERuntimeError => e
-        raise Error, e
+      rescue WIN32OLERuntimeError => err
+        raise Error, err
       else
         wmi.InstancesOf('Win32_OperatingSystem').ItemIndex(0).CSName
       end
@@ -137,8 +137,8 @@ module Sys
       cs << "//#{host}/root/cimv2:Win32_Processor='cpu#{cpu_num}'"
       begin
         wmi = WIN32OLE.connect(cs)
-      rescue WIN32OLERuntimeError => e
-        raise Error, e
+      rescue WIN32OLERuntimeError => err
+        raise Error, err
       else
         case wmi.Architecture
           when 0
@@ -170,8 +170,8 @@ module Sys
       cs << "//#{host}/root/cimv2:Win32_Processor='cpu#{cpu_num}'"
       begin
         wmi = WIN32OLE.connect(cs)
-      rescue WIN32OLERuntimeError => e
-        raise Error, e
+      rescue WIN32OLERuntimeError => err
+        raise Error, err
       else
         # Convert a family number into the equivalent string
         case wmi.Family
@@ -405,8 +405,8 @@ module Sys
       cs = "winmgmts://#{host}/root/cimv2"
       begin
         wmi = WIN32OLE.connect(cs)
-      rescue WIN32OLERuntimeError => e
-        raise Error, e
+      rescue WIN32OLERuntimeError => err
+        raise Error, err
       else
         wmi.InstancesOf('Win32_OperatingSystem').ItemIndex(0).Version
       end
@@ -420,8 +420,8 @@ module Sys
       cs = "winmgmts://#{host}/root/cimv2"
       begin
         wmi = WIN32OLE.connect(cs)
-      rescue WIN32OLERuntimeError => e
-        raise Error, e
+      rescue WIN32OLERuntimeError => err
+        raise Error, err
       else
         os = wmi.InstancesOf('Win32_OperatingSystem').ItemIndex(0)
 
