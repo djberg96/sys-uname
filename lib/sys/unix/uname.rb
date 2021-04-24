@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'ffi'
 require 'rbconfig'
 require 'ostruct'
@@ -30,7 +32,7 @@ module Sys
     private_class_method :uname_c
 
     begin
-      attach_function :sysctl, [:pointer, :uint, :pointer, :pointer, :pointer, :size_t], :int
+      attach_function :sysctl, %i[pointer uint pointer pointer pointer size_t], :int
       private_class_method :sysctl
 
       CTL_HW   = 6   # Generic hardware/cpu
@@ -40,7 +42,7 @@ module Sys
     end
 
     begin
-      attach_function :sysinfo, [:int, :pointer, :long], :long
+      attach_function :sysinfo, %i[int pointer long], :long
       private_class_method :sysinfo
 
       SI_SYSNAME      = 1   # OS name
@@ -59,6 +61,7 @@ module Sys
       # Ignore. Not suppored.
     end
 
+    # FFI class passed to the underlying C uname function.
     class UnameFFIStruct < FFI::Struct
       members = [
         :sysname,  [:char, BUFSIZE],
@@ -68,13 +71,8 @@ module Sys
         :machine,  [:char, BUFSIZE]
       ]
 
-      if RbConfig::CONFIG['host_os'] =~ /linux/i
-        members.push(:domainname, [:char, BUFSIZE])
-      end
-
-      if RbConfig::CONFIG['host_os'] =~ /hpux/i
-        members.push(:__id_number, [:char, BUFSIZE])
-      end
+      members.push(:domainname, [:char, BUFSIZE]) if RbConfig::CONFIG['host_os'] =~ /linux/i
+      members.push(:__id_number, [:char, BUFSIZE]) if RbConfig::CONFIG['host_os'] =~ /hpux/i
 
       layout(*members)
     end
@@ -87,13 +85,8 @@ module Sys
       machine
     ]
 
-    if RbConfig::CONFIG['host_os'] =~ /linux/i
-      fields.push('domainname')
-    end
-
-    if RbConfig::CONFIG['host_os'] =~ /hpux/i
-      fields.push('id_number')
-    end
+    fields.push('domainname') if RbConfig::CONFIG['host_os'] =~ /linux/i
+    fields.push('id_number') if RbConfig::CONFIG['host_os'] =~ /hpux/i
 
     if RbConfig::CONFIG['host_os'] =~ /sunos|solaris/i
       fields.push(
@@ -107,13 +100,13 @@ module Sys
       )
     end
 
-    if RbConfig::CONFIG['host_os'] =~ /darwin|bsd/i
-      fields.push('model')
-    end
+    fields.push('model') if RbConfig::CONFIG['host_os'] =~ /darwin|bsd/i
+
+    private_constant :UnameFFIStruct
 
     # :startdoc:
 
-    UnameStruct = Struct.new("UnameStruct", *fields)
+    UnameStruct = Struct.new('UnameStruct', *fields)
 
     # Returns a struct that contains the sysname, nodename, machine, version
     # and release of your system.
@@ -133,9 +126,7 @@ module Sys
     def self.uname
       utsname = UnameFFIStruct.new
 
-      if uname_c(utsname) < 0
-        raise Error, "uname() function call failed"
-      end
+      raise Error, 'uname() function call failed' if uname_c(utsname) < 0
 
       struct = UnameStruct.new
       struct[:sysname]  = utsname[:sysname].to_s
@@ -144,9 +135,7 @@ module Sys
       struct[:version]  = utsname[:version].to_s
       struct[:machine]  = utsname[:machine].to_s
 
-      if RbConfig::CONFIG['host_os'] =~ /darwin|bsd/i
-        struct[:model] = get_model()
-      end
+      struct[:model] = get_model() if RbConfig::CONFIG['host_os'] =~ /darwin|bsd/i
 
       if RbConfig::CONFIG['host_os'] =~ /sunos|solaris/i
         struct[:architecture] = get_si(SI_ARCHITECTURE)
@@ -165,21 +154,17 @@ module Sys
         struct[:machine]  = get_si(SI_MACHINE) if struct.machine.empty?
       end
 
-      if RbConfig::CONFIG['host_os'] =~ /hpux/i
-        struct[:id_number] = utsname[:__id_number].to_s
-      end
+      struct[:id_number] = utsname[:__id_number].to_s if RbConfig::CONFIG['host_os'] =~ /hpux/i
 
-      if RbConfig::CONFIG['host_os'] =~ /linux/i
-        struct[:domainname] = utsname[:domainname].to_s
-      end
+      struct[:domainname] = utsname[:domainname].to_s if RbConfig::CONFIG['host_os'] =~ /linux/i
 
       # Let's add a members method that works for testing and compatibility
       if struct.members.nil?
-        struct.instance_eval(%Q{
+        struct.instance_eval <<-RUBY, __FILE__, __LINE__ + 1
           def members
-            @table.keys.map{ |k| k.to_s }
+            @table.keys.map(&:to_s)
           end
-        })
+        RUBY
       end
 
       struct.freeze

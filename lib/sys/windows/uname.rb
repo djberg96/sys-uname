@@ -1,21 +1,12 @@
+# frozen_string_literal: true
+
 require 'socket'
 require 'time'
 
-# See Ruby bugs #2618 and #7681. This is a workaround.
-BEGIN{
-  require 'win32ole'
-  if RUBY_VERSION.to_f < 2.0
-    WIN32OLE.ole_initialize
-    at_exit { WIN32OLE.ole_uninitialize }
-  end
-}
-
 # The Sys module provides a namespace only.
 module Sys
-
   # The Uname class encapsulates uname (platform) information.
   class Uname
-
     # This is the error raised if any of the Sys::Uname methods should fail.
     class Error < StandardError; end
 
@@ -79,7 +70,7 @@ module Sys
     ]
 
     # The UnameStruct is used to store platform information for some methods.
-    UnameStruct = Struct.new("UnameStruct", *fields)
+    UnameStruct = Struct.new('UnameStruct', *fields)
 
     # Returns the version plus patch information of the operating system,
     # separated by a hyphen, e.g. "2915-Service Pack 2".
@@ -88,14 +79,14 @@ module Sys
     # the 'InstancesOf' method to get the data we need, rather than
     # including it as part of the connection.
     #
-    def self.version(host=Socket.gethostname)
+    def self.version(host = Socket.gethostname)
       cs = "winmgmts://#{host}/root/cimv2"
       begin
         wmi = WIN32OLE.connect(cs)
-      rescue WIN32OLERuntimeError => e
-        raise Error, e
+      rescue WIN32OLERuntimeError => err
+        raise Error, err
       else
-        ole = wmi.InstancesOf("Win32_OperatingSystem").ItemIndex(0)
+        ole = wmi.InstancesOf('Win32_OperatingSystem').ItemIndex(0)
         str = "#{ole.Version} #{ole.BuildNumber}-"
         "#{str}#{ole.ServicePackMajorVersion}"
       end
@@ -103,58 +94,58 @@ module Sys
 
     # Returns the operating system name, e.g. "Microsoft Windows XP Home"
     #
-    def self.sysname(host=Socket.gethostname)
-      cs = "winmgmts:{impersonationLevel=impersonate,(security)}"
+    def self.sysname(host = Socket.gethostname)
+      cs = 'winmgmts:{impersonationLevel=impersonate,(security)}'
       cs << "//#{host}/root/cimv2"
       begin
         wmi = WIN32OLE.connect(cs)
-      rescue WIN32OLERuntimeError => e
-        raise Error, e
+      rescue WIN32OLERuntimeError => err
+        raise Error, err
       else
-        wmi.InstancesOf("Win32_OperatingSystem").ItemIndex(0).Caption.strip
+        wmi.InstancesOf('Win32_OperatingSystem').ItemIndex(0).Caption.strip
       end
     end
 
     # Returns the nodename.  This is usually, but not necessarily, the
     # same as the system's hostname.
     #
-    def self.nodename(host=Socket.gethostname)
-      cs = "winmgmts:{impersonationLevel=impersonate,(security)}"
+    def self.nodename(host = Socket.gethostname)
+      cs = 'winmgmts:{impersonationLevel=impersonate,(security)}'
       cs << "//#{host}/root/cimv2"
       begin
         wmi = WIN32OLE.connect(cs)
-      rescue WIN32OLERuntimeError => e
-        raise Error, e
+      rescue WIN32OLERuntimeError => err
+        raise Error, err
       else
-        wmi.InstancesOf("Win32_OperatingSystem").ItemIndex(0).CSName
+        wmi.InstancesOf('Win32_OperatingSystem').ItemIndex(0).CSName
       end
     end
 
     # Returns the CPU architecture, e.g. "x86"
     #
-    def self.architecture(cpu_num=0, host=Socket.gethostname)
-      cs = "winmgmts:{impersonationLevel=impersonate,(security)}"
+    def self.architecture(cpu_num = 0, host = Socket.gethostname)
+      cs = 'winmgmts:{impersonationLevel=impersonate,(security)}'
       cs << "//#{host}/root/cimv2:Win32_Processor='cpu#{cpu_num}'"
       begin
         wmi = WIN32OLE.connect(cs)
-      rescue WIN32OLERuntimeError => e
-        raise Error, e
+      rescue WIN32OLERuntimeError => err
+        raise Error, err
       else
         case wmi.Architecture
           when 0
-            "x86"
+            'x86'
           when 1
-            "mips"
+            'mips'
           when 2
-            "alpha"
+            'alpha'
           when 3
-            "powerpc"
+            'powerpc'
           when 6
-            "ia64"
+            'ia64'
           when 9
-            "x86_64"
+            'x86_64'
           else
-            "unknown"
+            'unknown'
         end
       end
     end
@@ -165,250 +156,250 @@ module Sys
     # were unknown to the OS when the OS was originally released.  It
     # appears that MS doesn't necessarily patch this, either.
     #
-    def self.machine(cpu_num=0, host=Socket.gethostname)
-      cs = "winmgmts:{impersonationLevel=impersonate,(security)}"
+    def self.machine(cpu_num = 0, host = Socket.gethostname)
+      cs = 'winmgmts:{impersonationLevel=impersonate,(security)}'
       cs << "//#{host}/root/cimv2:Win32_Processor='cpu#{cpu_num}'"
       begin
         wmi = WIN32OLE.connect(cs)
-      rescue WIN32OLERuntimeError => e
-        raise Error, e
+      rescue WIN32OLERuntimeError => err
+        raise Error, err
       else
         # Convert a family number into the equivalent string
         case wmi.Family
           when 1
-            return "Other"
+            'Other'
           when 2
-            return "Unknown"
+            'Unknown'
           when 3
-            return "8086"
+            '8086'
           when 4
-            return "80286"
+            '80286'
           when 5
-            return "80386"
+            '80386'
           when 6
-            return "80486"
+            '80486'
           when 7
-            return "8087"
+            '8087'
           when 8
-            return "80287"
+            '80287'
           when 9
-            return "80387"
+            '80387'
           when 10
-            return "80487"
+            '80487'
           when 11
-            return "Pentium brand"
+            'Pentium brand'
           when 12
-            return "Pentium Pro"
+            'Pentium Pro'
           when 13
-            return "Pentium II"
+            'Pentium II'
           when 14
-            return "Pentium processor with MMX technology"
+            'Pentium processor with MMX technology'
           when 15
-            return "Celeron"
+            'Celeron'
           when 16
-            return "Pentium II Xeon"
+            'Pentium II Xeon'
           when 17
-            return "Pentium III"
+            'Pentium III'
           when 18
-            return "M1 Family"
+            'M1 Family'
           when 19
-            return "M2 Family"
+            'M2 Family'
           when 24
-            return "K5 Family"
+            'K5 Family'
           when 25
-            return "K6 Family"
+            'K6 Family'
           when 26
-            return "K6-2"
+            'K6-2'
           when 27
-            return "K6-3"
+            'K6-3'
           when 28
-            return "AMD Athlon Processor Family"
+            'AMD Athlon Processor Family'
           when 29
-            return "AMD Duron Processor"
+            'AMD Duron Processor'
           when 30
-            return "AMD2900 Family"
+            'AMD2900 Family'
           when 31
-            return "K6-2+"
+            'K6-2+'
           when 32
-            return "Power PC Family"
+            'Power PC Family'
           when 33
-            return "Power PC 601"
+            'Power PC 601'
           when 34
-            return "Power PC 603"
+            'Power PC 603'
           when 35
-            return "Power PC 603+"
+            'Power PC 603+'
           when 36
-            return "Power PC 604"
+            'Power PC 604'
           when 37
-            return "Power PC 620"
+            'Power PC 620'
           when 38
-            return "Power PC X704"
+            'Power PC X704'
           when 39
-            return "Power PC 750"
+            'Power PC 750'
           when 48
-            return "Alpha Family"
+            'Alpha Family'
           when 49
-            return "Alpha 21064"
+            'Alpha 21064'
           when 50
-            return "Alpha 21066"
+            'Alpha 21066'
           when 51
-            return "Alpha 21164"
+            'Alpha 21164'
           when 52
-            return "Alpha 21164PC"
+            'Alpha 21164PC'
           when 53
-            return "Alpha 21164a"
+            'Alpha 21164a'
           when 54
-            return "Alpha 21264"
+            'Alpha 21264'
           when 55
-            return "Alpha 21364"
+            'Alpha 21364'
           when 64
-            return "MIPS Family"
+            'MIPS Family'
           when 65
-            return "MIPS R4000"
+            'MIPS R4000'
           when 66
-            return "MIPS R4200"
+            'MIPS R4200'
           when 67
-            return "MIPS R4400"
+            'MIPS R4400'
           when 68
-            return "MIPS R4600"
+            'MIPS R4600'
           when 69
-            return "MIPS R10000"
+            'MIPS R10000'
           when 80
-            return "SPARC Family"
+            'SPARC Family'
           when 81
-            return "SuperSPARC"
+            'SuperSPARC'
           when 82
-            return "microSPARC II"
+            'microSPARC II'
           when 83
-            return "microSPARC IIep"
+            'microSPARC IIep'
           when 84
-            return "UltraSPARC"
+            'UltraSPARC'
           when 85
-            return "UltraSPARC II"
+            'UltraSPARC II'
           when 86
-            return "UltraSPARC IIi"
+            'UltraSPARC IIi'
           when 87
-            return "UltraSPARC III"
+            'UltraSPARC III'
           when 88
-            return "UltraSPARC IIIi"
+            'UltraSPARC IIIi'
           when 96
-            return "68040"
+            '68040'
           when 97
-            return "68xxx Family"
+            '68xxx Family'
           when 98
-            return "68000"
+            '68000'
           when 99
-            return "68010"
+            '68010'
           when 100
-            return "68020"
+            '68020'
           when 101
-            return "68030"
+            '68030'
           when 112
-            return "Hobbit Family"
+            'Hobbit Family'
           when 120
-            return "Crusoe TM5000 Family"
+            'Crusoe TM5000 Family'
           when 121
-            return "Crusoe TM3000 Family"
+            'Crusoe TM3000 Family'
           when 122
-            return "Efficeon TM8000 Family"
+            'Efficeon TM8000 Family'
           when 128
-            return "Weitek"
+            'Weitek'
           when 130
-            return "Itanium Processor"
+            'Itanium Processor'
           when 131
-            return "AMD Athlon 64 Processor Family"
+            'AMD Athlon 64 Processor Family'
           when 132
-            return "AMD Opteron Processor Family"
+            'AMD Opteron Processor Family'
           when 144
-            return "PA-RISC Family"
+            'PA-RISC Family'
           when 145
-            return "PA-RISC 8500"
+            'PA-RISC 8500'
           when 146
-            return "PA-RISC 8000"
+            'PA-RISC 8000'
           when 147
-            return "PA-RISC 7300LC"
+            'PA-RISC 7300LC'
           when 148
-            return "PA-RISC 7200"
+            'PA-RISC 7200'
           when 149
-            return "PA-RISC 7100LC"
+            'PA-RISC 7100LC'
           when 150
-            return "PA-RISC 7100"
+            'PA-RISC 7100'
           when 160
-            return "V30 Family"
+            'V30 Family'
           when 176
-            return "Pentium III Xeon"
+            'Pentium III Xeon'
           when 177
-            return "Pentium III Processor with Intel SpeedStep Technology"
+            'Pentium III Processor with Intel SpeedStep Technology'
           when 178
-            return "Pentium 4"
+            'Pentium 4'
           when 179
-            return "Intel Xeon"
+            'Intel Xeon'
           when 180
-            return "AS400 Family"
+            'AS400 Family'
           when 181
-            return "Intel Xeon processor MP"
+            'Intel Xeon processor MP'
           when 182
-            return "AMD AthlonXP Family"
+            'AMD AthlonXP Family'
           when 183
-            return "AMD AthlonMP Family"
+            'AMD AthlonMP Family'
           when 184
-            return "Intel Itanium 2"
+            'Intel Itanium 2'
           when 185
-            return "AMD Opteron Family"
+            'AMD Opteron Family'
           when 190
-            return "K7"
+            'K7'
           when 198
-            return "Intel Core i7-2760QM"
+            'Intel Core i7-2760QM'
           when 200
-            return "IBM390 Family"
+            'IBM390 Family'
           when 201
-            return "G4"
+            'G4'
           when 202
-            return "G5"
+            'G5'
           when 203
-            return "G6"
+            'G6'
           when 204
-            return "z/Architecture Base"
+            'z/Architecture Base'
           when 250
-            return "i860"
+            'i860'
           when 251
-            return "i960"
+            'i960'
           when 260
-             return "SH-3"
+            'SH-3'
           when 261
-            return "SH-4"
+            'SH-4'
           when 280
-            return "ARM"
+            'ARM'
           when 281
-            return "StrongARM"
+            'StrongARM'
           when 300
-            return "6x86"
+            '6x86'
           when 301
-            return "MediaGX"
+            'MediaGX'
           when 302
-            return "MII"
+            'MII'
           when 320
-            return "WinChip"
+            'WinChip'
           when 350
-            return "DSP"
+            'DSP'
           when 500
-            return "Video Processor"
+            'Video Processor'
           else
-            return "Unknown"
+            'Unknown'
         end
       end
     end
 
     # Returns the release number, e.g. 5.1.2600.
     #
-    def self.release(host=Socket.gethostname)
+    def self.release(host = Socket.gethostname)
       cs = "winmgmts://#{host}/root/cimv2"
       begin
         wmi = WIN32OLE.connect(cs)
-      rescue WIN32OLERuntimeError => e
-        raise Error, e
+      rescue WIN32OLERuntimeError => err
+        raise Error, err
       else
-        wmi.InstancesOf("Win32_OperatingSystem").ItemIndex(0).Version
+        wmi.InstancesOf('Win32_OperatingSystem').ItemIndex(0).Version
       end
     end
 
@@ -416,14 +407,14 @@ module Sys
     # machine, version, and release, as well as a plethora of other fields.
     # Please see the MSDN documentation for what each of these fields mean.
     #
-    def self.uname(host=Socket.gethostname)
+    def self.uname(host = Socket.gethostname)
       cs = "winmgmts://#{host}/root/cimv2"
       begin
         wmi = WIN32OLE.connect(cs)
-      rescue WIN32OLERuntimeError => e
-        raise Error, e
+      rescue WIN32OLERuntimeError => err
+        raise Error, err
       else
-        os = wmi.InstancesOf("Win32_OperatingSystem").ItemIndex(0)
+        os = wmi.InstancesOf('Win32_OperatingSystem').ItemIndex(0)
 
         UnameStruct.new(
           os.BootDevice,
@@ -491,7 +482,7 @@ module Sys
     #
     def self.parse_ms_date(str)
       return if str.nil?
-      return Time.parse(str.split('.')[0])
+      Time.parse(str.split('.')[0])
     end
 
     private_class_method :parse_ms_date
@@ -501,7 +492,7 @@ module Sys
     #
     def self.convert(str)
       return nil if str.nil?  # Don't turn nil into 0
-      return str.to_i
+      str.to_i
     end
 
     private_class_method :convert
