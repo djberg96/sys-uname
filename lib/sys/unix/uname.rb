@@ -16,14 +16,14 @@ module Sys
 
     # Buffer size for uname struct char arrays
     case RbConfig::CONFIG['host_os']
-    when /linux/i
-      BUFSIZE = 65
-    when /bsd/i
-      BUFSIZE = 32 # TODO: version method chopped
-    when /sunos|solaris/i
-      BUFSIZE = 257
+      when /linux/i
+        BUFSIZE = 65
+      when /bsd/i
+        BUFSIZE = 32 # TODO: version method chopped
+      when /sunos|solaris/i
+        BUFSIZE = 257
       else
-      BUFSIZE = 256
+        BUFSIZE = 256
     end
 
     attach_function :uname_c, :uname, [:pointer], :int
