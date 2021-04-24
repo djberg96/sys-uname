@@ -14,7 +14,6 @@ BEGIN{
 
 # The Sys module provides a namespace only.
 module Sys
-
   # The Uname class encapsulates uname (platform) information.
   class Uname
 
