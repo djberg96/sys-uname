@@ -61,6 +61,7 @@ module Sys
       # Ignore. Not suppored.
     end
 
+    # FFI class passed to the underlying C uname function.
     class UnameFFIStruct < FFI::Struct
       members = [
         :sysname,  [:char, BUFSIZE],
@@ -71,7 +72,6 @@ module Sys
       ]
 
       members.push(:domainname, [:char, BUFSIZE]) if RbConfig::CONFIG['host_os'] =~ /linux/i
-
       members.push(:__id_number, [:char, BUFSIZE]) if RbConfig::CONFIG['host_os'] =~ /hpux/i
 
       layout(*members)
@@ -86,7 +86,6 @@ module Sys
     ]
 
     fields.push('domainname') if RbConfig::CONFIG['host_os'] =~ /linux/i
-
     fields.push('id_number') if RbConfig::CONFIG['host_os'] =~ /hpux/i
 
     if RbConfig::CONFIG['host_os'] =~ /sunos|solaris/i
@@ -102,6 +101,8 @@ module Sys
     end
 
     fields.push('model') if RbConfig::CONFIG['host_os'] =~ /darwin|bsd/i
+
+    private_constant :UnameFFIStruct
 
     # :startdoc:
 

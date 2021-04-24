@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+# The Sys module is a namespace only.
 module Sys
+  # The Platform class provides singleton methods to tell you what OS you're on.
   class Platform
     # The CPU architecture
     ARCH = File::ALT_SEPARATOR ? Uname.architecture.to_sym : Uname.machine.to_sym
