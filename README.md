@@ -8,8 +8,11 @@ ffi 1.0 or later
 ## Installation
 `gem install sys-uname`
 
+## Adding the trusted cert
+`gem cert --add <(curl -Ls https://raw.githubusercontent.com/djberg96/sys-uname/main/certs/djberg96_pub.pem)`
+
 ## Synopsis
-```
+```ruby
 require 'sys/uname' # require 'sys-uname' works, too
 
 # You now have Sys::Uname and Sys::Platform classes available.
