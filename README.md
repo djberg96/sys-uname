@@ -1,3 +1,5 @@
+[![Ruby](https://github.com/djberg96/sys-uname/actions/workflows/ruby.yml/badge.svg)](https://github.com/djberg96/sys-uname/actions/workflows/ruby.yml)
+
 ## Description
 A cross-platform Ruby interface for getting operating system information. The name
 comes from the Unix 'uname' command, but this library works on MS Windows as well.
