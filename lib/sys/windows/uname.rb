@@ -2,6 +2,7 @@
 
 require 'socket'
 require 'time'
+require 'win32ole'
 
 # The Sys module provides a namespace only.
 module Sys
@@ -96,7 +97,7 @@ module Sys
     #
     def self.sysname(host = Socket.gethostname)
       cs = 'winmgmts:{impersonationLevel=impersonate,(security)}'
-      cs << "//#{host}/root/cimv2"
+      cs += "//#{host}/root/cimv2"
       begin
         wmi = WIN32OLE.connect(cs)
       rescue WIN32OLERuntimeError => err
@@ -111,7 +112,7 @@ module Sys
     #
     def self.nodename(host = Socket.gethostname)
       cs = 'winmgmts:{impersonationLevel=impersonate,(security)}'
-      cs << "//#{host}/root/cimv2"
+      cs += "//#{host}/root/cimv2"
       begin
         wmi = WIN32OLE.connect(cs)
       rescue WIN32OLERuntimeError => err
@@ -125,7 +126,7 @@ module Sys
     #
     def self.architecture(cpu_num = 0, host = Socket.gethostname)
       cs = 'winmgmts:{impersonationLevel=impersonate,(security)}'
-      cs << "//#{host}/root/cimv2:Win32_Processor='cpu#{cpu_num}'"
+      cs += "//#{host}/root/cimv2:Win32_Processor='cpu#{cpu_num}'"
       begin
         wmi = WIN32OLE.connect(cs)
       rescue WIN32OLERuntimeError => err
@@ -158,7 +159,7 @@ module Sys
     #
     def self.machine(cpu_num = 0, host = Socket.gethostname)
       cs = 'winmgmts:{impersonationLevel=impersonate,(security)}'
-      cs << "//#{host}/root/cimv2:Win32_Processor='cpu#{cpu_num}'"
+      cs += "//#{host}/root/cimv2:Win32_Processor='cpu#{cpu_num}'"
       begin
         wmi = WIN32OLE.connect(cs)
       rescue WIN32OLERuntimeError => err
