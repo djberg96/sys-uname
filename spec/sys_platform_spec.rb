@@ -36,40 +36,40 @@ RSpec.describe Sys::Platform do
   end
 
   example "the mac? method is defined and returns a boolean" do
-    expect(Sys::Platform).to respond_to(:mac?)
-    expect(Sys::Platform.mac?).to eql(true).or eql(false)
+    expect(described_class).to respond_to(:mac?)
+    expect(described_class.mac?).to eql(true).or eql(false)
   end
 
   example "the windows? method is defined and returns a boolean" do
-    expect(Sys::Platform).to respond_to(:windows?)
-    expect(Sys::Platform.windows?).to eql(true).or eql(false)
+    expect(described_class).to respond_to(:windows?)
+    expect(described_class.windows?).to eql(true).or eql(false)
   end
 
   example "the windows? method returns the expected value" do
-    expect(Sys::Platform.windows?).to eql(@windows)
+    expect(described_class.windows?).to eql(@windows)
   end
 
   example "the unix? method is defined and returns a boolean" do
-    expect(Sys::Platform).to respond_to(:unix?)
-    expect(Sys::Platform.unix?).to eql(true).or eql(false)
+    expect(described_class).to respond_to(:unix?)
+    expect(described_class.unix?).to eql(true).or eql(false)
   end
 
   example "the unix? method returns the expected value" do
-    expect(Sys::Platform.unix?).not_to eql(@windows)
+    expect(described_class.unix?).not_to eql(@windows)
   end
 
   example "the solaris? method is defined and returns a boolean" do
-    expect(Sys::Platform).to respond_to(:solaris?)
-    expect(Sys::Platform.solaris?).to eql(true).or eql(false)
+    expect(described_class).to respond_to(:solaris?)
+    expect(described_class.solaris?).to eql(true).or eql(false)
   end
 
   example "the linux? method is defined and returns a boolean" do
-    expect(Sys::Platform).to respond_to(:linux?)
-    expect(Sys::Platform.linux?).to eql(true).or eql(false)
+    expect(described_class).to respond_to(:linux?)
+    expect(described_class.linux?).to eql(true).or eql(false)
   end
 
   example "the bsd? method is defined and returns a boolean" do
-    expect(Sys::Platform).to respond_to(:bsd?)
-    expect(Sys::Platform.bsd?).to eql(true).or eql(false)
+    expect(described_class).to respond_to(:bsd?)
+    expect(described_class.bsd?).to eql(true).or eql(false)
   end
 end
