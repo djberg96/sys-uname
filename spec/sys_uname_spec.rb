@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ##############################################################################
 # sys_uname_spec.rb
 #
@@ -112,21 +114,21 @@ RSpec.describe Sys::Uname do
 
   context "uname struct" do
     example "uname struct contains expected members based on platform" do
-      members = %w/sysname nodename machine version release/
+      members = %i[sysname nodename machine version release]
       case RbConfig::CONFIG['host_os']
         when /linux/i
-          members.push('domainname')
+          members.push(:domainname)
         when /sunos|solaris/i
           members.push(
-            'architecture', 'platform', 'hw_serial', 'hw_provider',
-            'srpc_domain', 'isa_list', 'dhcp_cache'
+            :architecture, :platform, :hw_serial, :hw_provider,
+            :srpc_domain, :isa_list, :dhcp_cache
           )
         when /powerpc|darwin|bsd/i
-          members.push('model')
+          members.push(:model)
         when /hpux/i
-          members.push('id')
+          members.push(:id)
         when /win32|mingw|cygwin|dos|windows/i
-          members = %w[
+          members = %i[
             boot_device build_number build_type caption code_set country_code
             creation_class_name cscreation_class_name csd_version cs_name
             current_time_zone debug description distributed encryption_level
@@ -146,8 +148,6 @@ RSpec.describe Sys::Uname do
           ]
       end
 
-      members.map!{ |e| e.to_sym } if RUBY_VERSION.to_f >= 1.9
-
       expect{ described_class.uname }.not_to raise_error
       expect(described_class.uname).to be_kind_of(Struct)
       expect(described_class.uname.members.sort).to eql(members.sort)
@@ -156,7 +156,7 @@ RSpec.describe Sys::Uname do
 
   context "ffi" do
     example "ffi and internal functions are not public" do
-      methods = described_class.methods(false).map{ |e| e.to_s }
+      methods = described_class.methods(false).map(&:to_s)
       expect(methods).not_to include('get_model')
       expect(methods).not_to include('get_si')
       expect(methods).not_to include('uname_c')

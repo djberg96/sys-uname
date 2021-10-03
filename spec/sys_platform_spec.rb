@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ##############################################################################
 # sys_platform_spec.rb
 #
@@ -8,7 +10,6 @@ require 'sys/uname'
 require 'rbconfig'
 
 RSpec.describe Sys::Platform do
-
   before(:context) do
     @host_os = RbConfig::CONFIG['host_os']
     @windows = @host_os =~ /mingw|mswin|windows/i ? true : false
@@ -32,7 +33,7 @@ RSpec.describe Sys::Platform do
   end
 
   example "the IMPL returns an expected value", :if => @windows do
-    expect(Sys::Platform::IMPL).to include([:mingw, :mswin])
+    expect(Sys::Platform::IMPL).to include(%i[mingw mswin])
   end
 
   example "the mac? method is defined and returns a boolean" do
