@@ -257,42 +257,42 @@ RSpec.describe Sys::Uname do
     end
 
     example "free_virtual_memory" do
-      expect{ described_class.uname.free_virtual_memory}.not_to raise_error
+      expect{ described_class.uname.free_virtual_memory }.not_to raise_error
       expect(described_class.uname.free_virtual_memory).to be_kind_of(Integer)
     end
 
     example "install_date" do
-      expect{ described_class.uname.install_date}.not_to raise_error
+      expect{ described_class.uname.install_date }.not_to raise_error
       expect(described_class.uname.install_date).to be_kind_of(Time)
     end
 
     example "last_bootup_time" do
-      expect{ described_class.uname.last_bootup_time}.not_to raise_error
+      expect{ described_class.uname.last_bootup_time }.not_to raise_error
       expect(described_class.uname.last_bootup_time).to be_kind_of(Time)
     end
 
     example "local_date_time" do
-      expect{ described_class.uname.local_date_time}.not_to raise_error
+      expect{ described_class.uname.local_date_time }.not_to raise_error
       expect(described_class.uname.local_date_time).to be_kind_of(Time)
     end
 
     example "locale" do
-      expect{ described_class.uname.locale}.not_to raise_error
+      expect{ described_class.uname.locale }.not_to raise_error
       expect(described_class.uname.locale).to be_kind_of(String)
     end
 
     example "manufacturer" do
-      expect{ described_class.uname.manufacturer}.not_to raise_error
+      expect{ described_class.uname.manufacturer }.not_to raise_error
       expect(described_class.uname.manufacturer).to be_kind_of(String)
     end
 
     example "max_number_of_processes" do
-      expect{ described_class.uname.max_number_of_processes}.not_to raise_error
+      expect{ described_class.uname.max_number_of_processes }.not_to raise_error
       expect(described_class.uname.max_number_of_processes).to be_kind_of(Integer)
     end
 
     example "max_process_memory_size" do
-      expect{ described_class.uname.max_process_memory_size}.not_to raise_error
+      expect{ described_class.uname.max_process_memory_size }.not_to raise_error
       expect(described_class.uname.max_process_memory_size).to be_kind_of(Integer)
     end
 
@@ -337,7 +337,7 @@ RSpec.describe Sys::Uname do
     end
 
     example "other_type_description" do
-      expect{ described_class.uname.other_type_description}.not_to raise_error
+      expect{ described_class.uname.other_type_description }.not_to raise_error
       expect(described_class.uname.other_type_description).to be_kind_of(String).or be_nil
     end
 
