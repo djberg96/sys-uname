@@ -28,21 +28,31 @@ p Sys::Platform::ARCH  # => :x86_64
 ```
    
 ## Solaris Notes
-Users on SunOS get several extra methods: architecture, platform,
-hw_serial, hw_provider, srpc_domain, isa_list, and dhcp_cache.
+Users on SunOS get several extra methods:
+
+* architecture
+* platform
+* hw_serial
+* hw_provider
+* srpc_domain
+* isa_list
+* dhcp_cache.
+
+Note that Solaris is essentially a dead OS at this point, so it will not be
+supported going forward, and will likely be dropped in the next major release.
 
 ## BSD flavors, including OS X
-Users on BSD platforms get the extra Uname.model method.
+Users on BSD platforms get the extra `Uname.model` method.
 
 ## HP-UX Notes
-HP-UX users get the extra Uname.id_number method. This is actually a
+HP-UX users get the extra `Uname.id_number` method. This is actually a
 String, not a Fixnum, because that's how it's defined in the utsname
 struct.
 
 ## MS Windows Notes
 The C version for Windows has been completely scrapped in favor of an OLE
 plus WMI approach. It is pure Ruby. Please see the MSDN documentation for
-the Win32_OperatingSystem class for a complete list of what each of the
+the `Win32_OperatingSystem` class for a complete list of what each of the
 UnameStruct members mean.
 
 ## The Platform Class
