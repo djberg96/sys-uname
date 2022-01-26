@@ -36,7 +36,7 @@ Users on SunOS get several extra methods:
 * hw_provider
 * srpc_domain
 * isa_list
-* dhcp_cache.
+* dhcp_cache
 
 Note that Solaris is essentially a dead OS at this point, so it will not be
 supported going forward, and will likely be dropped in the next major release.
