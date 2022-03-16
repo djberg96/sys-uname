@@ -10,41 +10,41 @@ require 'sys/uname'
 require 'rbconfig'
 
 RSpec.describe Sys::Uname do
-  context "universal singleton methods" do
-    example "version constant is set to expected value" do
+  context 'universal singleton methods' do
+    example 'version constant is set to expected value' do
       expect(Sys::Uname::VERSION).to eql('1.2.2')
       expect(Sys::Uname::VERSION).to be_frozen
     end
 
-    example "machine singleton method works as expected" do
+    example 'machine singleton method works as expected' do
       expect(described_class).to respond_to(:machine)
       expect{ described_class.machine }.not_to raise_error
       expect(described_class.machine).to be_kind_of(String)
       expect(described_class.machine.size).to be > 0
     end
 
-    example "version singleton method works as expected" do
+    example 'version singleton method works as expected' do
       expect(described_class).to respond_to(:version)
       expect{ described_class.version }.not_to raise_error
       expect(described_class.version).to be_kind_of(String)
       expect(described_class.version.size).to be > 0
     end
 
-    example "nodename singleton method works as expected" do
+    example 'nodename singleton method works as expected' do
       expect(described_class).to respond_to(:nodename)
       expect{ described_class.nodename }.not_to raise_error
       expect(described_class.nodename).to be_kind_of(String)
       expect(described_class.nodename.size).to be > 0
     end
 
-    example "release singleton method works as expected" do
+    example 'release singleton method works as expected' do
       expect(described_class).to respond_to(:release)
       expect{ described_class.release }.not_to raise_error
       expect(described_class.release).to be_kind_of(String)
       expect(described_class.release.size).to be > 0
     end
 
-    example "sysname singleton method works as expected" do
+    example 'sysname singleton method works as expected' do
       expect(described_class).to respond_to(:sysname)
       expect{ described_class.sysname }.not_to raise_error
       expect(described_class.sysname).to be_kind_of(String)
@@ -52,68 +52,68 @@ RSpec.describe Sys::Uname do
     end
   end
 
-  context "singleton methods for Solaris only", :if => RbConfig::CONFIG['host_os'] =~ /sunos|solaris/i do
-    example "architecture singleton method works as expected on solaris" do
+  context 'singleton methods for Solaris only', :if => RbConfig::CONFIG['host_os'] =~ /sunos|solaris/i do
+    example 'architecture singleton method works as expected on solaris' do
       expect(described_class).to respond_to(:architecture)
       expect{ described_class.architecture }.not_to raise_error
       expect(described_class.architecture).to be_kind_of(String)
     end
 
-    example "platform singleton method works as expected on solaris" do
+    example 'platform singleton method works as expected on solaris' do
       expect(described_class).to respond_to(:platform)
       expect{ described_class.platform }.not_to raise_error
       expect(described_class.platform).to be_kind_of(String)
     end
 
-    example "isa_list singleton method works as expected on solaris" do
+    example 'isa_list singleton method works as expected on solaris' do
       expect(described_class).to respond_to(:isa_list)
       expect{ described_class.isa_list }.not_to raise_error
       expect(described_class.isa_list).to be_kind_of(String)
     end
 
-    example "hw_provider singleton method works as expected on solaris" do
+    example 'hw_provider singleton method works as expected on solaris' do
       expect(described_class).to respond_to(:hw_provider)
       expect{ described_class.hw_provider }.not_to raise_error
       expect(described_class.hw_provider).to be_kind_of(String)
     end
 
-    example "hw_serial singleton method works as expected on solaris" do
+    example 'hw_serial singleton method works as expected on solaris' do
       expect(described_class).to respond_to(:hw_serial)
       expect{ described_class.hw_serial }.not_to raise_error
       expect(described_class.hw_serial).to be_kind_of(Integer)
     end
 
-    example "srpc_domain singleton method works as expected on solaris" do
+    example 'srpc_domain singleton method works as expected on solaris' do
       expect(described_class).to respond_to(:srpc_domain)
       expect{ described_class.srpc_domain }.not_to raise_error
       expect(described_class.srpc_domain).to be_kind_of(String)
     end
 
-    example "dhcp_cache singleton method works as expected on solaris" do
+    example 'dhcp_cache singleton method works as expected on solaris' do
       expect(described_class).to respond_to(:dhcp_cache)
       expect{ described_class.dhcp_cache }.not_to raise_error
       expect(described_class.dhcp_cache).to be_kind_of(String)
     end
   end
 
-  context "singleton methods for BSD and Darwin only", :if => RbConfig::CONFIG['host_os'] =~ /darwin|bsd/i do
-    example "model singleton method works as expected on BSD and Darwin" do
+  context 'singleton methods for BSD and Darwin only', :if => RbConfig::CONFIG['host_os'] =~ /darwin|bsd/i do
+    example 'model singleton method works as expected on BSD and Darwin' do
       expect(described_class).to respond_to(:model)
       expect{ described_class.model }.not_to raise_error
       expect(described_class.model).to be_kind_of(String)
     end
   end
 
-  context "singleton methods for HP-UX only", :if => RbConfig::CONFIG['host_os'] =~ /hpux/i do
-    example "id_number singleton method works as expected on HP-UX" do
+  context 'singleton methods for HP-UX only', :if => RbConfig::CONFIG['host_os'] =~ /hpux/i do
+    example 'id_number singleton method works as expected on HP-UX' do
       expect(described_class).to respond_to(:id_number)
       expect{ described_class.id_number }.not_to raise_error
       expect(described_class.id_number).to be_kind_of(String)
     end
   end
 
-  context "uname struct" do
-    example "uname struct contains expected members based on platform" do
+  context 'uname struct' do
+    example 'uname struct contains expected members based on platform' do
       members = %i[sysname nodename machine version release]
       case RbConfig::CONFIG['host_os']
         when /linux/i
@@ -154,8 +154,8 @@ RSpec.describe Sys::Uname do
     end
   end
 
-  context "ffi" do
-    example "ffi and internal functions are not public" do
+  context 'ffi' do
+    example 'ffi and internal functions are not public' do
       methods = described_class.methods(false).map(&:to_s)
       expect(methods).not_to include('get_model')
       expect(methods).not_to include('get_si')
@@ -165,279 +165,279 @@ RSpec.describe Sys::Uname do
     end
   end
 
-  context "instance methods for MS Windows", :if => File::ALT_SEPARATOR do
-    example "boot_device" do
+  context 'instance methods for MS Windows', :if => File::ALT_SEPARATOR do
+    example 'boot_device' do
       expect{ described_class.uname.boot_device }.not_to raise_error
       expect(described_class.uname.boot_device).to be_kind_of(String)
     end
 
-    example "build_number" do
+    example 'build_number' do
       expect{ described_class.uname.build_number }.not_to raise_error
       expect(described_class.uname.build_number).to be_kind_of(String)
     end
 
-    example "build_type" do
+    example 'build_type' do
       expect{ described_class.uname.build_type }.not_to raise_error
       expect(described_class.uname.build_type).to be_kind_of(String)
     end
 
-    example "caption" do
+    example 'caption' do
       expect{ described_class.uname.caption }.not_to raise_error
       expect(described_class.uname.caption).to be_kind_of(String)
     end
 
-    example "code_set" do
+    example 'code_set' do
       expect{ described_class.uname.code_set }.not_to raise_error
       expect(described_class.uname.code_set).to be_kind_of(String)
     end
 
-    example "country_code" do
+    example 'country_code' do
       expect{ described_class.uname.country_code }.not_to raise_error
       expect(described_class.uname.country_code).to be_kind_of(String)
     end
 
-    example "creation_class_name" do
+    example 'creation_class_name' do
       expect{ described_class.uname.creation_class_name }.not_to raise_error
       expect(described_class.uname.creation_class_name).to be_kind_of(String)
     end
 
-    example "cscreation_class_name" do
+    example 'cscreation_class_name' do
       expect{ described_class.uname.cscreation_class_name }.not_to raise_error
       expect(described_class.uname.cscreation_class_name).to be_kind_of(String)
     end
 
-    example "csd_version" do
+    example 'csd_version' do
       expect{ described_class.uname.csd_version }.not_to raise_error
       expect(described_class.uname.csd_version).to be_kind_of(String).or be_nil
     end
 
-    example "cs_name" do
+    example 'cs_name' do
       expect{ described_class.uname.cs_name }.not_to raise_error
       expect(described_class.uname.cs_name).to be_kind_of(String)
     end
 
-    example "current_time_zone" do
+    example 'current_time_zone' do
       expect{ described_class.uname.current_time_zone }.not_to raise_error
       expect(described_class.uname.current_time_zone).to be_kind_of(Integer)
     end
 
-    example "debug" do
+    example 'debug' do
       expect{ described_class.uname.debug }.not_to raise_error
       expect(described_class.uname.debug).to be(true).or be(false)
     end
 
-    example "description" do
+    example 'description' do
       expect{ described_class.uname.description }.not_to raise_error
       expect(described_class.uname.description).to be_kind_of(String)
     end
 
-    example "distributed" do
+    example 'distributed' do
       expect{ described_class.uname.distributed }.not_to raise_error
       expect(described_class.uname.distributed).to be(true).or be(false)
     end
 
-    example "encryption_level" do
+    example 'encryption_level' do
       expect{ described_class.uname.encryption_level }.not_to raise_error
       expect(described_class.uname.encryption_level).to be_kind_of(Integer)
     end
 
-    example "foreground_application_boost" do
+    example 'foreground_application_boost' do
       expect{ described_class.uname.foreground_application_boost }.not_to raise_error
       expect(described_class.uname.foreground_application_boost).to be_kind_of(Integer)
     end
 
-    example "free_physical_memory" do
+    example 'free_physical_memory' do
       expect{ described_class.uname.free_physical_memory }.not_to raise_error
       expect(described_class.uname.free_physical_memory).to be_kind_of(Integer)
     end
 
-    example "free_space_in_paging_files" do
+    example 'free_space_in_paging_files' do
       expect{ described_class.uname.free_space_in_paging_files }.not_to raise_error
       expect(described_class.uname.free_space_in_paging_files).to be_kind_of(Integer)
     end
 
-    example "free_virtual_memory" do
+    example 'free_virtual_memory' do
       expect{ described_class.uname.free_virtual_memory }.not_to raise_error
       expect(described_class.uname.free_virtual_memory).to be_kind_of(Integer)
     end
 
-    example "install_date" do
+    example 'install_date' do
       expect{ described_class.uname.install_date }.not_to raise_error
       expect(described_class.uname.install_date).to be_kind_of(Time)
     end
 
-    example "last_bootup_time" do
+    example 'last_bootup_time' do
       expect{ described_class.uname.last_bootup_time }.not_to raise_error
       expect(described_class.uname.last_bootup_time).to be_kind_of(Time)
     end
 
-    example "local_date_time" do
+    example 'local_date_time' do
       expect{ described_class.uname.local_date_time }.not_to raise_error
       expect(described_class.uname.local_date_time).to be_kind_of(Time)
     end
 
-    example "locale" do
+    example 'locale' do
       expect{ described_class.uname.locale }.not_to raise_error
       expect(described_class.uname.locale).to be_kind_of(String)
     end
 
-    example "manufacturer" do
+    example 'manufacturer' do
       expect{ described_class.uname.manufacturer }.not_to raise_error
       expect(described_class.uname.manufacturer).to be_kind_of(String)
     end
 
-    example "max_number_of_processes" do
+    example 'max_number_of_processes' do
       expect{ described_class.uname.max_number_of_processes }.not_to raise_error
       expect(described_class.uname.max_number_of_processes).to be_kind_of(Integer)
     end
 
-    example "max_process_memory_size" do
+    example 'max_process_memory_size' do
       expect{ described_class.uname.max_process_memory_size }.not_to raise_error
       expect(described_class.uname.max_process_memory_size).to be_kind_of(Integer)
     end
 
-    example "name" do
+    example 'name' do
       expect{ described_class.uname.name }.not_to raise_error
       expect(described_class.uname.name).to be_kind_of(String)
     end
 
-    example "number_of_licensed_users" do
+    example 'number_of_licensed_users' do
       expect{ described_class.uname.number_of_licensed_users }.not_to raise_error
       expect(described_class.uname.number_of_licensed_users).to be_kind_of(Integer).or be_nil
     end
 
-    example "number_of_processes" do
+    example 'number_of_processes' do
       expect{ described_class.uname.number_of_processes }.not_to raise_error
       expect(described_class.uname.number_of_processes).to be_kind_of(Integer)
     end
 
-    example "number_of_users" do
+    example 'number_of_users' do
       expect{ described_class.uname.number_of_users }.not_to raise_error
       expect(described_class.uname.number_of_users).to be_kind_of(Integer)
     end
 
-    example "organization", :unless => ENV['CI'] do
+    example 'organization', :unless => ENV['CI'] do
       expect{ described_class.uname.organization }.not_to raise_error
       expect(described_class.uname.organization).to be_kind_of(String)
     end
 
-    example "os_language" do
+    example 'os_language' do
       expect{ described_class.uname.os_language }.not_to raise_error
       expect(described_class.uname.os_language).to be_kind_of(Integer)
     end
 
-    example "os_product_suite" do
+    example 'os_product_suite' do
       expect{ described_class.uname.os_product_suite }.not_to raise_error
       expect(described_class.uname.os_product_suite).to be_kind_of(Integer)
     end
 
-    example "os_type" do
+    example 'os_type' do
       expect{ described_class.uname.os_type }.not_to raise_error
       expect(described_class.uname.os_type).to be_kind_of(Integer)
     end
 
-    example "other_type_description" do
+    example 'other_type_description' do
       expect{ described_class.uname.other_type_description }.not_to raise_error
       expect(described_class.uname.other_type_description).to be_kind_of(String).or be_nil
     end
 
-    example "plus_product_id" do
+    example 'plus_product_id' do
       expect{ described_class.uname.plus_product_id }.not_to raise_error
       expect(described_class.uname.plus_product_id).to be_kind_of(Integer).or be_nil
     end
 
-    example "plus_version_number" do
+    example 'plus_version_number' do
       expect{ described_class.uname.plus_version_number }.not_to raise_error
       expect(described_class.uname.plus_version_number).to be_kind_of(Integer).or be_nil
     end
 
-    example "primary" do
+    example 'primary' do
       expect{ described_class.uname.primary }.not_to raise_error
       expect(described_class.uname.primary).to eql(true).or eql(false)
     end
 
-    example "product_type" do
+    example 'product_type' do
       expect{ described_class.uname.product_type }.not_to raise_error
       expect(described_class.uname.product_type).to be_kind_of(Integer)
     end
 
-    example "quantum_length" do
+    example 'quantum_length' do
       expect{ described_class.uname.quantum_length }.not_to raise_error
       expect(described_class.uname.quantum_length).to be_kind_of(Integer).or be_nil
     end
 
-    example "quantum_type" do
+    example 'quantum_type' do
       expect{ described_class.uname.quantum_type }.not_to raise_error
       expect(described_class.uname.quantum_type).to be_kind_of(Integer).or be_nil
     end
 
-    example "registered_user", :unless => ENV['CI'] do
+    example 'registered_user', :unless => ENV['CI'] do
       expect{ described_class.uname.registered_user }.not_to raise_error
       expect(described_class.uname.registered_user).to be_kind_of(String)
     end
 
-    example "serial_number" do
+    example 'serial_number' do
       expect{ described_class.uname.serial_number }.not_to raise_error
       expect(described_class.uname.serial_number).to be_kind_of(String)
     end
 
-    example "service_pack_major_version" do
+    example 'service_pack_major_version' do
       expect{ described_class.uname.service_pack_major_version }.not_to raise_error
       expect(described_class.uname.service_pack_major_version).to be_kind_of(Integer)
     end
 
-    example "service_pack_minor_version" do
+    example 'service_pack_minor_version' do
       expect{ described_class.uname.service_pack_minor_version }.not_to raise_error
       expect(described_class.uname.service_pack_minor_version).to be_kind_of(Integer)
     end
 
-    example "status" do
+    example 'status' do
       expect{ described_class.uname.status }.not_to raise_error
       expect(described_class.uname.status).to be_kind_of(String)
     end
 
-    example "suite_mask" do
+    example 'suite_mask' do
       expect{ described_class.uname.suite_mask }.not_to raise_error
       expect(described_class.uname.suite_mask).to be_kind_of(Integer)
     end
 
-    example "system_device" do
+    example 'system_device' do
       expect{ described_class.uname.system_device }.not_to raise_error
       expect(described_class.uname.system_device).to be_kind_of(String)
     end
 
-    example "system_directory" do
+    example 'system_directory' do
       expect{ described_class.uname.system_directory }.not_to raise_error
       expect(described_class.uname.system_directory).to be_kind_of(String)
     end
 
-    example "system_drive" do
+    example 'system_drive' do
       expect{ described_class.uname.system_drive }.not_to raise_error
       expect(described_class.uname.system_drive).to be_kind_of(String)
-      expect(described_class.uname.system_drive).to eql("C:")
+      expect(described_class.uname.system_drive).to eql('C:')
     end
 
-    example "total_swap_space_size" do
+    example 'total_swap_space_size' do
       expect{ described_class.uname.total_swap_space_size }.not_to raise_error
       expect(described_class.uname.total_swap_space_size).to be_kind_of(Integer).or be_nil
     end
 
-    example "total_virtual_memory_size" do
+    example 'total_virtual_memory_size' do
       expect{ described_class.uname.total_virtual_memory_size }.not_to raise_error
       expect(described_class.uname.total_virtual_memory_size).to be_kind_of(Integer)
     end
 
-    example "total_visible_memory_size" do
+    example 'total_visible_memory_size' do
       expect{ described_class.uname.total_visible_memory_size }.not_to raise_error
       expect(described_class.uname.total_visible_memory_size).to be_kind_of(Integer)
     end
 
-    example "version" do
+    example 'version' do
       expect{ described_class.uname.version }.not_to raise_error
       expect(described_class.uname.version).to be_kind_of(String)
     end
 
-    example "windows_directory" do
+    example 'windows_directory' do
       expect{ described_class.uname.windows_directory }.not_to raise_error
       expect(described_class.uname.windows_directory).to be_kind_of(String)
     end
