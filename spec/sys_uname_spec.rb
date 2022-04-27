@@ -135,12 +135,12 @@ RSpec.describe Sys::Uname do
       expect(described_class.uname.members.sort).to eql(members.sort)
     end
 
-    example 'uname struct contains expected members on bsd or osx', :if => RbConfig::CONFIG['host_os'] =~ /hpux/i do
+    example 'uname struct contains expected members on hpux', :if => RbConfig::CONFIG['host_os'] =~ /hpux/i do
       members.push(:id)
       expect(described_class.uname.members.sort).to eql(members.sort)
     end
 
-    example 'uname struct contains expected members on bsd or osx', :if => Gem.win_platform? do
+    example 'uname struct contains expected members on windows', :if => Gem.win_platform? do
       members = %i[
         boot_device build_number build_type caption code_set country_code
         creation_class_name cscreation_class_name csd_version cs_name
