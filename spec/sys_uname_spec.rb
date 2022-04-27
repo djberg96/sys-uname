@@ -10,10 +10,17 @@ require 'sys/uname'
 require 'rbconfig'
 
 RSpec.describe Sys::Uname do
+  let(:members){ %i[sysname nodename machine version release] }
+
   context 'universal singleton methods' do
     example 'version constant is set to expected value' do
       expect(Sys::Uname::VERSION).to eql('1.2.2')
       expect(Sys::Uname::VERSION).to be_frozen
+    end
+
+    example 'uname basic functionality' do
+      expect{ described_class.uname }.not_to raise_error
+      expect(described_class.uname).to be_kind_of(Struct)
     end
 
     example 'machine singleton method works as expected' do
@@ -113,43 +120,44 @@ RSpec.describe Sys::Uname do
   end
 
   context 'uname struct' do
-    example 'uname struct contains expected members based on platform' do
-      members = %i[sysname nodename machine version release]
-      case RbConfig::CONFIG['host_os']
-        when /linux/i
-          members.push(:domainname)
-        when /sunos|solaris/i
-          members.push(
-            :architecture, :platform, :hw_serial, :hw_provider,
-            :srpc_domain, :isa_list, :dhcp_cache
-          )
-        when /powerpc|darwin|bsd/i
-          members.push(:model)
-        when /hpux/i
-          members.push(:id)
-        when /win32|mingw|cygwin|dos|windows/i
-          members = %i[
-            boot_device build_number build_type caption code_set country_code
-            creation_class_name cscreation_class_name csd_version cs_name
-            current_time_zone debug description distributed encryption_level
-            foreground_application_boost free_physical_memory
-            free_space_in_paging_files free_virtual_memory
-            install_date last_bootup_time local_date_time locale
-            manufacturer max_number_of_processes max_process_memory_size
-            name number_of_licensed_users number_of_processes
-            number_of_users organization os_language os_product_suite
-            os_type other_type_description plus_product_id
-            plus_version_number primary product_type quantum_length quantum_type
-            registered_user serial_number service_pack_major_version
-            service_pack_minor_version size_stored_in_paging_files
-            status suite_mask system_device system_directory system_drive total_swap_space_size
-            total_virtual_memory_size total_visible_memory_size version
-            windows_directory
-          ]
-      end
+    example 'uname struct contains expected members on linux', :if => RbConfig::CONFIG['host_os'] =~ /linux/i do
+      members.push(:domainname)
+      expect(described_class.uname.members.sort).to eql(members.sort)
+    end
 
-      expect{ described_class.uname }.not_to raise_error
-      expect(described_class.uname).to be_kind_of(Struct)
+    example 'uname struct contains expected members on solaris', :if => RbConfig::CONFIG['host_os'] =~ /sunos|solaris/i do
+      members.push(:architecture, :platform, :hw_serial, :hw_provider, :srpc_domain, :isa_list, :dhcp_cache)
+      expect(described_class.uname.members.sort).to eql(members.sort)
+    end
+
+    example 'uname struct contains expected members on bsd or osx', :if => RbConfig::CONFIG['host_os'] =~ /powerpc|darwin|bsd/i do
+      members.push(:model)
+      expect(described_class.uname.members.sort).to eql(members.sort)
+    end
+
+    example 'uname struct contains expected members on bsd or osx', :if => RbConfig::CONFIG['host_os'] =~ /hpux/i do
+      members.push(:id)
+      expect(described_class.uname.members.sort).to eql(members.sort)
+    end
+
+    example 'uname struct contains expected members on bsd or osx', :if => Gem.win_platform? do
+      members = %i[
+        boot_device build_number build_type caption code_set country_code
+        creation_class_name cscreation_class_name csd_version cs_name
+        current_time_zone debug description distributed encryption_level
+        foreground_application_boost free_physical_memory
+        free_space_in_paging_files free_virtual_memory
+        install_date last_bootup_time local_date_time locale
+        manufacturer max_number_of_processes max_process_memory_size
+        name number_of_licensed_users number_of_processes
+        number_of_users organization os_language os_product_suite
+        os_type other_type_description plus_product_id
+        plus_version_number primary product_type quantum_length quantum_type
+        registered_user serial_number service_pack_major_version
+        service_pack_minor_version size_stored_in_paging_files
+        status suite_mask system_device system_directory system_drive total_swap_space_size
+        total_virtual_memory_size total_visible_memory_size version windows_directory
+      ]
       expect(described_class.uname.members.sort).to eql(members.sort)
     end
   end
