@@ -163,13 +163,14 @@ RSpec.describe Sys::Uname do
   end
 
   context 'ffi' do
+    let(:our_methods){ described_class.methods(false).map(&:to_s) }
+
     example 'ffi and internal functions are not public' do
-      methods = described_class.methods(false).map(&:to_s)
-      expect(methods).not_to include('get_model')
-      expect(methods).not_to include('get_si')
-      expect(methods).not_to include('uname_c')
-      expect(methods).not_to include('sysctl')
-      expect(methods).not_to include('sysinfo')
+      expect(our_methods).not_to include('get_model')
+      expect(our_methods).not_to include('get_si')
+      expect(our_methods).not_to include('uname_c')
+      expect(our_methods).not_to include('sysctl')
+      expect(our_methods).not_to include('sysinfo')
     end
   end
 
