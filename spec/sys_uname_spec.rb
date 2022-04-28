@@ -5,9 +5,7 @@
 #
 # Test suite for the sys-uname library. Run 'rake test' to execute tests.
 ##############################################################################
-require 'rspec'
-require 'sys/uname'
-require 'rbconfig'
+require 'spec_helper'
 
 RSpec.describe Sys::Uname do
   let(:members){ %i[sysname nodename machine version release] }
@@ -59,7 +57,7 @@ RSpec.describe Sys::Uname do
     end
   end
 
-  context 'singleton methods for Solaris only', :if => RbConfig::CONFIG['host_os'] =~ /sunos|solaris/i do
+  context 'singleton methods for Solaris only', :solaris do
     example 'architecture singleton method works as expected on solaris' do
       expect(described_class).to respond_to(:architecture)
       expect{ described_class.architecture }.not_to raise_error
@@ -103,7 +101,7 @@ RSpec.describe Sys::Uname do
     end
   end
 
-  context 'singleton methods for BSD and Darwin only', :if => RbConfig::CONFIG['host_os'] =~ /darwin|bsd/i do
+  context 'singleton methods for BSD and Darwin only', :bsd do
     example 'model singleton method works as expected on BSD and Darwin' do
       expect(described_class).to respond_to(:model)
       expect{ described_class.model }.not_to raise_error
@@ -111,7 +109,7 @@ RSpec.describe Sys::Uname do
     end
   end
 
-  context 'singleton methods for HP-UX only', :if => RbConfig::CONFIG['host_os'] =~ /hpux/i do
+  context 'singleton methods for HP-UX only', :hpux do
     example 'id_number singleton method works as expected on HP-UX' do
       expect(described_class).to respond_to(:id_number)
       expect{ described_class.id_number }.not_to raise_error
@@ -120,27 +118,27 @@ RSpec.describe Sys::Uname do
   end
 
   context 'uname struct' do
-    example 'uname struct contains expected members on linux', :if => RbConfig::CONFIG['host_os'] =~ /linux/i do
+    example 'uname struct contains expected members on linux', :linux do
       members.push(:domainname)
       expect(described_class.uname.members.sort).to eql(members.sort)
     end
 
-    example 'uname struct contains expected members on solaris', :if => RbConfig::CONFIG['host_os'] =~ /sunos|solaris/i do
+    example 'uname struct contains expected members on solaris', :solaris do
       members.push(:architecture, :platform, :hw_serial, :hw_provider, :srpc_domain, :isa_list, :dhcp_cache)
       expect(described_class.uname.members.sort).to eql(members.sort)
     end
 
-    example 'uname struct contains expected members on bsd or osx', :if => RbConfig::CONFIG['host_os'] =~ /powerpc|darwin|bsd/i do
+    example 'uname struct contains expected members on bsd or osx', :bsd do
       members.push(:model)
       expect(described_class.uname.members.sort).to eql(members.sort)
     end
 
-    example 'uname struct contains expected members on hpux', :if => RbConfig::CONFIG['host_os'] =~ /hpux/i do
+    example 'uname struct contains expected members on hpux', :hpux do
       members.push(:id)
       expect(described_class.uname.members.sort).to eql(members.sort)
     end
 
-    example 'uname struct contains expected members on windows', :if => Gem.win_platform? do
+    example 'uname struct contains expected members on windows', :windows do
       members = %i[
         boot_device build_number build_type caption code_set country_code
         creation_class_name cscreation_class_name csd_version cs_name

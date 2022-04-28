@@ -5,16 +5,9 @@
 #
 # Test suite for the Sys::Platform class.
 ##############################################################################
-require 'rspec'
-require 'sys/uname'
-require 'rbconfig'
+require 'spec_helper'
 
 RSpec.describe Sys::Platform do
-  before(:context) do
-    @host_os = RbConfig::CONFIG['host_os']
-    @windows = @host_os =~ /mingw|mswin|windows/i ? true : false
-  end
-
   example 'the VERSION constant is set to the expected value' do
     expect(Sys::Platform::VERSION).to eql('1.2.2')
     expect(Sys::Platform::VERSION).to be_frozen
@@ -32,7 +25,7 @@ RSpec.describe Sys::Platform do
     expect(Sys::Platform::IMPL).to be_kind_of(Symbol)
   end
 
-  example 'the IMPL returns an expected value', :if => @windows do
+  example 'the IMPL returns an expected value', :windows do
     expect(Sys::Platform::IMPL).to include(%i[mingw mswin])
   end
 
@@ -47,7 +40,7 @@ RSpec.describe Sys::Platform do
   end
 
   example 'the windows? method returns the expected value' do
-    expect(described_class.windows?).to eql(@windows)
+    expect(described_class.windows?).to eql(Gem.win_platform?)
   end
 
   example 'the unix? method is defined and returns a boolean' do
@@ -56,7 +49,7 @@ RSpec.describe Sys::Platform do
   end
 
   example 'the unix? method returns the expected value' do
-    expect(described_class.unix?).not_to eql(@windows)
+    expect(described_class.unix?).not_to eql(Gem.win_platform?)
   end
 
   example 'the solaris? method is defined and returns a boolean' do
