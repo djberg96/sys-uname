@@ -25,8 +25,8 @@ RSpec.describe Sys::Platform do
     expect(Sys::Platform::IMPL).to be_kind_of(Symbol)
   end
 
-  example 'the IMPL returns an expected value', :windows do
-    expect(Sys::Platform::IMPL).to include(%i[mingw mswin])
+  example 'the IMPL returns an expected value on windows', :windows do
+    expect(%i[mingw mswin]).to include(Sys::Platform::IMPL)
   end
 
   example 'the mac? method is defined and returns a boolean' do
