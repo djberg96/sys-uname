@@ -2,6 +2,7 @@ require 'rake'
 require 'rake/clean'
 require 'rbconfig'
 require 'rspec/core/rake_task'
+require 'rubocop/rake_task'
 
 CLEAN.include("**/*.rbc", "**/*.rbx", "**/*.gem", "**/*.lock")
 
@@ -29,6 +30,8 @@ namespace :gem do
     sh "gem install #{file}"
   end
 end
+
+RuboCop::RakeTask.new
 
 desc "Run the test suite"
 RSpec::Core::RakeTask.new(:spec)

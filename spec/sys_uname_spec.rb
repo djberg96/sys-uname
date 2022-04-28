@@ -5,15 +5,34 @@
 #
 # Test suite for the sys-uname library. Run 'rake test' to execute tests.
 ##############################################################################
-require 'rspec'
-require 'sys/uname'
-require 'rbconfig'
+require 'spec_helper'
 
 RSpec.describe Sys::Uname do
+  let(:members){ %i[sysname nodename machine version release] }
+  let(:windows_members) do
+    %i[
+      boot_device build_number build_type caption code_set country_code creation_class_name
+      cscreation_class_name csd_version cs_name current_time_zone debug description distributed
+      encryption_level foreground_application_boost free_physical_memory free_space_in_paging_files
+      free_virtual_memory install_date last_bootup_time local_date_time locale manufacturer
+      max_number_of_processes max_process_memory_size name number_of_licensed_users number_of_processes
+      number_of_users organization os_language os_product_suite os_type other_type_description plus_product_id
+      plus_version_number primary product_type quantum_length quantum_type registered_user serial_number
+      service_pack_major_version service_pack_minor_version size_stored_in_paging_files
+      status suite_mask system_device system_directory system_drive total_swap_space_size
+      total_virtual_memory_size total_visible_memory_size version windows_directory
+    ]
+  end
+
   context 'universal singleton methods' do
     example 'version constant is set to expected value' do
       expect(Sys::Uname::VERSION).to eql('1.2.2')
       expect(Sys::Uname::VERSION).to be_frozen
+    end
+
+    example 'uname basic functionality' do
+      expect{ described_class.uname }.not_to raise_error
+      expect(described_class.uname).to be_kind_of(Struct)
     end
 
     example 'machine singleton method works as expected' do
@@ -52,7 +71,7 @@ RSpec.describe Sys::Uname do
     end
   end
 
-  context 'singleton methods for Solaris only', :if => RbConfig::CONFIG['host_os'] =~ /sunos|solaris/i do
+  context 'singleton methods for Solaris only', :solaris do
     example 'architecture singleton method works as expected on solaris' do
       expect(described_class).to respond_to(:architecture)
       expect{ described_class.architecture }.not_to raise_error
@@ -96,7 +115,7 @@ RSpec.describe Sys::Uname do
     end
   end
 
-  context 'singleton methods for BSD and Darwin only', :if => RbConfig::CONFIG['host_os'] =~ /darwin|bsd/i do
+  context 'singleton methods for BSD and Darwin only', :bsd do
     example 'model singleton method works as expected on BSD and Darwin' do
       expect(described_class).to respond_to(:model)
       expect{ described_class.model }.not_to raise_error
@@ -104,7 +123,7 @@ RSpec.describe Sys::Uname do
     end
   end
 
-  context 'singleton methods for HP-UX only', :if => RbConfig::CONFIG['host_os'] =~ /hpux/i do
+  context 'singleton methods for HP-UX only', :hpux do
     example 'id_number singleton method works as expected on HP-UX' do
       expect(described_class).to respond_to(:id_number)
       expect{ described_class.id_number }.not_to raise_error
@@ -113,55 +132,40 @@ RSpec.describe Sys::Uname do
   end
 
   context 'uname struct' do
-    example 'uname struct contains expected members based on platform' do
-      members = %i[sysname nodename machine version release]
-      case RbConfig::CONFIG['host_os']
-        when /linux/i
-          members.push(:domainname)
-        when /sunos|solaris/i
-          members.push(
-            :architecture, :platform, :hw_serial, :hw_provider,
-            :srpc_domain, :isa_list, :dhcp_cache
-          )
-        when /powerpc|darwin|bsd/i
-          members.push(:model)
-        when /hpux/i
-          members.push(:id)
-        when /win32|mingw|cygwin|dos|windows/i
-          members = %i[
-            boot_device build_number build_type caption code_set country_code
-            creation_class_name cscreation_class_name csd_version cs_name
-            current_time_zone debug description distributed encryption_level
-            foreground_application_boost free_physical_memory
-            free_space_in_paging_files free_virtual_memory
-            install_date last_bootup_time local_date_time locale
-            manufacturer max_number_of_processes max_process_memory_size
-            name number_of_licensed_users number_of_processes
-            number_of_users organization os_language os_product_suite
-            os_type other_type_description plus_product_id
-            plus_version_number primary product_type quantum_length quantum_type
-            registered_user serial_number service_pack_major_version
-            service_pack_minor_version size_stored_in_paging_files
-            status suite_mask system_device system_directory system_drive total_swap_space_size
-            total_virtual_memory_size total_visible_memory_size version
-            windows_directory
-          ]
-      end
-
-      expect{ described_class.uname }.not_to raise_error
-      expect(described_class.uname).to be_kind_of(Struct)
+    example 'uname struct contains expected members on linux', :linux do
+      members.push(:domainname)
       expect(described_class.uname.members.sort).to eql(members.sort)
+    end
+
+    example 'uname struct contains expected members on solaris', :solaris do
+      members.push(:architecture, :platform, :hw_serial, :hw_provider, :srpc_domain, :isa_list, :dhcp_cache)
+      expect(described_class.uname.members.sort).to eql(members.sort)
+    end
+
+    example 'uname struct contains expected members on bsd or osx', :bsd do
+      members.push(:model)
+      expect(described_class.uname.members.sort).to eql(members.sort)
+    end
+
+    example 'uname struct contains expected members on hpux', :hpux do
+      members.push(:id)
+      expect(described_class.uname.members.sort).to eql(members.sort)
+    end
+
+    example 'uname struct contains expected members on windows', :windows do
+      expect(described_class.uname.members.sort).to eql(windows_members.sort)
     end
   end
 
   context 'ffi' do
+    let(:our_methods){ described_class.methods(false).map(&:to_s) }
+
     example 'ffi and internal functions are not public' do
-      methods = described_class.methods(false).map(&:to_s)
-      expect(methods).not_to include('get_model')
-      expect(methods).not_to include('get_si')
-      expect(methods).not_to include('uname_c')
-      expect(methods).not_to include('sysctl')
-      expect(methods).not_to include('sysinfo')
+      expect(our_methods).not_to include('get_model')
+      expect(our_methods).not_to include('get_si')
+      expect(our_methods).not_to include('uname_c')
+      expect(our_methods).not_to include('sysctl')
+      expect(our_methods).not_to include('sysinfo')
     end
   end
 

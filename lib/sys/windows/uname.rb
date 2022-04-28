@@ -169,8 +169,6 @@ module Sys
         case wmi.Family
           when 1
             'Other'
-          when 2
-            'Unknown'
           when 3
             '8086'
           when 4
