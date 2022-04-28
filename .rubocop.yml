@@ -1,7 +1,7 @@
 require: rubocop-rspec
 
 RSpec/MultipleExpectations:
-  Max: 4
+  Max: 5
 RSpec/ContextWording:
   Enabled: false
 RSpec/FilePath:
