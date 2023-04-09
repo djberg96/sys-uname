@@ -9,7 +9,7 @@ require 'spec_helper'
 
 RSpec.describe Sys::Platform do
   example 'the VERSION constant is set to the expected value' do
-    expect(Sys::Platform::VERSION).to eql('1.2.2')
+    expect(Sys::Platform::VERSION).to eql('1.2.3')
     expect(Sys::Platform::VERSION).to be_frozen
   end
 

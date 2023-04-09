@@ -112,7 +112,7 @@ Add additional info for Linux, Solaris, BSD.
 Apache-2.0
 
 == Copyright
-(C) 2002-2020 Daniel J. Berger
+(C) 2002-2023 Daniel J. Berger
 All Rights Reserved
 
 == Warranty

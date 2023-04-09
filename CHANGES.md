@@ -1,3 +1,10 @@
+## 1.2.3 - 9-Apr-2023
+* Added rubygems_mfa_required and github_repo to metadata.
+* Miscellaneous rubocop related updates.
+* Fixed one test for Windows.
+* The rubocop and rubocop-rspec gems are now development dependencies.
+* Now assumes Ruby 2.0 or later.
+
 ## 1.2.2 - 30-Oct-2020
 * Added a Gemfile.
 * The ffi dependency is now slightly more restrictive.
