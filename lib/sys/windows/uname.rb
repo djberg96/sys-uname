@@ -490,7 +490,7 @@ module Sys
     # String rather than a Fixnum/Bignum.  This deals with that for now.
     #
     def self.convert(str)
-      return nil if str.nil?  # Don't turn nil into 0
+      return nil if str.nil? # Don't turn nil into 0
       str.to_i
     end
 
