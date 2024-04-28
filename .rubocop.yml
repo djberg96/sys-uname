@@ -10,6 +10,8 @@ RSpec/InstanceVariable:
   Enabled: false
 RSpec/BeforeAfterAll:
   Enabled: false
+RSpec/SpecFilePathFormat:
+  Enabled: false
 
 AllCops:
   NewCops: enable
@@ -19,6 +21,8 @@ AllCops:
     - Gemfile
     - examples/*.rb
 Lint/AssignmentInCondition:
+  Enabled: false
+Style/FetchEnvVar:
   Enabled: false
 Style/HashSyntax:
   Enabled: false
@@ -43,7 +47,7 @@ Layout/SpaceBeforeBlockBraces:
 Metrics/AbcSize:
   Enabled: false
 Metrics/BlockLength:
-  IgnoredMethods: ['describe', 'context']
+  AllowedMethods: ['describe', 'context']
 Metrics/ClassLength:
   Enabled: false
 Metrics/MethodLength:
