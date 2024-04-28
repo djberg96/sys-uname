@@ -14,15 +14,15 @@ RSpec.describe Sys::Platform do
   end
 
   example 'the ARCH constant is defined' do
-    expect(Sys::Platform::ARCH).to be_kind_of(Symbol)
+    expect(Sys::Platform::ARCH).to be_a(Symbol)
   end
 
   example 'the OS constant is defined' do
-    expect(Sys::Platform::OS).to be_kind_of(Symbol)
+    expect(Sys::Platform::OS).to be_a(Symbol)
   end
 
   example 'the IMPL constant is defined' do
-    expect(Sys::Platform::IMPL).to be_kind_of(Symbol)
+    expect(Sys::Platform::IMPL).to be_a(Symbol)
   end
 
   example 'the IMPL returns an expected value on windows', :windows do
