@@ -1,3 +1,7 @@
+## 1.3.0 - 10-Jun-2024
+* Added DragonflyBSD support.
+* Removed Solaris support, it's dead.
+
 ## 1.2.3 - 9-Apr-2023
 * Added rubygems_mfa_required and github_repo to metadata.
 * Miscellaneous rubocop related updates.
