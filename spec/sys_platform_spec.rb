@@ -52,11 +52,6 @@ RSpec.describe Sys::Platform do
     expect(described_class.unix?).not_to eql(Gem.win_platform?)
   end
 
-  example 'the solaris? method is defined and returns a boolean' do
-    expect(described_class).to respond_to(:solaris?)
-    expect(described_class.solaris?).to eql(true).or eql(false)
-  end
-
   example 'the linux? method is defined and returns a boolean' do
     expect(described_class).to respond_to(:linux?)
     expect(described_class.linux?).to eql(true).or eql(false)

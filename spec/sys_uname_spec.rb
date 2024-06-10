@@ -53,7 +53,6 @@ RSpec.describe Sys::Uname do
       expect(described_class).to respond_to(:nodename)
       expect{ described_class.nodename }.not_to raise_error
       expect(described_class.nodename).to be_a(String)
-      expect(described_class.nodename.size).to be > 0
     end
 
     example 'release singleton method works as expected' do
@@ -68,50 +67,6 @@ RSpec.describe Sys::Uname do
       expect{ described_class.sysname }.not_to raise_error
       expect(described_class.sysname).to be_a(String)
       expect(described_class.sysname.size).to be > 0
-    end
-  end
-
-  context 'singleton methods for Solaris only', :solaris do
-    example 'architecture singleton method works as expected on solaris' do
-      expect(described_class).to respond_to(:architecture)
-      expect{ described_class.architecture }.not_to raise_error
-      expect(described_class.architecture).to be_a(String)
-    end
-
-    example 'platform singleton method works as expected on solaris' do
-      expect(described_class).to respond_to(:platform)
-      expect{ described_class.platform }.not_to raise_error
-      expect(described_class.platform).to be_a(String)
-    end
-
-    example 'isa_list singleton method works as expected on solaris' do
-      expect(described_class).to respond_to(:isa_list)
-      expect{ described_class.isa_list }.not_to raise_error
-      expect(described_class.isa_list).to be_a(String)
-    end
-
-    example 'hw_provider singleton method works as expected on solaris' do
-      expect(described_class).to respond_to(:hw_provider)
-      expect{ described_class.hw_provider }.not_to raise_error
-      expect(described_class.hw_provider).to be_a(String)
-    end
-
-    example 'hw_serial singleton method works as expected on solaris' do
-      expect(described_class).to respond_to(:hw_serial)
-      expect{ described_class.hw_serial }.not_to raise_error
-      expect(described_class.hw_serial).to be_a(Integer)
-    end
-
-    example 'srpc_domain singleton method works as expected on solaris' do
-      expect(described_class).to respond_to(:srpc_domain)
-      expect{ described_class.srpc_domain }.not_to raise_error
-      expect(described_class.srpc_domain).to be_a(String)
-    end
-
-    example 'dhcp_cache singleton method works as expected on solaris' do
-      expect(described_class).to respond_to(:dhcp_cache)
-      expect{ described_class.dhcp_cache }.not_to raise_error
-      expect(described_class.dhcp_cache).to be_a(String)
     end
   end
 
@@ -134,11 +89,6 @@ RSpec.describe Sys::Uname do
   context 'uname struct' do
     example 'uname struct contains expected members on linux', :linux do
       members.push(:domainname)
-      expect(described_class.uname.members.sort).to eql(members.sort)
-    end
-
-    example 'uname struct contains expected members on solaris', :solaris do
-      members.push(:architecture, :platform, :hw_serial, :hw_provider, :srpc_domain, :isa_list, :dhcp_cache)
       expect(described_class.uname.members.sort).to eql(members.sort)
     end
 

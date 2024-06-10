@@ -21,9 +21,7 @@ module Sys
       when /linux/i
         BUFSIZE = 65
       when /bsd|dragonfly/i
-        BUFSIZE = 32 # TODO: version method chopped
-      when /sunos|solaris/i
-        BUFSIZE = 257
+        BUFSIZE = 32
       else
         BUFSIZE = 256
     end
@@ -87,19 +85,6 @@ module Sys
 
     fields.push('domainname') if RbConfig::CONFIG['host_os'] =~ /linux/i
     fields.push('id_number') if RbConfig::CONFIG['host_os'] =~ /hpux/i
-
-    if RbConfig::CONFIG['host_os'] =~ /sunos|solaris/i
-      fields.push(
-        'architecture',
-        'dhcp_cache',
-        'hw_provider',
-        'hw_serial',
-        'isa_list',
-        'platform',
-        'srpc_domain'
-      )
-    end
-
     fields.push('model') if RbConfig::CONFIG['host_os'] =~ /darwin|bsd|dragonfly/i
 
     private_constant :UnameFFIStruct
@@ -111,9 +96,7 @@ module Sys
     # Returns a struct that contains the sysname, nodename, machine, version
     # and release of your system.
     #
-    # On OS X it will also include the model.
-    #
-    # On Solaris, it will also include the architecture and platform.
+    # On OS X and BSD platforms it will also include the model.
     #
     # On HP-UX, it will also include the id_number.
     #
@@ -155,7 +138,7 @@ module Sys
     #
     # Example:
     #
-    #  Uname.sysname # => 'SunOS'
+    #  Uname.sysname # => 'Darwin'
     #
     def self.sysname
       uname.sysname

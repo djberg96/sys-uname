@@ -19,9 +19,7 @@ module Sys
                RbConfig::CONFIG['host_os'].split('_').first[/[a-z]+/i].downcase.to_sym
              when /linux/i
                :linux
-             when /sunos|solaris/i
-               :solaris
-             when /bsd/i
+             when /bsd|dragonfly/i
                :bsd
            end
 
@@ -43,11 +41,6 @@ module Sys
     # Returns whether or not you're on Linux
     def self.linux?
       Uname.sysname =~ /linux/i ? true : false
-    end
-
-    # Returns whether or not you're on Solaris
-    def self.solaris?
-      Uname.sysname =~ /sunos|solaris/i ? true : false
     end
 
     # Returns whether or not you're on any BSD platform
