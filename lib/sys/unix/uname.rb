@@ -20,10 +20,8 @@ module Sys
     case RbConfig::CONFIG['host_os']
       when /linux/i
         BUFSIZE = 65
-      when /bsd/i
-        BUFSIZE = 32 # TODO: version method chopped
-      when /sunos|solaris/i
-        BUFSIZE = 257
+      when /bsd|dragonfly/i
+        BUFSIZE = 32
       else
         BUFSIZE = 256
     end
@@ -87,20 +85,7 @@ module Sys
 
     fields.push('domainname') if RbConfig::CONFIG['host_os'] =~ /linux/i
     fields.push('id_number') if RbConfig::CONFIG['host_os'] =~ /hpux/i
-
-    if RbConfig::CONFIG['host_os'] =~ /sunos|solaris/i
-      fields.push(
-        'architecture',
-        'dhcp_cache',
-        'hw_provider',
-        'hw_serial',
-        'isa_list',
-        'platform',
-        'srpc_domain'
-      )
-    end
-
-    fields.push('model') if RbConfig::CONFIG['host_os'] =~ /darwin|bsd/i
+    fields.push('model') if RbConfig::CONFIG['host_os'] =~ /darwin|bsd|dragonfly/i
 
     private_constant :UnameFFIStruct
 
@@ -111,9 +96,7 @@ module Sys
     # Returns a struct that contains the sysname, nodename, machine, version
     # and release of your system.
     #
-    # On OS X it will also include the model.
-    #
-    # On Solaris, it will also include the architecture and platform.
+    # On OS X and BSD platforms it will also include the model.
     #
     # On HP-UX, it will also include the id_number.
     #
@@ -135,27 +118,8 @@ module Sys
       struct[:version]  = utsname[:version].to_s
       struct[:machine]  = utsname[:machine].to_s
 
-      struct[:model] = get_model() if RbConfig::CONFIG['host_os'] =~ /darwin|bsd/i
-
-      if RbConfig::CONFIG['host_os'] =~ /sunos|solaris/i
-        struct[:architecture] = get_si(SI_ARCHITECTURE)
-        struct[:platform]     = get_si(SI_PLATFORM)
-        struct[:hw_serial]    = get_si(SI_HW_SERIAL)
-        struct[:hw_provider]  = get_si(SI_HW_PROVIDER)
-        struct[:srpc_domain]  = get_si(SI_SRPC_DOMAIN)
-        struct[:isa_list]     = get_si(SI_ISALIST)
-        struct[:dhcp_cache]   = get_si(SI_DHCP_CACHE)
-
-        # FFI and Solaris don't get along so well, so we try again
-        struct[:sysname]  = get_si(SI_SYSNAME) if struct.sysname.empty?
-        struct[:nodename] = get_si(SI_HOSTNAME) if struct.nodename.empty?
-        struct[:release]  = get_si(SI_RELEASE) if struct.release.empty?
-        struct[:version]  = get_si(SI_VERSION) if struct.version.empty?
-        struct[:machine]  = get_si(SI_MACHINE) if struct.machine.empty?
-      end
-
+      struct[:model] = get_model() if RbConfig::CONFIG['host_os'] =~ /darwin|bsd|dragonfly/i
       struct[:id_number] = utsname[:__id_number].to_s if RbConfig::CONFIG['host_os'] =~ /hpux/i
-
       struct[:domainname] = utsname[:domainname].to_s if RbConfig::CONFIG['host_os'] =~ /linux/i
 
       # Let's add a members method that works for testing and compatibility
@@ -174,7 +138,7 @@ module Sys
     #
     # Example:
     #
-    #  Uname.sysname # => 'SunOS'
+    #  Uname.sysname # => 'Darwin'
     #
     def self.sysname
       uname.sysname
@@ -298,15 +262,5 @@ module Sys
     end
 
     private_class_method :get_model
-
-    # Returns the various sysinfo information based on +flag+.
-    #
-    def self.get_si(flag)
-      buf = 0.chr * BUFSIZE
-      sysinfo(flag, buf, BUFSIZE)
-      buf.strip
-    end
-
-    private_class_method :get_si
   end
 end

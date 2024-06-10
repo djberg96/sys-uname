@@ -15,19 +15,7 @@ puts 'Version: ' + Uname.version
 puts 'Release: ' + Uname.release
 puts 'Machine: ' + Uname.machine # May be "unknown" on Win32
 
-if RbConfig::CONFIG['host_os'] =~ /sun|solaris/i
-  print "\nSolaris specific tests\n"
-  puts "==========================="
-  puts 'Architecture: ' + Uname.architecture
-  puts 'Platform: ' + Uname.platform
-  puts 'Instruction Set List: ' + Uname.isa_list.split.join(", ")
-  puts 'Hardware Provider: ' + Uname.hw_provider
-  puts 'Serial Number: ' + Uname.hw_serial_number.to_s
-  puts 'SRPC Domain: ' + Uname.srpc_domain # might be empty
-  puts 'DHCP Cache: ' + Uname.dhcp_cache # might be empty
-end
-
-if RbConfig::CONFIG['host_os'] =~ /powerpc|darwin|bsd|mach/i
+if RbConfig::CONFIG['host_os'] =~ /powerpc|darwin|bsd|dragonfly|mach/i
   print "\nBSD/OS X specific tests\n"
   puts "======================="
   puts 'Model: ' + Uname.model
