@@ -2,7 +2,6 @@
 
 require 'ffi'
 require 'rbconfig'
-require 'ostruct'
 
 # The Sys module serves as a namespace only.
 module Sys
