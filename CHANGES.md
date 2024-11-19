@@ -1,3 +1,6 @@
+## 1.3.1 - 19-Nov-2024
+* Remove a useless ostruct require. Thanks go to Koichi Ito for the spot and patch.
+
 ## 1.3.0 - 10-Jun-2024
 * Added DragonflyBSD support.
 * Removed Solaris support, it's dead.
