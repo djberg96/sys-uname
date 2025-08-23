@@ -2,7 +2,7 @@ require 'rubygems'
 
 Gem::Specification.new do |spec|
   spec.name       = 'sys-uname'
-  spec.version    = '1.3.0'
+  spec.version    = '1.4.0'
   spec.author     = 'Daniel J. Berger'
   spec.email      = 'djberg96@gmail.com'
   spec.homepage   = 'http://github.com/djberg96/sys-uname'
@@ -30,7 +30,8 @@ Gem::Specification.new do |spec|
     'source_code_uri'       => 'https://github.com/djberg96/sys-uname',
     'wiki_uri'              => 'https://github.com/djberg96/sys-uname/wiki',
     'rubygems_mfa_required' => 'true',
-    'github_repo'           => 'https://github.com/djberg96/sys-uname'
+    'github_repo'           => 'https://github.com/djberg96/sys-uname',
+    'funding_uri'           => 'https://github.com/sponsors/djberg96'
   }
 
   spec.description = <<-EOF

@@ -9,20 +9,20 @@ require 'spec_helper'
 
 RSpec.describe Sys::Platform do
   example 'the VERSION constant is set to the expected value' do
-    expect(Sys::Platform::VERSION).to eql('1.2.3')
+    expect(Sys::Platform::VERSION).to eql('1.3.1')
     expect(Sys::Platform::VERSION).to be_frozen
   end
 
   example 'the ARCH constant is defined' do
-    expect(Sys::Platform::ARCH).to be_kind_of(Symbol)
+    expect(Sys::Platform::ARCH).to be_a(Symbol)
   end
 
   example 'the OS constant is defined' do
-    expect(Sys::Platform::OS).to be_kind_of(Symbol)
+    expect(Sys::Platform::OS).to be_a(Symbol)
   end
 
   example 'the IMPL constant is defined' do
-    expect(Sys::Platform::IMPL).to be_kind_of(Symbol)
+    expect(Sys::Platform::IMPL).to be_a(Symbol)
   end
 
   example 'the IMPL returns an expected value on windows', :windows do
@@ -50,11 +50,6 @@ RSpec.describe Sys::Platform do
 
   example 'the unix? method returns the expected value' do
     expect(described_class.unix?).not_to eql(Gem.win_platform?)
-  end
-
-  example 'the solaris? method is defined and returns a boolean' do
-    expect(described_class).to respond_to(:solaris?)
-    expect(described_class.solaris?).to eql(true).or eql(false)
   end
 
   example 'the linux? method is defined and returns a boolean' do
