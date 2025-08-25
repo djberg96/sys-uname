@@ -2,6 +2,7 @@
 
 require 'ffi'
 require 'rbconfig'
+require 'memoist'
 
 # The Sys module serves as a namespace only.
 module Sys
@@ -244,6 +245,15 @@ module Sys
       def self.srpc_domain
         uname.srpc_domain
       end
+    end
+
+    class << self
+      extend Memoist
+      memoize :sysname
+      memoize :nodename
+      memoize :release
+      memoize :version
+      memoize :machine
     end
 
     private

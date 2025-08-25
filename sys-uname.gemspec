@@ -2,7 +2,7 @@ require 'rubygems'
 
 Gem::Specification.new do |spec|
   spec.name       = 'sys-uname'
-  spec.version    = '1.3.1'
+  spec.version    = '1.4.0'
   spec.author     = 'Daniel J. Berger'
   spec.email      = 'djberg96@gmail.com'
   spec.homepage   = 'http://github.com/djberg96/sys-uname'
@@ -15,6 +15,8 @@ Gem::Specification.new do |spec|
   spec.extra_rdoc_files = Dir['doc/*.rdoc']
 
   spec.add_dependency('ffi', '~> 1.1')
+  spec.add_dependency('memoist', '~> 0.16.2')
+
   spec.add_development_dependency('rspec', '~> 3.9')
   spec.add_development_dependency('rake')
   spec.add_development_dependency('rubocop')

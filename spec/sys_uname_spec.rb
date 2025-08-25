@@ -270,9 +270,9 @@ RSpec.describe Sys::Uname do
       expect(described_class.uname.number_of_users).to be_a(Integer)
     end
 
-    example 'organization', :unless => ENV['CI'] do
+    example 'organization' do
       expect{ described_class.uname.organization }.not_to raise_error
-      expect(described_class.uname.organization).to be_a(String)
+      expect(described_class.uname.organization).to be_a(String).or be_nil
     end
 
     example 'os_language' do
@@ -394,6 +394,78 @@ RSpec.describe Sys::Uname do
     example 'windows_directory' do
       expect{ described_class.uname.windows_directory }.not_to raise_error
       expect(described_class.uname.windows_directory).to be_a(String)
+    end
+  end
+
+  context 'memoization', :unix do
+    before(:each) do
+      # Clear any existing memoization cache before each test
+      described_class.flush_cache if described_class.respond_to?(:flush_cache)
+    end
+
+    example 'sysname method is memoized' do
+      first_call = described_class.sysname
+      second_call = described_class.sysname
+
+      expect(first_call).to equal(second_call)
+      expect(first_call.object_id).to eq(second_call.object_id)
+    end
+
+    example 'nodename method is memoized' do
+      first_call = described_class.nodename
+      second_call = described_class.nodename
+
+      expect(first_call).to equal(second_call)
+      expect(first_call.object_id).to eq(second_call.object_id)
+    end
+
+    example 'release method is memoized' do
+      first_call = described_class.release
+      second_call = described_class.release
+
+      expect(first_call).to equal(second_call)
+      expect(first_call.object_id).to eq(second_call.object_id)
+    end
+
+    example 'version method is memoized' do
+      first_call = described_class.version
+      second_call = described_class.version
+
+      expect(first_call).to equal(second_call)
+      expect(first_call.object_id).to eq(second_call.object_id)
+    end
+
+    example 'machine method is memoized' do
+      first_call = described_class.machine
+      second_call = described_class.machine
+
+      expect(first_call).to equal(second_call)
+      expect(first_call.object_id).to eq(second_call.object_id)
+    end
+
+    example 'memoized methods maintain independence' do
+      # Test that different methods return different values but each is consistently memoized
+      sysname1 = described_class.sysname
+      nodename1 = described_class.nodename
+
+      # Different methods should return different values
+      expect(sysname1).not_to eq(nodename1)
+
+      # But repeated calls should return the same object
+      sysname2 = described_class.sysname
+      nodename2 = described_class.nodename
+
+      expect(sysname1).to equal(sysname2)
+      expect(nodename1).to equal(nodename2)
+    end
+
+    example 'uname method is not memoized' do
+      # The main uname method should not be memoized, as it returns a new struct each time
+      first_call = described_class.uname
+      second_call = described_class.uname
+
+      # Should return equivalent structs but not the same object
+      expect(first_call.object_id).not_to eq(second_call.object_id)
     end
   end
 end

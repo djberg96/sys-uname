@@ -3,6 +3,7 @@
 require 'socket'
 require 'time'
 require 'win32ole'
+require 'memoist'
 
 # The Sys module provides a namespace only.
 module Sys
@@ -474,6 +475,15 @@ module Sys
           os.WindowsDirectory
         )
       end
+    end
+
+    class << self
+      extend Memoist
+      memoize :sysname
+      memoize :nodename
+      memoize :release
+      memoize :version
+      memoize :machine
     end
 
     # Converts a string in the format '20040703074625.015625-360' into a
