@@ -80,7 +80,7 @@ https://github.com/djberg96/sys-uname
 Apache-2.0
 
 == Copyright
-(C) 2002-2024 Daniel J. Berger
+(C) 2002-2025 Daniel J. Berger
 All Rights Reserved
 
 == Warranty

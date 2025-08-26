@@ -1,3 +1,8 @@
+## 1.4.0 - 26-Aug-2025
+* The sysname, nodename, release, version and machine methods are now memoized.
+* The memoist gem has been added as a dependency.
+* Specs added for memoization.
+
 ## 1.3.1 - 19-Nov-2024
 * Remove a useless ostruct require. Thanks go to Koichi Ito for the spot and patch.
 
