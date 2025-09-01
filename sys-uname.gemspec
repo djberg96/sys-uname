@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.extra_rdoc_files = Dir['doc/*.rdoc']
 
   spec.add_dependency('ffi', '~> 1.1')
-  spec.add_dependency('memoist', '~> 0.16.2')
+  spec.add_dependency('memoist3', '~> 1.0.0')
 
   spec.add_development_dependency('rspec', '~> 3.9')
   spec.add_development_dependency('rake')

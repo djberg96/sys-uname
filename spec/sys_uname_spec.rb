@@ -26,7 +26,7 @@ RSpec.describe Sys::Uname do
 
   context 'universal singleton methods' do
     example 'version constant is set to expected value' do
-      expect(Sys::Uname::VERSION).to eql('1.4.0')
+      expect(Sys::Uname::VERSION).to eql('1.4.1')
       expect(Sys::Uname::VERSION).to be_frozen
     end
 

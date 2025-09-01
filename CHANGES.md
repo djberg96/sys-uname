@@ -1,3 +1,7 @@
+## 1.4.1 - 1-Sep-2025
+* Use memoist3 instead of memoist since the latter is unmaintained. Thanks
+  got to Matijs van Zuijlen for the suggestion.
+
 ## 1.4.0 - 26-Aug-2025
 * The sysname, nodename, release, version and machine methods are now memoized.
 * The memoist gem has been added as a dependency.
