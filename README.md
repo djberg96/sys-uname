@@ -33,7 +33,7 @@ these values are extremely unlikely to change without a restart/reboot. As
 per the memoist documentation, you can force a cache flush if desired to
 refresh the values.
 
-https://github.com/matthewrudy/memoist
+https://github.com/honzasterba/memoist
    
 ## BSD flavors, including OS X
 Users on BSD platforms get the extra `Uname.model` method.
