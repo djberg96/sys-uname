@@ -29,7 +29,7 @@ p Sys::Platform::ARCH  # => :x86_64
 
 ## Memoist Notes
 As of version 1.4.0 most methods are memoized via the memoist gem since
-these values are unlikely to change during without a restart/reboot. As
+these values are extremely unlikely to change without a restart/reboot. As
 per the memoist documentation, you can force a cache flush if desired to
 refresh the values.
 
