@@ -16,6 +16,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency('ffi', '~> 1.1')
   spec.add_dependency('memoist3', '~> 1.0.0')
+  spec.add_dependency('win32ole') if Gem.win_platform?
 
   spec.add_development_dependency('rspec', '~> 3.9')
   spec.add_development_dependency('rake')
