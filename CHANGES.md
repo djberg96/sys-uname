@@ -1,3 +1,7 @@
+## 1.5.0 - 16-Feb-2026
+* The win32ole gem is now a dependency for Windows since it's no longer
+  bundled with Ruby 4.x.
+
 ## 1.4.1 - 1-Sep-2025
 * Use memoist3 instead of memoist since the latter is unmaintained. Thanks
   got to Matijs van Zuijlen for the suggestion.
