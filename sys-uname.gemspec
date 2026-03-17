@@ -2,7 +2,7 @@ require 'rubygems'
 
 Gem::Specification.new do |spec|
   spec.name       = 'sys-uname'
-  spec.version    = '1.5.0'
+  spec.version    = '1.5.1'
   spec.author     = 'Daniel J. Berger'
   spec.email      = 'djberg96@gmail.com'
   spec.homepage   = 'http://github.com/djberg96/sys-uname'
@@ -16,7 +16,13 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency('ffi', '~> 1.1')
   spec.add_dependency('memoist3', '~> 1.0.0')
-  spec.add_dependency('win32ole') if Gem.win_platform?
+
+  # Yes, this means on every release, we'll have to release two versions
+  # of the gem because it has different dependencies. Hope there's a Windows VM handy!
+  if Gem.win_platform?
+    spec.platform = Gem::Platform.new(['universal', 'mingw32'])
+    spec.add_dependency('win32ole')
+  end
 
   spec.add_development_dependency('rspec', '~> 3.9')
   spec.add_development_dependency('rake')

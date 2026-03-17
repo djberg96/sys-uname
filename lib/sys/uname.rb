@@ -3,7 +3,7 @@
 module Sys
   class Uname
     # The version of the sys-uname gem.
-    VERSION = '1.5.0'
+    VERSION = '1.5.1'
   end
 
   class Platform
