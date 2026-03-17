@@ -1,3 +1,9 @@
+## 1.5.1 - 17-Mar-2026
+* Updated the gemspec for Windows. Going forward we'll have to release two
+  versions of each gem since Windows has different dependencies. I already
+  do this for most of my other gems, I was being lazy and hoping it wouldn't
+  matter, but cucumber already puked on it.
+
 ## 1.5.0 - 16-Feb-2026
 * The win32ole gem is now a dependency for Windows since it's no longer
   bundled with Ruby 4.x.
